@@ -1,0 +1,126 @@
+.tcolor{
+    color:#003366;
+}
+.bgBox{
+  overflow: hidden !important;
+  position: relative !important;
+  height: auto;
+  background-color:#dee2e661;
+}
+.bg{
+  margin-top: 15%;
+  width: 100%;
+}
+
+.bgCard{
+    position: relative;
+}
+.inputDate{
+    width: 110px;
+    height: 27px;
+    border-radius: 3px;
+    border: 1px solid #EE1C25;
+    padding: 5px;
+}
+hr{
+    margin: 5px !important;
+}
+/* Scroller tab css */
+.tabs-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  
+  .tabs {
+    scroll-behavior: smooth;
+    padding: 10px;   
+    display: flex;
+    overflow-x: hidden;
+  }  
+  .tab {
+    min-width: 100px;
+    padding: 5px 20px;
+    border: 1px solid #EE1C25;
+    background-color: transparent;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    font-size: 14px !important;
+    color: #EE1C25 !important;
+}
+  
+  .tab:last-child {
+    margin-right: 0;
+  }
+  
+  .tab.active {
+    background-color: #EE1C25 !important;
+    color: white !important;
+    font-weight: bold;
+  }
+  .scrollbtn {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  button.scrollbtn {
+    background: none;
+    border: unset;
+}
+.dashbutton{
+  padding: 2px !important;
+  min-width: 70px;
+  border-radius: 3px !important;
+  font-size: 14px !important;
+ }
+ .subTitle {
+    text-align: left;
+    margin-left: 15px;
+    font-size: 16x;
+    font-weight: 500;
+}
+.bankDetail{
+    min-width: 200px !important;
+    padding-bottom: 20px;
+}
+
+.fieldLabel:disabled{
+  background-color: #DFE7EB !important;
+}
+.statusOn{
+  font-size: 16x;
+  font-weight: 500;
+}
+
+.snapshotForm input{
+  height: 48px;
+  top: 34px !important;
+  border-radius: 2px;
+  border-width: 1px;
+  border-color: #9f9f9f !important;
+  font-size: 14px !important;
+}
+
+.selectBoxDashbord{
+  width: 110px;
+  height: 27px;
+    border-radius: 3px;
+    border: 1px solid #EE1C25;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.dashboardLabels label{
+  margin-left: 5px;
+}
+
+/* Chart Css */
+#balance > div > svg > g > g:nth-child(2) > g:nth-child(2) > g > g:nth-child(3) {
+  display: none;
+}
+
