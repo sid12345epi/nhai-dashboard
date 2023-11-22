@@ -4,6 +4,7 @@ import {
   faCircleChevronRight,
   faCircleChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 const TabsComponent = (props) => {
   const tabsData = [
@@ -43,6 +44,10 @@ const TabsComponent = (props) => {
       tabsRef.current.scrollLeft -= tabWidth + 10; // Add some extra spacing
     }
   };
+
+  useEffect(() => {
+    setActiveTab(props.active);
+  }, [props.active]);
 
   return (
     <div>

@@ -11,10 +11,12 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 const VarientSidebar1 = () => {
-  const [activeItem, setActiveItem] = useState("home"); // Initialize with the default active item
+  const [activeItem, setActiveItem] = useState("Home"); // Initialize with the default active item
   const [isToggleA, setToggleA] = useState(false);
   const [isToggleP, setToggleP] = useState(false);
   const [isToggleR, setToggleR] = useState(false);
+  // Create a state object to hold the dynamic toggle states
+  const [toggleStates, setToggleStates] = useState({});
 
   const simpleCss = "alink list-group-item list-group-item-action py-2 ripple";
   const activeCss =
@@ -27,6 +29,113 @@ const VarientSidebar1 = () => {
     setActiveItem(itemName);
   };
 
+  const data = [
+    {
+      id: 1,
+      menuName: "Home",
+      menuIcon: faHouse,
+      subMenu: [],
+      url: "/NHAI/Dashboard",
+    },
+    {
+      id: 2,
+      menuName: "Admin",
+      menuIcon: faUser,
+      url: "",
+      subMenu: [
+        {
+          name: "User",
+          url: "/NHAI/Users",
+        },
+        {
+          name: "User Profile",
+          url: "/NHAI/Profiles",
+        },
+        {
+          name: "User Group",
+          url: "/NHAI/Groups",
+        },
+        {
+          name: "Function Point",
+          url: "/NHAI/FunctionPoint",
+        },
+        {
+          name: "Assign Rights",
+          url: "/NHAI/AssignRights",
+        },
+        {
+          name: "Rule",
+          url: "/NHAI/Rule",
+        },
+        {
+          name: "File Upload",
+          url: "/NHAI/FileUpload",
+        },
+        {
+          name: "Mapping Master",
+          url: "/NHAI/MappingMaster",
+        },
+        {
+          name: "Job Execution Log",
+          url: "/NHAI/JobLog",
+        },
+      ],
+    },
+    {
+      id: 3,
+      menuName: "Manage Password",
+      menuIcon: faKey,
+      url: "",
+      subMenu: [
+        {
+          name: "Change Password",
+          url: "/NHAI/ChangePassword",
+        },
+      ],
+    },
+    {
+      id: 4,
+      menuName: "Reports",
+      menuIcon: faFile,
+      url: "",
+      subMenu: [
+        {
+          name: "User Login Report",
+          url: "/NHAI/UserLoginReport",
+        },
+        {
+          name: "User Active/Inactive",
+          url: "/NHAI/UserActiveInactiveReport",
+        },
+        {
+          name: "FIFO Ageing Report",
+          url: "/NHAI/FIFOAgeingReport",
+        },
+      ],
+    },
+  ];
+
+  // Initialize the toggle states based on JSON data
+  const initializeToggleStates = () => {
+    const initialState = {};
+    data.forEach((item) => {
+      initialState[`item_${item.id}`] = false; // Initialize as false (not toggled)
+    });
+    setToggleStates(initialState);
+  };
+
+  // Call the initialization function when the component mounts
+  React.useEffect(() => {
+    initializeToggleStates();
+  }, []);
+
+  const handleToggle = (itemId) => {
+    setToggleStates((prevState) => ({
+      ...prevState,
+      [`item_${itemId}`]: !prevState[`item_${itemId}`], // Toggle the state
+    }));
+  };
+
   return (
     <nav
       id="sidebarMenu"
@@ -36,11 +145,75 @@ const VarientSidebar1 = () => {
     >
       <div className="position-sticky">
         <div className="list-group list-group-flush">
-          <Link
+          {(data || []).map((x) => {
+            return (
+              <>
+                <Link
+                  to={x.url}
+                  className={
+                    activeItem.includes(x.menuName) ? activeCss : simpleCss
+                  }
+                  onClick={() => {
+                    handleSetActiveItem(x.menuName);
+                    handleToggle(x.id);
+                    //setToggle(!isToggle);
+                  }}
+                >
+                  {" "}
+                  <div className="navtitle" key={x.id}>
+                    <FontAwesomeIcon icon={x.menuIcon} className="MenuIcon" />{" "}
+                    <span>{x.menuName}</span>
+                  </div>
+                  <>
+                    {x.subMenu.length != 0 && (
+                      <FontAwesomeIcon
+                        icon={
+                          toggleStates[`item_${x.id}`]
+                            ? faAngleDown
+                            : faAngleRight
+                        }
+                        className="rside"
+                      />
+                    )}
+                  </>
+                </Link>
+                {toggleStates[`item_${x.id}`] ? (
+                  <div className="list-group list-group-light">
+                    {(x.subMenu || []).map((z) => {
+                      return (
+                        <>
+                          <Link
+                            to={z.url}
+                            className={
+                              activeItem.includes(x.menuName + z.name)
+                                ? amenucss
+                                : menucss
+                            }
+                            onClick={() =>
+                              handleSetActiveItem(x.menuName + z.name)
+                            }
+                          >
+                            <div className="menutitle">
+                              <FontAwesomeIcon icon={faAngleRight} />
+                              {"  "} {z.name}
+                            </div>
+                          </Link>
+                        </>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </>
+            );
+          })}
+
+          {/* <Link
             to="/NHAI/Dashboard"
             className={activeItem === "home" ? activeCss : simpleCss}
             aria-current="true"
-            // onClick={() => handleSetActiveItem("home")}
+            onClick={() => handleSetActiveItem("home")}
           >
             <div className="navtitle">
               <FontAwesomeIcon icon={faHouse} className="MenuIcon" />{" "}
@@ -50,7 +223,7 @@ const VarientSidebar1 = () => {
           <Link
             className={activeItem.includes("admin") ? activeCss : simpleCss}
             onClick={() => {
-              // handleSetActiveItem("admin");
+              handleSetActiveItem("admin");
               setToggleA(!isToggleA);
             }}
           >
@@ -68,7 +241,7 @@ const VarientSidebar1 = () => {
           {isToggleA ? (
             <div className="list-group list-group-light">
               <Link
-                // to="/UserList"
+                // to="/Users"
                 className={
                   activeItem.includes("adminUser") ? amenucss : menucss
                 }
@@ -80,7 +253,7 @@ const VarientSidebar1 = () => {
                 </div>
               </Link>
               <Link
-                // to="/ProfileList"
+                // to="/Profiles"
                 className={activeItem.includes("adminUP") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminUP")}
               >
@@ -246,7 +419,7 @@ const VarientSidebar1 = () => {
             </div>
           ) : (
             ""
-          )}
+          )} */}
         </div>
       </div>
     </nav>

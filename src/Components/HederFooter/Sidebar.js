@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import "../../Assets/Css/Sidebar.css";
-import "./Sidebar.css";
+import "../../Assets/Css/Sidebar.css";
+// import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -33,7 +33,7 @@ const Sidebar = () => {
     <nav
       id="sidebarMenu"
       className="collapse d-lg-block sidebar collapse"
-      style={{ backgroundColor: "#003366" }}
+      // style={{ backgroundColor: "#003366" }}
     >
       <div className="position-sticky">
         <div className="list-group list-group-flush">
@@ -69,7 +69,7 @@ const Sidebar = () => {
           {isToggleA ? (
             <div className="list-group list-group-light">
               <Link
-                to="/NHAI/UserList"
+                to="/NHAI/Users"
                 className={
                   activeItem.includes("adminUser") ? amenucss : menucss
                 }
@@ -81,7 +81,7 @@ const Sidebar = () => {
                 </div>
               </Link>
               <Link
-                to="/NHAI/ProfileList"
+                to="/NHAI/Profiles"
                 className={activeItem.includes("adminUP") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminUP")}
               >
@@ -91,7 +91,7 @@ const Sidebar = () => {
                 </div>
               </Link>
               <Link
-                to="/NHAI/GroupList"
+                to="/NHAI/Groups"
                 className={activeItem.includes("adminUG") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminUG")}
               >
@@ -101,6 +101,7 @@ const Sidebar = () => {
                 </div>
               </Link>
               <Link
+                to="/NHAI/FunctionPoints"
                 className={activeItem.includes("adminFP") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminFP")}
               >
@@ -137,6 +138,7 @@ const Sidebar = () => {
                 </div>
               </Link>
               <Link
+                to="/NHAI/MappingMaster"
                 className={activeItem.includes("adminMM") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminMM")}
               >
@@ -146,6 +148,7 @@ const Sidebar = () => {
                 </div>
               </Link>
               <Link
+                to="/NHAI/JobExecutionLog"
                 className={activeItem.includes("adminJEL") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminJEL")}
               >
@@ -180,6 +183,7 @@ const Sidebar = () => {
           {isToggleP ? (
             <div className="list-group list-group-light">
               <Link
+                to="/NHAI/ChangePassword"
                 className={
                   activeItem.includes("passwordC") ? amenucss : menucss
                 }
@@ -217,6 +221,7 @@ const Sidebar = () => {
               <Link
                 className={activeItem.includes("reportUL") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("reportUL")}
+                to="/NHAI/UserLoginReport"
               >
                 <div className="menutitle">
                   <FontAwesomeIcon icon={faAngleRight} />
@@ -228,6 +233,7 @@ const Sidebar = () => {
                   activeItem.includes("reportUAI") ? amenucss : menucss
                 }
                 onClick={() => handleSetActiveItem("reportUAI")}
+                to="/NHAI/UserActiveInactiveReport"
               >
                 <div className="menutitle">
                   <FontAwesomeIcon icon={faAngleRight} />
@@ -237,6 +243,7 @@ const Sidebar = () => {
               <Link
                 className={activeItem.includes("reportFA") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("reportFA")}
+                to="/NHAI/FIFOAgeingReport"
               >
                 <div className="menutitle">
                   <FontAwesomeIcon icon={faAngleRight} />

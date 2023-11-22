@@ -11,15 +11,17 @@ function Header() {
   const isDashboard = (location.pathname === '/dashboard' || location.pathname === '/Dashboard') ? true:false;
   return (    
     <header>
-      <div className="logo col-md-10">
-       <a href='/NHAI'> <img src={logo} alt="Logo" className="headerLogo"/></a>
+      <div className='row'>
+      <div className="logo kotakDiv col-md-10">
+       <a href='/'> <img src={logo} alt="Logo" className="headerLogo"/></a>
        {isDashboard && <span className='lastLogin'>Last Logged in {lastLogin}</span> } 
       </div>
-      <div className="logoNHAI col-md-2">
+      <div className="logoNHAI nhaiDiv col-md-2">
        <a href='/'> <img src={NHAILogo} alt="NHAILogo" className="NHAILogo"/></a>
        <span className='NHAIText'>NHAI</span>
        {isDashboard && <Logout /> }       
       </div> 
+      </div>
     </header>
   );
 }

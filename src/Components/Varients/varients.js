@@ -242,8 +242,8 @@ color: red; */
         />{" "}
       </div> */}
 
-      <Sidebar />
-      {/* <VarientSidebar1 /> */}
+      {/* <Sidebar /> */}
+      <VarientSidebar1 />
       {/* <VarientSidebar2 /> */}
     </>
   );

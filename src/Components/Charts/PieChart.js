@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import * as am4core from '@amcharts/amcharts4/core';
-import * as am4charts from '@amcharts/amcharts4/charts';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import React, { useEffect } from "react";
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4charts from "@amcharts/amcharts4/charts";
+import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 am4core.useTheme(am4themes_animated);
 
@@ -13,14 +13,40 @@ const PieChart = ({ data, chartid }) => {
 
     chart.legend = new am4charts.Legend();
 
+    // Customize the legend position
+    chart.legend.position = "bottom"; // You can change the position as needed (e.g., "top", "left", "right")
+
+    // Customize the legend container size
+    //chart.legend.contentAlign = "center"; // You can change the alignment as needed
+    // chart.legend.width = am4core.percent(80); // Set the desired width
+    // chart.legend.height = am4core.percent(70);
+    // chart.legend.maxWidth = 100; // Set the desired width
+    // chart.legend.maxHeight = 50;
+    var markerTemplate = chart.legend.markers.template;
+    markerTemplate.width = 10;
+    markerTemplate.height = 10;
+    // markerTemplate.padding(0, 0, 0, 0);
+
+    chart.legend.contentLayout = "horizontal";
+    // chart.legend.padding(0, 0, 0, 0); // Adjust the padding as needed
+    chart.logo.disabled = true;
     chart.data = data; // Use the data prop
-    chart.legend.labels.template.fontSize = 10;
+    chart.legend.labels.template.fontSize = 12;
+    chart.legend.valueLabels.template.fontSize = 12;
+
+    chart.legend.valueLabels.template.align = "right";
+    chart.legend.valueLabels.template.textAlign = "end";
+
+    chart.legend.itemContainers.template.paddingTop = 3;
+    chart.legend.itemContainers.template.paddingBottom = 3;
+
     let series = chart.series.push(new am4charts.PieSeries3D());
-    series.dataFields.value = 'value';
-    series.dataFields.category = 'category';
-    series.slices.template.propertyFields.fill = 'color'; // Set slice colors
-    series.labels.template.fontSize = 10;
-    // Clean up the chart when the component unmounts
+    series.dataFields.value = "value";
+    series.dataFields.category = "category";
+
+    series.slices.template.propertyFields.fill = "color"; // Set slice colors
+    series.labels.template.fontSize = 0;
+    series.labels.template.disabled = true;
 
     return () => {
       chart.dispose();
@@ -28,7 +54,7 @@ const PieChart = ({ data, chartid }) => {
   }, [data]);
 
   return (
-    <div id={chartid} style={{ width: '100%', height: '300px' }}>
+    <div id={chartid} style={{ width: "100%", height: "300px" }}>
       {/* This div will be used by AmCharts to render the chart */}
     </div>
   );

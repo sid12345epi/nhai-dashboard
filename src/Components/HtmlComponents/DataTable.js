@@ -4,12 +4,15 @@ import Switch from "@mui/material/Switch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import AddUser from "../User/AddUser";
 
 const DataTable = ({
   columns,
   data,
   customClass,
   detailpage,
+  editpage,
+  deletepage,
   showSearchBar,
 }) => {
   const {
@@ -36,6 +39,14 @@ const DataTable = ({
   const handleEyeAction = (user) => {
     // navigate(`/NHAI/UserDetails/${user.userId}`);
     navigate(`/NHAI/${detailpage}/${user.id}`);
+  };
+  const handleEditAction = (user) => {
+    // navigate(`/NHAI/UserDetails/${user.userId}`);
+    navigate(`/NHAI/${editpage}/${user.id}`);
+  };
+  const handleTrashAction = (user) => {
+    // navigate(`/NHAI/UserDetails/${user.userId}`);
+    navigate(`/NHAI/${deletepage}/${user.id}`);
   };
 
   useEffect(() => {
@@ -99,7 +110,11 @@ const DataTable = ({
                   if (cell.column.Header === "Is Active") {
                     const rowId = row.original.id;
                     return (
-                      <td {...cell.getCellProps()}>
+                      <td
+                        className="text-center"
+                        {...cell.getCellProps()}
+                        title={cell.value}
+                      >
                         <Switch
                           id={`flexSwitchCheckChecked-${rowId}`}
                           checked={switchStates[rowId] || false}
@@ -110,7 +125,11 @@ const DataTable = ({
                     );
                   } else if (cell.column.Header === "Action") {
                     return (
-                      <td {...cell.getCellProps()}>
+                      <td
+                        className="text-center"
+                        {...cell.getCellProps()}
+                        title={cell.value}
+                      >
                         {/* Add icons for eye, edit, and delete actions */}
                         {/* <FontAwesomeIcon icon={faEye} onClick={() => handleEyeAction(cell.row.original)} style={{ cursor: 'pointer', marginRight: '8px' }} /> */}
                         <FontAwesomeIcon
@@ -121,16 +140,20 @@ const DataTable = ({
                         <FontAwesomeIcon
                           icon={faEdit}
                           style={{ cursor: "pointer", marginRight: "8px" }}
+                          onClick={() => handleEditAction(cell.row.original)}
                         />
                         <FontAwesomeIcon
                           icon={faTrash}
                           style={{ cursor: "pointer" }}
+                          onClick={() => handleTrashAction(cell.row.original)}
                         />
                       </td>
                     );
                   } else {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td {...cell.getCellProps()} title={cell.value}>
+                        {cell.render("Cell")}
+                      </td>
                     );
                   }
                 })}

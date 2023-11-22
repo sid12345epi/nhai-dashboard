@@ -29,7 +29,10 @@ const Dashboard = () => {
             <div className="col">
               <div className="p-1">
                 {/* <TabsComponent /> */}
-                <TabsComponent ActiveTab={getActiveTab} />
+                <TabsComponent
+                  ActiveTab={getActiveTab}
+                  active={{ title: activeTab }}
+                />
               </div>
             </div>
           </div>
@@ -40,7 +43,7 @@ const Dashboard = () => {
           {activeTab === "Financial" && <Financial />}
           {activeTab === "Financial(D)" && <FinanacialD />}
           {activeTab === "Bank" && <Bank />}
-          {activeTab === "Zone" && <Zone />}
+          {activeTab === "Zone" && <Zone setTab={setActiveTab} />}
           {activeTab === "RO" && <RO />}
           {activeTab === "PIU" && <PIU />}
           {activeTab === "Account Level" && <AccountLevel />}

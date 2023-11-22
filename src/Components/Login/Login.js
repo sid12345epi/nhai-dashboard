@@ -40,17 +40,17 @@ const Login = () => {
       return;
     }
     const publicKeyObject = forge.pki.publicKeyFromPem(publicKey);
-    console.log('object type :-', typeof(publicKeyObject));
+    console.log("object type :-", typeof publicKeyObject);
     const requestData = {
       username: values.username,
       password: values.password,
     };
     const encodedData = forge.util.encodeUtf8(values);
-    console.log('login data', values);
+    console.log("login data", values);
     const encrypted = publicKeyObject.encrypt(encodedData, "RSA-OAEP");
     const encryptedValues = forge.util.encode64(encrypted);
     console.log(encryptedValues);
-    
+
     const response = await axios.post("http://localhost:3007/api/auth/login", {
       encrypted: requestData,
     });
@@ -74,7 +74,7 @@ const Login = () => {
     //         position: 'top-right',
     //         autoClose: 3000,
     //       });
-    //       navigate('/UserList');
+    //       navigate('/Users');
     // }else{
     //     toast.error('Login failed. Please try again.', {
     //         position: 'top-right',

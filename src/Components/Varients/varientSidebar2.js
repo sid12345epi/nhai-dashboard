@@ -40,7 +40,7 @@ const VarientSidebar2 = () => {
             to="/NHAI/Dashboard"
             className={activeItem === "home" ? activeCss : simpleCss}
             aria-current="true"
-            // onClick={() => handleSetActiveItem("home")}
+            onClick={() => handleSetActiveItem("home")}
           >
             <div className="navtitle">
               <FontAwesomeIcon icon={faHouse} className="MenuIcon" />{" "}
@@ -68,7 +68,7 @@ const VarientSidebar2 = () => {
           {isToggleA ? (
             <div className="list-group list-group-light">
               <Link
-                // to="/UserList"
+                // to="/Users"
                 className={
                   activeItem.includes("adminUser") ? amenucss : menucss
                 }
@@ -80,7 +80,7 @@ const VarientSidebar2 = () => {
                 </div>
               </Link>
               <Link
-                // to="/ProfileList"
+                to="/NHAI/Profiles"
                 className={activeItem.includes("adminUP") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminUP")}
               >

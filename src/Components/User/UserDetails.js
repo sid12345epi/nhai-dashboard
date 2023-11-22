@@ -97,7 +97,8 @@ function UserDetails() {
     },
   ];
   const user = users.find((u) => u.id.toString() === userId);
-
+  const path = window.location.pathname;
+  const isDelete = path.includes("DeleteUser") ? true : false;
   if (!user) {
     return <p>User not found.</p>;
   }
@@ -106,26 +107,25 @@ function UserDetails() {
     <div className="container UDContainer">
       <div className="ULContainer">
         <div className="row">
-          <div className="col-md-11 mx-auto">
-            <h2 className="mb-3 mt-3 pageTitle">User Details</h2>
+          <div className="col-md-12 ">
+            <h2 className="mb-3 mt-3 pageTitle">
+              {isDelete ? "Delete User" : "User Details"}
+            </h2>
           </div>
         </div>
         <div className="row UserDetails mt-3">
+          {isDelete ? (
+            <h4 className="mb-4 mx-5">
+              Are you sure you want to delete this ?
+            </h4>
+          ) : (
+            ""
+          )}
           <div className="col-md-6 mx-auto">
             <div className="col-md-6 UDCoulmns">
-              <strong>USER Full Name:</strong>
+              <strong>User Full Name:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">{user.fullName}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>User Role:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.userRole}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>User ID:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.userId}</div>
 
             <div className="col-md-6 UDCoulmns">
               <strong>User Type:</strong>
@@ -133,31 +133,14 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">{user.userType}</div>
 
             <div className="col-md-6 UDCoulmns">
-              <strong>Employee Number:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.employeeNumber}</div>
-
-            <div className="col-md-6 UDCoulmns">
               <strong>User Domain Name:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">{user.domainName}</div>
 
             <div className="col-md-6 UDCoulmns">
-              <strong>Created By:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.createdBy}</div>
-          </div>
-
-          <div className="col-md-5">
-            <div className="col-md-6 UDCoulmns">
               <strong>Gender:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">{user.gender}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>Email:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.email}</div>
 
             <div className="col-md-6 UDCoulmns">
               <strong>Mobile Number:</strong>
@@ -165,21 +148,54 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">{user.mobileNumber}</div>
 
             <div className="col-md-6 UDCoulmns">
-              <strong>WORK NO:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.workNo}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>Active:</strong>
+              <strong>Is Active:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">
-              {user.isActive ? "Yes" : "No"}
+              {/* {user.isActive ? "Yes" : "No"} */}
+              <input
+                name="isActive"
+                className="form-check-input"
+                type="checkbox"
+                id="flexSwitchCheckChecked"
+                //style={{ width: "30px", height: "30px" }}
+                checked={user.isActive}
+                readOnly
+              />
             </div>
 
             <div className="col-md-6 UDCoulmns">
               <strong>Created Date:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">{user.createdDate}</div>
+          </div>
+          {/* -------------------------------------------------------- */}
+          <div className="col-md-5">
+            <div className="col-md-6 UDCoulmns">
+              <strong>User ID:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.userId}</div>
+            <div className="col-md-6 UDCoulmns">
+              <strong>Employee Number:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.employeeNumber}</div>
+            <div className="col-md-6 UDCoulmns">
+              <strong>Role:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.userRole}</div>
+
+            <div className="col-md-6 UDCoulmns">
+              <strong>EMail:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.email}</div>
+
+            <div className="col-md-6 UDCoulmns">
+              <strong>Work Phone:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.workNo}</div>
+            <div className="col-md-6 UDCoulmns">
+              <strong>Created By:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.createdBy}</div>
           </div>
         </div>
 
@@ -189,7 +205,7 @@ function UserDetails() {
               className="btn BackBtn"
               type="button"
               onClick={() => {
-                navigate("/NHAI/UserList");
+                navigate("/NHAI/Users");
               }}
             >
               Back to List
@@ -199,9 +215,12 @@ function UserDetails() {
               type="button"
               onClick={() => {
                 //setIsOpen(true);
+                navigate(
+                  `/NHAI/${isDelete ? "DeleteUser" : "EditUser"}/${user.id}`
+                );
               }}
             >
-              Edit User
+              {isDelete ? "Delete" : "Edit"}
             </button>
           </div>
         </div>
