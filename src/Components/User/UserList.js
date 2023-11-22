@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-//import AddUser from './AddUser';
 import { useNavigate, useParams } from "react-router-dom";
 
 const UserList = () => {
-  //const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const data = [
     {
@@ -49,11 +47,6 @@ const UserList = () => {
       role: "Guest",
       isActive: false,
     },
-    // { id: 6, fullName: 'Tom Wilson', userId: 'TW006', userType: 'User', role: 'Guest', isActive: true },
-    // { id: 7, fullName: 'Laura Lee', userId: 'LL007', userType: 'User', role: 'Guest', isActive: true },
-    // { id: 8, fullName: 'Michael Johnson', userId: 'MJ008', userType: 'User', role: 'Member', isActive: false },
-    // { id: 9, fullName: 'Olivia Brown', userId: 'OB009', userType: 'User', role: 'Member', isActive: true },
-    // { id: 10, fullName: 'William Lee', userId: 'WL010', userType: 'User', role: 'Member', isActive: true },
   ];
 
   const columns = [
@@ -70,21 +63,6 @@ const UserList = () => {
     {
       Header: "Is Active",
       accessor: "isActive",
-      //Cell: ({ value }) => (
-      // <input
-      //   className="form-check-input"
-      //   type="checkbox"
-      //   id="flexSwitchCheckChecked"
-      //   checked={value}
-      // />
-      // //),
-      // headerClassName: {
-      //   /* Add your custom header styling here */
-      //   alignItems: "center",
-      //   fontweight: "bold",
-      //   color: "#FF5733" /* Custom header text color */,
-      //   backgroundColor: "#F0F0F0" /* Custom header background color */,
-      // },
     },
     {
       Header: "Action",
@@ -133,7 +111,6 @@ const UserList = () => {
             </div>
           </div>
         </div>
-        {/* <AddUser isOpen={isOpen} setModal={setIsOpen} /> */}
       </div>
     </div>
   );

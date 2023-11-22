@@ -60,7 +60,6 @@ const AddProfile = () => {
   const columns = [
     {
       accessor: "menu",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       accessor: "subMenu",
@@ -227,6 +226,29 @@ const AddProfile = () => {
               <h2 className="mb-3 mt-3 pageTitle">
                 {isEdit ? "Edit" : "Add"} Profile
               </h2>
+              <div className="float-end mb-3 mt-3">
+                <button
+                  className="btn BackBtn"
+                  style={{ marginRight: "10px" }}
+                  type="submit"
+                  onClick={() => {
+                    navigate("/NHAI/Profiles");
+                  }}
+                >
+                  Back to List
+                </button>
+                <button
+                  className="btn addUser min"
+                  style={{ marginRight: "10px" }}
+                  type="submit"
+                  onClick={() => {
+                    //setModal(false);
+                  }}
+                >
+                  Submit
+                </button>
+                {"  "}
+              </div>
             </div>
           </div>
           <div className="row">
@@ -330,91 +352,61 @@ const AddProfile = () => {
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div className="modal-footer">
-                    <button
-                      className="btn BackBtn"
-                      style={{ marginRight: "10px" }}
-                      type="submit"
-                      onClick={() => {
-                        navigate("/NHAI/Profiles");
-                      }}
-                    >
-                      Back to List
-                    </button>
-                    <button
-                      className="btn addUser min"
-                      style={{ marginRight: "10px" }}
-                      type="submit"
-                      onClick={() => {
-                        //setModal(false);
-                      }}
-                    >
-                      Submit
-                    </button>
-                    {"  "}
-                  </div>
                 </Form>
               </Formik>
             </div>
           </div>
 
           {/* -----------------Profile Mapping--------------------------------------------------------- */}
-          <div className="row">
+          <div className="row ">
+            {/* border border-dark rounded-2 m-2 */}
             {/* ---------------------Title------------------------------------------------------------- */}
-            <div className="row">
-              <div className="col-md-12">
-                <h2 className="mb-3 mt-3 pageTitle">
-                  Profile Management System
-                </h2>
-                <div className="float-end mb-3 mt-3">
-                  <button
-                    className="btn addUser dashbutton"
-                    type="button"
-                    onClick={() => {
-                      // setAllCheck(true);
+            {/* <div className="row "> */}
+            <div className="col-md-12">
+              <h2 className="mb-3 mt-3 pageTitle">Profile Mapping</h2>
+              <div className="float-end mb-1 mt-4 mx-3">
+                <button
+                  className="btn addUser"
+                  type="button"
+                  style={{ marginRight: "10px", minWidth: "110px" }}
+                  onClick={() => {
+                    // setAllCheck(true);
 
-                      handleCheckAll();
-                    }}
-                  >
-                    Check All
-                  </button>{" "}
-                  <button
-                    className="btn addUser dashbutton"
-                    type="button"
-                    onClick={() => {
-                      // setAllCheck(false);
-                      handleUnCheckAll();
-                    }}
-                  >
-                    UnCheck All
-                  </button>{" "}
-                </div>
+                    handleCheckAll();
+                  }}
+                >
+                  Check All
+                </button>{" "}
+                <button
+                  className="btn addUser"
+                  type="button"
+                  onClick={() => {
+                    // setAllCheck(false);
+                    handleUnCheckAll();
+                  }}
+                >
+                  UnCheck All
+                </button>{" "}
               </div>
             </div>
+            {/* </div> */}
             {/* -------------------------------------------------------------------------------------- */}
-            <div className="col-md-11 mx-auto flex mt-2">
-              {/* <DataTable
-                columns={columns}
-                data={data} //
-                // customClass="LoginReportTable"
-                showSearchBar={false}
-              /> */}
+            <div className="col-md-11 mx-5 flex p-4">
               {(menuData || []).map((m, mindex) => {
                 return (
-                  <div className="row p-2" key={m.id}>
-                    <div className="row" style={{ backgroundColor: "#dee2e6" }}>
-                      <div className="col-4">{m.menuName}</div>
+                  <div className="row p-1" key={m.id}>
+                    <div className="row menuColor">
+                      <div className="col ">{m.menuName}</div>
                     </div>
                     {(m.subMenu || []).map((s, sindex) => {
                       return (
                         <>
-                          <div className="row p-1" key={s.id}>
-                            <div className="col-4"></div>
-                            <div className="col-4">{s.name}</div>
-                            <div className="col-3"></div>
-                            {s.action.length == 0 && (
-                              <div className="col-1" key={s.id}>
+                          <div className="row p-1">
+                            <div className="col-4 submenuColor"></div>
+                            <div className="col-4 submenuColor ">{s.name}</div>
+                            <div className="col-3 submenuColor"></div>
+                            {s.action.length == 0 ? (
+                              <div className="col-1 submenuColor" key={s.id}>
                                 {" "}
                                 <input
                                   className="form-check-input"
@@ -430,15 +422,22 @@ const AddProfile = () => {
                                   }}
                                 />
                               </div>
+                            ) : (
+                              <div
+                                className="col-1 submenuColor"
+                                key={s.id}
+                              ></div>
                             )}
                           </div>
                           {(s.action || []).map((a, aindex) => {
                             return (
                               <div className="row p-1" key={a.id}>
-                                <div className="col-4"></div>
-                                <div className="col-4"></div>
-                                <div className="col-3">{a.actionName}</div>
-                                <div className="col-1" key={a.id}>
+                                <div className="col-4 submenuColor"></div>
+                                <div className="col-4 submenuColor"></div>
+                                <div className="col-3  submenuColor">
+                                  {a.actionName}
+                                </div>
+                                <div className="col-1 submenuColor" key={a.id}>
                                   {" "}
                                   <input
                                     className="form-check-input"

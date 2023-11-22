@@ -114,7 +114,7 @@ const Ageing = () => {
     },
     {
       Header: "Is Active",
-      accessor: "IsActive",
+      accessor: "isActive",
     },
   ];
 
@@ -263,89 +263,7 @@ const Ageing = () => {
       },
     ],
   };
-  // {
-  //   responseMetaData: {
-  //     status: "200",
-  //     message: "Success",
-  //   },
-  //   ageingData: {
-  //     total: {
-  //       countOfSubsidiaryAccounts: "168",
-  //       crore: {
-  //         sanctionLimit: "39,430.72",
-  //         utilizedLimit: "29,297.98",
-  //         unUtilizedLimit: "10,132.74",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //       decimal: {
-  //         sanctionLimit: "3,94,30,71,77,040.11",
-  //         utilizedLimit: "2,92,97,98,09,291.66",
-  //         unUtilizedLimit: "1,01,32,73,67,748.45",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //     },
-  //     belowThirtyDays: {
-  //       countOfSubsidiaryAccounts: "130",
-  //       crore: {
-  //         sanctionLimit: "39,430.72",
-  //         utilizedLimit: "29,297.98",
-  //         unUtilizedLimit: "10,132.74",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //       decimal: {
-  //         sanctionLimit: "3,94,30,71,77,040.11",
-  //         utilizedLimit: "2,92,97,98,09,291.66",
-  //         unUtilizedLimit: "1,01,32,73,67,748.45",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //     },
-  //     belowNintyDays: {
-  //       countOfSubsidiaryAccounts: "168",
-  //       crore: {
-  //         sanctionLimit: "39,430.72",
-  //         utilizedLimit: "29,297.98",
-  //         unUtilizedLimit: "10,132.74",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //       decimal: {
-  //         sanctionLimit: "3,94,30,71,77,040.11",
-  //         utilizedLimit: "2,92,97,98,09,291.66",
-  //         unUtilizedLimit: "1,01,32,73,67,748.45",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //     },
-  //     belowOneEightyDays: {
-  //       countOfSubsidiaryAccounts: "168",
-  //       crore: {
-  //         sanctionLimit: "39,430.72",
-  //         utilizedLimit: "29,297.98",
-  //         unUtilizedLimit: "10,132.74",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //       decimal: {
-  //         sanctionLimit: "3,94,30,71,77,040.11",
-  //         utilizedLimit: "2,92,97,98,09,291.66",
-  //         unUtilizedLimit: "1,01,32,73,67,748.45",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //     },
-  //     aboveOneEightyDays: {
-  //       countOfSubsidiaryAccounts: "168",
-  //       crore: {
-  //         sanctionLimit: "39,430.72",
-  //         utilizedLimit: "29,297.98",
-  //         unUtilizedLimit: "10,132.74",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //       decimal: {
-  //         sanctionLimit: "3,94,30,71,77,040.11",
-  //         utilizedLimit: "2,92,97,98,09,291.66",
-  //         unUtilizedLimit: "1,01,32,73,67,748.45",
-  //         utilizedPercent: "74.30%",
-  //       },
-  //     },
-  //   },
-  // };
+
   function per(total, value) {
     total = parseFloat(total.replace(/,/g, ""));
     value = parseFloat(value.replace(/,/g, ""));
@@ -554,31 +472,22 @@ const Ageing = () => {
         <div className="row mb-5">
           <div className="col-lg-4 col-md-4 mb-4 mt-4">
             <div className="statusOn">Utilization %</div>
-            {/* <div className="card chartBg">
-              <div className="card-body p-0"> */}
+
             <BarChart
               chartdata={BarchartData}
               name="Ageing"
               chartid="account"
             />
-            {/* </div>
-            </div> */}
           </div>
           <div className="col-lg-4 col-md-4 mb-4 mt-4">
             <div classname="statusOn">No. of Account %</div>
-            {/* <div className="card chartBg">
-              <div className="card-body p-0"> */}
+
             <PieChart data={AccountchartData} chartid="account" />
-            {/* </div>
-            </div> */}
           </div>
           <div className="col-lg-4 col-md-4 mb-4 mt-4">
             <div classname="statusOn">Allocated Limit. %</div>
-            {/* <div className="card chartBg">
-              <div className="card-body p-0"> */}
+
             <PieChart data={AllocatedchartData} chartid="allocated" />
-            {/* </div>
-            </div> */}
           </div>
         </div>
         {/* ---------------------------------------------------------------------------------- */}

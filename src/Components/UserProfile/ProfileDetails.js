@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AddProfile from "./AddProfile";
 
 function UserDetails() {
   const { userId } = useParams();
@@ -136,7 +135,6 @@ function UserDetails() {
           </div>
         </div>
       </div>
-      {/* <AddProfile isOpen={isOpen} setModal={setIsOpen} /> */}
     </div>
   );
 }

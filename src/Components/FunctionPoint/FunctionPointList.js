@@ -101,7 +101,6 @@ const FunctionPointList = () => {
             </div>
           </div>
         </div>
-        {/* <AddProfile isOpen={isOpen} setModal={setIsOpen} /> */}
       </div>
     </div>
   );

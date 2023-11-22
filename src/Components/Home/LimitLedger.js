@@ -4,8 +4,6 @@ import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import Hyperlink from "./Hyperlink";
 const LimitLedger = () => {
-  // const currentDate = new Date().toISOString().split("T")[0];
-  // const cdate = formatDate(currentDate);
   const [isOpen, setIsOpen] = useState(false);
   const [rowdata, setRData] = useState("");
 
@@ -28,16 +26,14 @@ const LimitLedger = () => {
     {
       Header: "Bank",
       accessor: "bank",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "Zone",
       accessor: "zone",
     },
     {
-      Header: "RO", //<div className="float-end fw-bold">Total</div>,
+      Header: "RO",
       accessor: "ro",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "PIU",
@@ -45,12 +41,9 @@ const LimitLedger = () => {
       Cell: ({ row }) => (
         <a
           href="#"
-          //  target="_blank"
           onClick={() => {
             setRData(row.values);
             setIsOpen(true);
-            //  navigate("/NHAI/Hyperlink");
-            //window.open("/NHAI/Hyperlink", "_blank");
           }}
           style={{ color: "black" }}
         >
@@ -179,19 +172,14 @@ const LimitLedger = () => {
 
   //Mock----------------------------------------------------------------------
   function formatDate(inputDate) {
-    // Parse the input date string into a Date object
     const dateParts = inputDate.split("-");
     const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
+    const month = parseInt(dateParts[1]) - 1;
     const day = parseInt(dateParts[2]);
     const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
     const dd = String(formattedDate.getDate()).padStart(2, "0");
     const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
     const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
     return `${dd}-${mm}-${yyyy}`;
   }
 
@@ -201,7 +189,6 @@ const LimitLedger = () => {
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
     userName: "nhai",
-    // asOnDate: dynamicDate, //"28-09-2023",
     bank: bankD, //"All", //Kotak,
     ro: roD, //"All", // Bhubaneswar
     zone: zoneD, //"All", //East,West,North South
@@ -254,8 +241,6 @@ const LimitLedger = () => {
   return (
     <div>
       <div className="row p-1">
-        {/* <div className="p-1"> */}
-        {/* <label className="float-start pageTitle">Velocity</label> */}
         <div className="col">
           <div className="float-end ">
             <label className="statusOn">From :</label>
@@ -304,9 +289,6 @@ const LimitLedger = () => {
             >
               <option value="All">All</option>
               <option value="Kotak">Kotak</option>
-              {/* <option value=""></option>
-                <option value=""></option>
-                <option value=""></option> */}
             </select>
             {"  "}
           </div>
@@ -327,7 +309,6 @@ const LimitLedger = () => {
       <div className="row p-1">
         <div className="col">
           <div className="float-end">
-            {/* style={{ paddingLeft: "35px" }} */}
             <label className="statusOn">Zone :</label>{" "}
             <select
               name="zone"
@@ -341,16 +322,12 @@ const LimitLedger = () => {
               <option value="West">West</option>
               <option value="North">North</option>
               <option value="South">South</option>
-              {/* <option value="MoRTH">MoRTH</option>
-                <option value="North East">North East</option>
-                <option value="Unmapped">Unmapped</option> */}
             </select>
             {"  "}
           </div>
         </div>
         <div className="col">
           <div className="float-end">
-            {/* style={{ paddingLeft: "18px" }} */}
             <label className="statusOn">RO :</label>{" "}
             <select
               name="ro"
@@ -369,7 +346,6 @@ const LimitLedger = () => {
         </div>
         <div className="col">
           <div className="float-end">
-            {/* style={{ paddingRight: "30px" }} */}
             <label className="statusOn">PIU :</label>{" "}
             <select
               name="piu"
@@ -387,8 +363,6 @@ const LimitLedger = () => {
         <div className="col"></div>
       </div>
       <div className="row p-1">
-        {/* <div className="p-1"> */}
-        {/* <label className="float-start pageTitle">Velocity</label> */}
         <div className="col">
           <div className="float-end">
             <label className="statusOn">Account No.</label>
@@ -418,9 +392,6 @@ const LimitLedger = () => {
             >
               <option value="All">All</option>
               <option value="Kotak">Kotak</option>
-              {/* <option value=""></option>
-                <option value=""></option>
-                <option value=""></option> */}
             </select>
             {"  "}
           </div>

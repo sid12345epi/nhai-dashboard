@@ -132,47 +132,6 @@ const RO = () => {
     },
   ];
 
-  // const columns = [
-  //   {
-  //     Header: "Sr No.",
-  //     accessor: "id",
-  //     //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
-  //   },
-  //   {
-  //     Header: "Regional Office", //<div className="float-end fw-bold">Total</div>,
-  //     accessor: "office",
-  //     //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
-  //   },
-  //   {
-  //     Header: "Zone",
-  //     accessor: "zone",
-  //   },
-  //   {
-  //     Header: "No. of PIU",
-  //     accessor: "piu",
-  //     //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
-  //   },
-  //   {
-  //     Header: "No. of Subsidiary Accounts",
-  //     accessor: "subsidiaryAccounts",
-  //   },
-  //   {
-  //     Header: "Sanction Limit",
-  //     accessor: "sanctionLimit",
-  //   },
-  //   {
-  //     Header: "Utilized Limit",
-  //     accessor: "utilizedLimit",
-  //   },
-  //   {
-  //     Header: "Un-Utilized Limit",
-  //     accessor: "unutilizedLimit",
-  //   },
-  //   {
-  //     Header: "Utilized Percentage",
-  //     accessor: "percentage",
-  //   },
-  // ];
   return (
     <div>
       <div className="row">

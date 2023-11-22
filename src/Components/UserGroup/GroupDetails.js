@@ -82,13 +82,11 @@ function GroupDetails() {
               <strong>Is Active:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">
-              {/* {group.isActive ? "Yes" : "No"} */}
               <input
                 name="isActive"
                 className="form-check-input"
                 type="checkbox"
                 id="flexSwitchCheckChecked"
-                //style={{ width: "30px", height: "30px" }}
                 checked={group.isActive}
                 readOnly
               />
@@ -131,7 +129,6 @@ function GroupDetails() {
           </div>
         </div>
       </div>
-      {/* <AddGroup isOpen={isOpen} setModal={setIsOpen} /> */}
     </div>
   );
 }

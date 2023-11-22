@@ -31,16 +31,14 @@ const UserLoginReport = () => {
     {
       Header: "User ID",
       accessor: "userId",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "User Type",
       accessor: "userType",
     },
     {
-      Header: "Bank ID", //<div className="float-end fw-bold">Total</div>,
+      Header: "Bank ID",
       accessor: "bankId",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "PDID",

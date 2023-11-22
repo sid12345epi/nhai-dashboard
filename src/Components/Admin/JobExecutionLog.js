@@ -10,23 +10,16 @@ const JobExecutionLog = () => {
   );
 
   function formatDate(inputDate) {
-    // Parse the input date string into a Date object
     const dateParts = inputDate.split("-");
     const year = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
     const day = parseInt(dateParts[2]);
     const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
     const dd = String(formattedDate.getDate()).padStart(2, "0");
     const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
     const yyyy = formattedDate.getFullYear();
-
     var today = new Date(inputDate);
-    // Get the day of the week (0-6, where 0 is Sunday and 6 is Saturday)
     var dayOfWeek = today.getDay();
-
-    // Create an array of day names
     var daysOfWeek = [
       "Sunday",
       "Monday",
@@ -51,16 +44,14 @@ const JobExecutionLog = () => {
     {
       Header: "Sr. No",
       accessor: "srno",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "Upload ID",
       accessor: "uploadId",
     },
     {
-      Header: "Upload Name", //<div className="float-end fw-bold">Total</div>,
+      Header: "Upload Name",
       accessor: "uploadName",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "Upload Status",
@@ -130,7 +121,6 @@ const JobExecutionLog = () => {
           <div className="border border-dark rounded-1 bg-white p-2">
             {" "}
             <div className="col">
-              {/* <div className="p-2"> */}
               <div className="float-start p-2">
                 <label className="statusOn  ms-3">Execution Log As On : </label>
                 {"  "}
@@ -156,18 +146,12 @@ const JobExecutionLog = () => {
                   Download
                 </button>{" "} */}
               </div>
-              {/* </div> */}
             </div>
           </div>
         </div>
         <div className="row">
           <div className="mt-2"></div>
-          <DataTable
-            columns={columns}
-            data={rows} //{data} //
-            // customClass="LoginReportTable"
-            showSearchBar={false}
-          />{" "}
+          <DataTable columns={columns} data={rows} showSearchBar={false} />{" "}
           <div className="mt-2"></div>
         </div>
       </div>

@@ -31,16 +31,14 @@ const UserActiveInactiveReport = () => {
     {
       Header: "User ID",
       accessor: "userId",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "User Type",
       accessor: "userType",
     },
     {
-      Header: "Bank ID", //<div className="float-end fw-bold">Total</div>,
+      Header: "Bank ID",
       accessor: "bankId",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "PDID",
@@ -71,10 +69,6 @@ const UserActiveInactiveReport = () => {
       Header: `Logged in \n Date & Time`,
       accessor: "loggedTime",
     },
-    // {
-    //   Header: `Login IP \n Address`,
-    //   accessor: "ipAddress",
-    // },
   ];
   const data = [
     {
@@ -169,17 +163,6 @@ const UserActiveInactiveReport = () => {
                   <option value="Inactive">Inactive</option>
                 </select>
                 {"  "}
-                {/* <label className="statusOn  ms-5">User Id : </label>
-                {"  "}
-                <input
-                  id="dateInput"
-                  className="inputDate"
-                  type="text"
-                  onChange={(e) => {
-                    const E = e.target.value;
-                    console.log("----->", E);
-                  }}
-                />{" "} */}
               </div>
               <div className="float-end p-2">
                 <button

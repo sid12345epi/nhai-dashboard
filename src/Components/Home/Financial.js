@@ -66,54 +66,36 @@ const Financial = () => {
   // Define columns for your DataTable
 
   const columns = [
-    // {
-    //   Header: "SerialNo.",
-    //   accessor: "serialNo",
-    //   //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
-    // },
     {
-      Header: "Deposits", //<div className="float-end fw-bold">Total</div>,
+      Header: "Deposits",
       accessor: "deposits",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
-      Header: "Amount", //<div className="float-end fw-bold">Total</div>,
+      Header: "Amount",
       accessor: "amount",
       Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
   ];
 
   const columnsDisbusment = [
-    // {
-    //   Header: "SerialNo.",
-    //   accessor: "serialNo",
-    //   //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
-    // },
     {
-      Header: "Disbursements", //<div className="float-end fw-bold">Total</div>,
+      Header: "Disbursements",
       accessor: "disbursements",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
-      Header: "Amount", //<div className="float-end fw-bold">Total</div>,
+      Header: "Amount",
       accessor: "amount",
       Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
   ];
 
   const columnsSummary = [
-    // {
-    //   Header: "SerialNo.",
-    //   accessor: "serialNo",
-    //   //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
-    // },
     {
-      Header: "Summary", //<div className="float-end fw-bold">Total</div>,
+      Header: "Summary",
       accessor: "summary",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
-      Header: "Amount", //<div className="float-end fw-bold">Total</div>,
+      Header: "Amount",
       accessor: "amount",
       Cell: ({ value }) => (
         <div className="amount" style={{ float: "right" }}>
@@ -352,9 +334,6 @@ const Financial = () => {
             </div>
           )}
         </div>
-        {/* <div className="col-4">
-      <img src={bg} className="bg" />
-    </div>    */}
       </div>
     </div>
   );

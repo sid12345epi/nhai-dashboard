@@ -593,13 +593,13 @@ th {
   height: 30px;
 }
 
-/* .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked
-  + .MuiSwitch-track {
-  background-color: green !important;
-  opacity: 1 !important;
+/* Profile Mapping */
+.menuColor {
+  background-color: #dee2e6;
+  font-size: 14px;
 }
 
-.css-1yjjitx-MuiSwitch-track {
-  background-color: red !important;
-  opacity: 1 !important;
-} */
+.submenuColor {
+  background-color: #e9eef178;
+  font-size: 14px;
+}

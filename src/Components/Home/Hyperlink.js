@@ -22,16 +22,14 @@ const Hyperlink = ({ isOpen, setModal, row }) => {
     {
       Header: "Bank",
       accessor: "bank",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "Zone",
       accessor: "zone",
     },
     {
-      Header: "RO", //<div className="float-end fw-bold">Total</div>,
+      Header: "RO",
       accessor: "ro",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "PIU",

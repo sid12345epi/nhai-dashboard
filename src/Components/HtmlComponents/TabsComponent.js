@@ -81,10 +81,6 @@ const TabsComponent = (props) => {
           </button>
         </div>
       </div>
-      {/* <div className="tab-content">
-        <h2>{activeTab.title}</h2>
-        <p>{activeTab.content}</p>
-      </div> */}
     </div>
   );
 };

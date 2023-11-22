@@ -516,133 +516,6 @@ const Zone = ({ setTab }) => {
     ],
   };
 
-  // {
-  //   responseMetaData: {
-  //     status: "200",
-  //     message: "Success",
-  //   },
-
-  //   total: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "3,94,30,71,77,040.11",
-  //       utilizedLimit: "2,92,97,98,09,291.66",
-  //       unUtilizedLimit: "1,01,32,73,67,748.45",
-  //       utilizedPercentage: "74.30",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "39,430.71",
-  //       utilizedLimit: "29,297.98",
-  //       unUtilizedLimit: "10,132.73",
-  //       utilizedPercentage: "66.30",
-  //     },
-  //   },
-  //   eastZone: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "36,10,84,02,973.41",
-  //       utilizedLimit: "23,93,89,50,336.32",
-  //       unUtilizedLimit: "12,16,94,52,637.09",
-  //       utilizedPercentage: "66.30",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "3,610.84",
-  //       utilizedLimit: "2,393.90",
-  //       unUtilizedLimit: "1,216.95",
-  //       utilizedPercentage: "66.30",
-  //     },
-  //   },
-  //   northZone: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "1,16,44,58,97,059.47",
-  //       utilizedLimit: "86,17,13,16,033.40",
-  //       unUtilizedLimit: "30,27,45,81,026.07",
-  //       utilizedPercentage: "74.00",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "11,644.58",
-  //       utilizedLimit: "8,6171.31",
-  //       unUtilizedLimit: "3,027.45",
-  //       utilizedPercentage: "74.00",
-  //     },
-  //   },
-  //   southZone: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "1,30,71,88,83,286.84",
-  //       utilizedLimit: "95,69,91,99,443.94",
-  //       unUtilizedLimit: "35,01,96,83,842.90",
-  //       utilizedPercentage: "73.21",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "13,071.88",
-  //       utilizedLimit: "9,569.91",
-  //       unUtilizedLimit: "3,501.96",
-  //       utilizedPercentage: "73.21",
-  //     },
-  //   },
-  //   westZone: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "1,03,21,25,79,247.00",
-  //       utilizedLimit: "79,93,45,36,781.00",
-  //       unUtilizedLimit: "23,27,80,42,466.00",
-  //       utilizedPercentage: "77.45",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "10,321.25",
-  //       utilizedLimit: "7,993.45",
-  //       unUtilizedLimit: "2,327.80",
-  //       utilizedPercentage: "77.45",
-  //     },
-  //   },
-  //   MoRTH: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "7,80,67,03,535.39",
-  //       utilizedLimit: "7,23,17,78,913.00",
-  //       unUtilizedLimit: "57,49,24,622.39",
-  //       utilizedPercentage: "92.64",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "78,067.03",
-  //       utilizedLimit: "72,317.78",
-  //       unUtilizedLimit: "5,749.24",
-  //       utilizedPercentage: "92.64",
-  //     },
-  //   },
-  //   northEastZone: {
-  //     countofRegionalOffices: 7,
-  //     countofPIU: 24,
-  //     countofSubsidiaryAccounts: 82,
-  //     decimal: {
-  //       sanctionLimit: "1,47,10,938.00",
-  //       utilizedLimit: "40,27,784.00",
-  //       unUtilizedLimit: "1,06,83,154.00",
-  //       utilizedPercentage: "27.38",
-  //     },
-  //     crore: {
-  //       sanctionLimit: "1,471.09",
-  //       utilizedLimit: "40,277.84",
-  //       unUtilizedLimit: "1,216.95",
-  //       utilizedPercentage: "27.38",
-  //     },
-  //   },
-  // };
-
   const zoneJson = {
     responseMetaData: {
       status: "200",
@@ -969,27 +842,18 @@ const Zone = ({ setTab }) => {
         <div className="row mb-5">
           <div className="col-lg-4 col-md-4 mb-4 mt-4">
             <div className="statusOn">Utilization %</div>
-            {/* <div className="card chartBg">
-              <div className="card-body p-0"> */}
+
             <BarChart chartdata={BarchartData} name="Zone" chartid="account" />
-            {/* </div>
-            </div> */}
           </div>
           <div className="col-lg-4 col-md-4 mb-4 mt-4">
             <div classname="statusOn">No. of Account %</div>
-            {/* <div className="card chartBg">
-              <div className="card-body p-0"> */}
+
             <PieChart data={AccountchartData} chartid="account" />
-            {/* </div>
-            </div> */}
           </div>
           <div className="col-lg-4 col-md-4 mb-4 mt-4">
             <div classname="statusOn">Allocated Limit. %</div>
-            {/* <div className="card chartBg">
-              <div className="card-body p-0"> */}
+
             <PieChart data={AllocatedchartData} chartid="allocated" />
-            {/* </div>
-            </div> */}
           </div>
         </div>
         {/* ---------------------------------------------------------------------------------- */}

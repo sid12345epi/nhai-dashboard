@@ -96,7 +96,6 @@ const GroupList = () => {
             </div>
           </div>
         </div>
-        {/* <AddGroup isOpen={isOpen} setModal={setIsOpen} /> */}
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Assets/Css/Sidebar.css";
-// import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -30,11 +29,7 @@ const Sidebar = () => {
   };
 
   return (
-    <nav
-      id="sidebarMenu"
-      className="collapse d-lg-block sidebar collapse"
-      // style={{ backgroundColor: "#003366" }}
-    >
+    <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse">
       <div className="position-sticky">
         <div className="list-group list-group-flush">
           <Link

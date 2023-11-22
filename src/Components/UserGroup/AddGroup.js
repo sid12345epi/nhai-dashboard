@@ -132,20 +132,7 @@ const AddGroup = ({ isOpen, setModal }) => {
                             className="error"
                           />
                         </div>
-                        {/* <div className="mb-3">
-                          <label
-                            htmlFor="groupDescription"
-                            className="form-label"
-                          >
-                            User List
-                          </label>
-                          <Field
-                            type="checkbox"
-                            className="form-check-input"
-                            id="isActive"
-                            name="isActive"
-                          />
-                        </div> */}
+
                         {isEdit ? (
                           <div className="mb-3">
                             <label htmlFor="IsActive" className="form-label">

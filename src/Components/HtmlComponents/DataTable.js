@@ -131,7 +131,7 @@ const DataTable = ({
                         title={cell.value}
                       >
                         {/* Add icons for eye, edit, and delete actions */}
-                        {/* <FontAwesomeIcon icon={faEye} onClick={() => handleEyeAction(cell.row.original)} style={{ cursor: 'pointer', marginRight: '8px' }} /> */}
+
                         <FontAwesomeIcon
                           icon={faEye}
                           onClick={() => handleEyeAction(cell.row.original)}

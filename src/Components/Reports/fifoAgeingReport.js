@@ -29,16 +29,14 @@ const FifoAgeingReport = () => {
     {
       Header: "PIU Name",
       accessor: "piu",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "RO Name",
       accessor: "ro",
     },
     {
-      Header: "Account No", //<div className="float-end fw-bold">Total</div>,
+      Header: "Account No",
       accessor: "accNum",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "Account Name",
@@ -131,38 +129,6 @@ const FifoAgeingReport = () => {
       days: "",
       ageing: "",
     },
-    // {
-    //id:3,
-    //   piu: "Agra",
-    //   ro: "Lucknow(U.P West)",
-    //   accNum: "2312026853",
-    //   accName: "CALA ADM ETAWAH AND PD NHAI AGRA",
-    //   value: "1105812151.00",
-    //   requestDate: "7/4/2017",
-    //   sanctionLimit: "5948106913.00",
-    //   utilizedlimit: "4756267359.00",
-    //   unUtilizedLimit: "1191839554.00",
-    //   fifoAmount: "0.00",
-    //   currentDate: "5/21/2020",
-    //   days: "",
-    //   ageing: "",
-    // },
-    // {
-    //id:4,
-    //   piu: "Agra",
-    //   ro: "Lucknow(U.P West)",
-    //   accNum: "2312026853",
-    //   accName: "CALA ADM ETAWAH AND PD NHAI AGRA",
-    //   value: "1105812151.00",
-    //   requestDate: "7/4/2017",
-    //   sanctionLimit: "5948106913.00",
-    //   utilizedlimit: "4756267359.00",
-    //   unUtilizedLimit: "1191839554.00",
-    //   fifoAmount: "0.00",
-    //   currentDate: "5/21/2020",
-    //   days: "",
-    //   ageing: "",
-    // },
   ];
   const [rows, setRows] = useState(data);
   return (

@@ -22,21 +22,17 @@ const AccountLevel = () => {
     {
       Header: "Bank",
       accessor: "bank",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "PIU",
       accessor: "piu",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
+
       Cell: ({ row }) => (
         <a
           href="#"
-          //  target="_blank"
           onClick={() => {
             setRData(row.values);
             setIsOpen(true);
-            //  navigate("/NHAI/Hyperlink");
-            //window.open("/NHAI/Hyperlink", "_blank");
           }}
           style={{ color: "black" }}
         >
@@ -45,9 +41,8 @@ const AccountLevel = () => {
       ),
     },
     {
-      Header: "Regional Office", //<div className="float-end fw-bold">Total</div>,
+      Header: "Regional Office",
       accessor: "regionalOffice",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "Zone",
@@ -59,12 +54,9 @@ const AccountLevel = () => {
       Cell: ({ row }) => (
         <a
           href="#"
-          //  target="_blank"
           onClick={() => {
             setRData(row.values);
             setIsOpen(true);
-            //  navigate("/NHAI/Hyperlink");
-            //window.open("/NHAI/Hyperlink", "_blank");
           }}
           style={{ color: "black", float: "right" }}
         >
@@ -78,12 +70,9 @@ const AccountLevel = () => {
       Cell: ({ row }) => (
         <a
           href="#"
-          //  target="_blank"
           onClick={() => {
             setRData(row.values);
             setIsOpen(true);
-            //  navigate("/NHAI/Hyperlink");
-            //window.open("/NHAI/Hyperlink", "_blank");
           }}
           style={{ color: "black" }}
         >
@@ -313,9 +302,6 @@ const AccountLevel = () => {
               >
                 <option value="All">All</option>
                 <option value="Kotak">Kotak</option>
-                {/* <option value=""></option>
-            <option value=""></option>
-            <option value=""></option> */}
               </select>
               {"  "}
             </div>

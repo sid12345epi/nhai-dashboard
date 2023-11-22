@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-//import AddUser from "./AddUser";
 
 function UserDetails() {
   const { userId } = useParams();
   const navigate = useNavigate();
-  // const [isOpen, setIsOpen] = useState(false);
+
   const users = [
     {
       id: 1,
@@ -225,7 +224,6 @@ function UserDetails() {
           </div>
         </div>
       </div>
-      {/* <AddUser isOpen={isOpen} setModal={setIsOpen} /> */}
     </div>
   );
 }

@@ -17,11 +17,7 @@ const PieChart = ({ data, chartid }) => {
     chart.legend.position = "bottom"; // You can change the position as needed (e.g., "top", "left", "right")
 
     // Customize the legend container size
-    //chart.legend.contentAlign = "center"; // You can change the alignment as needed
-    // chart.legend.width = am4core.percent(80); // Set the desired width
-    // chart.legend.height = am4core.percent(70);
-    // chart.legend.maxWidth = 100; // Set the desired width
-    // chart.legend.maxHeight = 50;
+
     var markerTemplate = chart.legend.markers.template;
     markerTemplate.width = 10;
     markerTemplate.height = 10;

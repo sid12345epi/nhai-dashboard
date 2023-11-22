@@ -123,13 +123,11 @@ function FunctionPointDetails() {
               <strong>Is Active:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">
-              {/* {functionPoint.isActive ? "Yes" : "No"} */}
               <input
                 name="isActive"
                 className="form-check-input"
                 type="checkbox"
                 id="flexSwitchCheckChecked"
-                //style={{ width: "30px", height: "30px" }}
                 checked={functionPoint.isActive}
                 readOnly
               />
@@ -169,7 +167,6 @@ function FunctionPointDetails() {
           </div>
         </div>
       </div>
-      {/* <AddProfile isOpen={isOpen} setModal={setIsOpen} /> */}
     </div>
   );
 }

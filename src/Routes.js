@@ -9,8 +9,6 @@ import ProfileDetails from "./Components/UserProfile/ProfileDetails";
 import GroupList from "./Components/UserGroup/GroupList";
 import Registration from "./Components/Login/Registration";
 import Logout from "./Components/Login/Logout";
-import VarientSidebar from "./Components/Varients/varientSidebar1";
-import Varients from "./Components/Varients/varients";
 import AddUser from "./Components/User/AddUser";
 import ChangePassword from "./Components/ManagePassword/ChangePassword";
 
@@ -18,7 +16,7 @@ import Hyperlink from "./Components/Home/Hyperlink";
 import UserLoginReport from "./Components/Reports/userLoginReport";
 import UserActiveInactiveReport from "./Components/Reports/userActiveInactiveReport";
 import FifoAgeingReport from "./Components/Reports/fifoAgeingReport";
-import UserAdd from "./Components/User/userAdd";
+
 import AddProfile from "./Components/UserProfile/AddProfile";
 import AddGroup from "./Components/UserGroup/AddGroup";
 import GroupDetails from "./Components/UserGroup/GroupDetails";
@@ -64,6 +62,21 @@ const Routers = () => {
         path="/NHAI/DeleteGroup/:userId"
         element={<GroupDetails />}
       ></Route>
+
+      <Route path="/NHAI/Logout" element={<Logout />}></Route>
+      <Route path="/NHAI/ChangePassword" element={<ChangePassword />}></Route>
+      <Route path="/NHAI/Hyperlink" element={<Hyperlink />}></Route>
+      <Route path="/NHAI/UserLoginReport" element={<UserLoginReport />}></Route>
+      <Route
+        path="/NHAI/UserActiveInactiveReport"
+        element={<UserActiveInactiveReport />}
+      ></Route>
+      <Route
+        path="/NHAI/FIFOAgeingReport"
+        element={<FifoAgeingReport />}
+      ></Route>
+      <Route path="/NHAI/MappingMaster" element={<MappingMaster />}></Route>
+      {/* <Route path="/NHAI/JobExecutionLog" element={<JobExecutionLog />}></Route> */}
       {/* ------------Function Point---------------------------------------------------------- */}
       {/* <Route
         path="/NHAI/FunctionPoints"
@@ -86,24 +99,6 @@ const Routers = () => {
         element={<FunctionPointDetails />}
       ></Route> */}
       {/* -------------------------------------------------------------------------------------- */}
-      <Route path="/NHAI/Logout" element={<Logout />}></Route>
-      <Route path="/NHAI/ChangePassword" element={<ChangePassword />}></Route>
-      <Route path="/NHAI/Hyperlink" element={<Hyperlink />}></Route>
-      <Route path="/NHAI/UserLoginReport" element={<UserLoginReport />}></Route>
-      <Route
-        path="/NHAI/UserActiveInactiveReport"
-        element={<UserActiveInactiveReport />}
-      ></Route>
-      <Route
-        path="/NHAI/FIFOAgeingReport"
-        element={<FifoAgeingReport />}
-      ></Route>
-      <Route path="/NHAI/MappingMaster" element={<MappingMaster />}></Route>
-      {/* <Route path="/NHAI/JobExecutionLog" element={<JobExecutionLog />}></Route> */}
-      {/*--------------------------------------------------------------------------- */}
-      <Route path="/NHAI/varients" element={<Varients />}></Route>
-      <Route path="/NHAI/UserAdd" element={<UserAdd />}></Route>
-      {/* //--------------------------------------------------------------------------- */}
     </Routes>
   );
 };

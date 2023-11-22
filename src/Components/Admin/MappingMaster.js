@@ -38,22 +38,7 @@ const MappingMaster = () => {
           <div className="row">
             <div className="col-md-11 mx-auto flex">
               <Formik
-                initialValues={
-                  {
-                    //   userName: user ? user.fullName : "",
-                    //   location: user ? user.location : "",
-                    //   userDomainName: user ? user.domainName : "",
-                    //   gender: user ? user.gender : "",
-                    //   email: user ? user.email : "",
-                    //   workPhone: user ? user.workNo : "",
-                    //   userId: user ? user.userId : "",
-                    //   employeeNumber: user ? user.employeeNumber : "",
-                    //   role: user ? user.userRole : "",
-                    //   mobile: user ? user.mobileNumber : "",
-                    //   password: user ? user.password : "",
-                    //   isActive: user ? user.isActive : "",
-                  }
-                }
+                initialValues={{}}
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
                   // Handle form submission here

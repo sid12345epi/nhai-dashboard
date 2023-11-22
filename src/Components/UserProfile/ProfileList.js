@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import AddProfile from "./AddProfile";
 import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
@@ -96,7 +95,6 @@ const UserList = () => {
             </div>
           </div>
         </div>
-        {/* <AddProfile isOpen={isOpen} setModal={setIsOpen} /> */}
       </div>
     </div>
   );

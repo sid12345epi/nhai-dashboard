@@ -24,16 +24,14 @@ const Velocity = () => {
     {
       Header: "Bank",
       accessor: "bank",
-      //  Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
     },
     {
       Header: "Zone",
       accessor: "zone",
     },
     {
-      Header: "RO", //<div className="float-end fw-bold">Total</div>,
+      Header: "RO",
       accessor: "ro",
-      //Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
     },
     {
       Header: "PIU",
@@ -154,14 +152,12 @@ const Velocity = () => {
 
   //Mock----------------------------------------------------------------------
   function formatDate(inputDate) {
-    // Parse the input date string into a Date object
     const dateParts = inputDate.split("-");
     const year = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
     const day = parseInt(dateParts[2]);
     const formattedDate = new Date(year, month, day);
 
-    // Extract day, month, and year components
     const dd = String(formattedDate.getDate()).padStart(2, "0");
     const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
     const yyyy = formattedDate.getFullYear();
@@ -216,8 +212,6 @@ const Velocity = () => {
   return (
     <div>
       <div className="row">
-        {/* <div className="p-1"> */}
-        {/* <label className="float-start pageTitle">Velocity</label> */}
         <div className="col">
           <div className="float-end">
             <label className="statusOn">As On Date :</label>
@@ -247,9 +241,6 @@ const Velocity = () => {
             >
               <option value="All">All</option>
               <option value="Kotak">Kotak</option>
-              {/* <option value=""></option>
-                <option value=""></option>
-                <option value=""></option> */}
             </select>
             {"  "}
           </div>
@@ -294,16 +285,6 @@ const Velocity = () => {
               className="inputDate"
               onChange={(e) => {
                 setZone(e.target.value);
-                // const list = (mockRes.regionWiseData || []).filter((x) => {
-                //   if (x.zone == e.target.value) {
-                //     return x;
-                //   } else if (e.target.value == "All") {
-                //     return mockRes.regionWiseData;
-                //   } else {
-                //   }
-                // });
-                // console.log("Zone->", list);
-                // setRows(list);
               }}
             >
               <option value="All">All</option>
@@ -311,9 +292,6 @@ const Velocity = () => {
               <option value="West">West</option>
               <option value="North">North</option>
               <option value="South">South</option>
-              {/* <option value="MoRTH">MoRTH</option>
-                <option value="North East">North East</option>
-                <option value="Unmapped">Unmapped</option> */}
             </select>
             {"  "}
           </div>
@@ -327,17 +305,6 @@ const Velocity = () => {
               className="inputDate"
               onChange={(e) => {
                 setRo(e.target.value);
-                // regionalOffice;
-                // const list = (mockRes.regionWiseData || []).filter((x) => {
-                //   if (x.regionalOffice == e.target.value) {
-                //     return x;
-                //   } else if (e.target.value == "All") {
-                //     return mockRes.regionWiseData;
-                //   } else {
-                //   }
-                // });
-                // console.log("Ro-->", list);
-                // setRows(list);
               }}
             >
               <option value="All">All</option>
@@ -357,17 +324,6 @@ const Velocity = () => {
               className="inputDate"
               onChange={(e) => {
                 setPiu(e.target.value);
-                // regionalOffice;
-                // const list = (mockRes.regionWiseData || []).filter((x) => {
-                //   if (x.regionalOffice == e.target.value) {
-                //     return x;
-                //   } else if (e.target.value == "All") {
-                //     return mockRes.regionWiseData;
-                //   } else {
-                //   }
-                // });
-                // console.log("Ro-->", list);
-                // setRows(list);
               }}
             >
               <option value="All">All</option>

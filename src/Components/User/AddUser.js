@@ -105,7 +105,7 @@ const AddUser = () => {
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    //non mandatory
+
     userDomainName: Yup.string("User Domain Name is invalid"),
     workPhone: Yup.string("Work Phone is invalid"),
     userId: Yup.string("User ID is invalid"),
@@ -358,26 +358,7 @@ const AddUser = () => {
                             className="error"
                           />
                         </div>
-                        {/* <div className="mb-3">
-                          <label
-                            htmlFor="password"
-                            className="form-label required"
-                          >
-                            Password
-                          </label>
-                          <Field
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            name="password"
-                            placeholder="Enter password"
-                          />
-                          <ErrorMessage
-                            name="password"
-                            component="div"
-                            className="error"
-                          />
-                        </div> */}
+
                         <div className="mb-3">
                           <label htmlFor="workPhone" className="form-label">
                             Work Phone

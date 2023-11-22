@@ -19,7 +19,6 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Snapshot");
   const getActiveTab = (x) => {
     setActiveTab(x);
-    // console.log("tyytyy", activeTab);
   };
   return (
     <>

@@ -10,7 +10,6 @@ import logo from "../../Assets/images/Kotak_logo.png";
 import { v4 as uuid } from "uuid";
 
 const Snapshot = () => {
-  //const [dynamicDate, setDynamicDate] = useState(new Date());
   const currentDate = new Date().toISOString().split("T")[0];
   const cdate = formatDate(currentDate);
   const [dynamicDate, setDate] = useState(cdate);
@@ -110,19 +109,16 @@ const Snapshot = () => {
 
   //Mock----------------------------------------------------------------------
   function formatDate(inputDate) {
-    // Parse the input date string into a Date object
     const dateParts = inputDate.split("-");
     const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
+    const month = parseInt(dateParts[1]) - 1;
     const day = parseInt(dateParts[2]);
     const formattedDate = new Date(year, month, day);
 
-    // Extract day, month, and year components
     const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
+    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0");
     const yyyy = formattedDate.getFullYear();
 
-    // Format the date in "dd-mm-yyyy" format
     return `${dd}-${mm}-${yyyy}`;
   }
   const reqBody = {
@@ -384,13 +380,6 @@ const Snapshot = () => {
               >
                 Decimal
               </button>{" "}
-              {/* <button
-                className="btn addUser dashbutton"
-                type="button"
-                onClick={() => {}}
-              >
-                PDF
-              </button>{" "}              */}
               <button
                 className="btn addUser dashbutton"
                 type="button"
@@ -398,13 +387,6 @@ const Snapshot = () => {
               >
                 PDF
               </button>
-              {/* <button
-                className="btn addUser dashbutton"
-                type="button"
-                onClick={() => {}}
-              >
-                Excel
-              </button> */}
               <button
                 className="btn addUser dashbutton Cml-5"
                 type="button"
