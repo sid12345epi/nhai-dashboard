@@ -25,6 +25,12 @@ import AddFunctionPoint from "./Components/FunctionPoint/AddFunctionPoint";
 import FunctionPointDetails from "./Components/FunctionPoint/FunctionPointDetails";
 import MappingMaster from "./Components/Admin/MappingMaster";
 import JobExecutionLog from "./Components/Admin/JobExecutionLog";
+import UserCheckerList from "./Components/Checker/UserCheckerList";
+import UserCheckerDetails from "./Components/Checker/UserCheckerDetails";
+import ProfileCheckerList from "./Components/Checker/ProfileCheckerList";
+import ProfilleCheckerDetails from "./Components/Checker/ProfilleCheckerDetails";
+import GroupCheckerList from "./Components/Checker/GroupCheckerList";
+import GroupCheckerDetails from "./Components/Checker/GroupCheckerDetails";
 
 const Routers = () => {
   return (
@@ -76,8 +82,53 @@ const Routers = () => {
         element={<FifoAgeingReport />}
       ></Route>
       <Route path="/NHAI/MappingMaster" element={<MappingMaster />}></Route>
-      {/* <Route path="/NHAI/JobExecutionLog" element={<JobExecutionLog />}></Route> */}
-      {/* ------------Function Point---------------------------------------------------------- */}
+      <Route path="/NHAI/JobExecutionLog" element={<JobExecutionLog />}></Route>
+      {/* ------------Checker Screen---------------------------------------------------- */}
+      <Route path="/NHAI/UserRequests" element={<UserCheckerList />}></Route>
+      <Route
+        path="/NHAI/userAddRequestDetails/:userId"
+        element={<UserCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/userUpdateRequestDetails/:userId"
+        element={<UserCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/userDeleteRequestDetails/:userId"
+        element={<UserCheckerDetails />}
+      ></Route>
+      {/* ----------------Profile------------------------- */}
+      <Route
+        path="/NHAI/profileRequests"
+        element={<ProfileCheckerList />}
+      ></Route>
+      <Route
+        path="/NHAI/profileAddRequestDetails/:userId"
+        element={<ProfilleCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/profileUpdateRequestDetails/:userId"
+        element={<ProfilleCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/profileDeleteRequestDetails/:userId"
+        element={<ProfilleCheckerDetails />}
+      ></Route>
+      {/* ----------------Group------------------------- */}
+      <Route path="/NHAI/groupRequests" element={<GroupCheckerList />}></Route>
+      <Route
+        path="/NHAI/groupAddRequestDetails/:userId"
+        element={<GroupCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/groupUpdateRequestDetails/:userId"
+        element={<GroupCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/groupDeleteRequestDetails/:userId"
+        element={<GroupCheckerDetails />}
+      ></Route>
+      {/* ------------Function Point-------------------------------------------------------- */}
       {/* <Route
         path="/NHAI/FunctionPoints"
         element={<FunctionPointList />}

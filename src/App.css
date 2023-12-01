@@ -603,3 +603,8 @@ th {
   background-color: #e9eef178;
   font-size: 14px;
 }
+
+.checkerAction {
+  margin-left: 5px;
+  margin-right: 20px;
+}
