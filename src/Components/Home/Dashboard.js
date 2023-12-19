@@ -30,7 +30,7 @@ const Dashboard = () => {
                 {/* <TabsComponent /> */}
                 <TabsComponent
                   ActiveTab={getActiveTab}
-                  active={{ title: activeTab }}
+                  active={{ name: activeTab }}
                 />
               </div>
             </div>

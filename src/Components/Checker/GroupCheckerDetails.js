@@ -166,6 +166,10 @@ const GroupCheckerDetails = () => {
                 <strong>Group Description:</strong>
               </div>
               <div className="col-md-6 UDCoulmns">{user.groupDescription}</div>
+              <div className="col-md-6 UDCoulmns">
+                <strong>Created Date:</strong>
+              </div>
+              <div className="col-md-6 UDCoulmns">{user.createdDate}</div>
             </div>
             {/* -------------------------------------------------------- */}
             <div className="col-md-5">
@@ -177,6 +181,11 @@ const GroupCheckerDetails = () => {
                 <strong>Active:</strong>
               </div>
               <div className="col-md-6 UDCoulmns">{user.isActive}</div>
+
+              <div className="col-md-6 UDCoulmns">
+                <strong>Created By:</strong>
+              </div>
+              <div className="col-md-6 UDCoulmns">{user.createdBy}</div>
             </div>
           </div>
         ) : (
@@ -201,11 +210,16 @@ const GroupCheckerDetails = () => {
               </div>
               <div className="col-md-4 UDCoulmns">{user.groupDescription}</div>
               <div className="col-md-4 UDCoulmns">{user.groupDescription}</div>
-              {/* <div className="col-md-4 UDCoulmns">
-                <strong>Group:</strong>
+              <div className="col-md-4 UDCoulmns">
+                <strong>Updated By:</strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.group}</div>
-              <div className="col-md-4 UDCoulmns">{user.group}</div> */}
+              <div className="col-md-4 UDCoulmns">{user.updatedBy}</div>
+              <div className="col-md-4 UDCoulmns">{user.updatedBy}</div>
+              <div className="col-md-4 UDCoulmns">
+                <strong>Updated Date:</strong>
+              </div>
+              <div className="col-md-4 UDCoulmns">{user.updatedDate}</div>
+              <div className="col-md-4 UDCoulmns">{user.updatedDate}</div>
               <div className="col-md-4 UDCoulmns">
                 <strong>Active:</strong>
               </div>

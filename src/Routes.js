@@ -31,6 +31,7 @@ import ProfileCheckerList from "./Components/Checker/ProfileCheckerList";
 import ProfilleCheckerDetails from "./Components/Checker/ProfilleCheckerDetails";
 import GroupCheckerList from "./Components/Checker/GroupCheckerList";
 import GroupCheckerDetails from "./Components/Checker/GroupCheckerDetails";
+import FileUpload from "./Components/Admin/FileUpload";
 
 const Routers = () => {
   return (
@@ -150,6 +151,7 @@ const Routers = () => {
         element={<FunctionPointDetails />}
       ></Route> */}
       {/* -------------------------------------------------------------------------------------- */}
+      <Route path="/NHAI/FileUpload" element={<FileUpload />}></Route>
     </Routes>
   );
 };

@@ -83,7 +83,6 @@ const UserActiveInactiveReport = () => {
       status: "Active",
       role: "AdminRole",
       loggedTime: "27-10-2023 \n 09:53:30",
-      ipAddress: "10.53.80.21",
     },
     {
       id: 2,
@@ -97,7 +96,6 @@ const UserActiveInactiveReport = () => {
       status: "Inactive",
       role: "AdminRole",
       loggedTime: "27-10-2023 \n 09:53:30",
-      ipAddress: "10.53.80.21",
     },
     {
       id: 3,
@@ -108,10 +106,9 @@ const UserActiveInactiveReport = () => {
       roid: "",
       domainUserName: "NHAI",
       fullName: "NHAI User",
-      status: "Inactive",
+      status: "Active",
       role: "AdminRole",
       loggedTime: "27-10-2023 \n 09:53:30",
-      ipAddress: "10.53.80.21",
     },
   ];
   const [rows, setRows] = useState(data);

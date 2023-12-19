@@ -12,30 +12,35 @@ const GroupCheckerList = () => {
       requestName: "Add group1",
       requestId: "JD001",
       requestDetails: "Add group in appilication",
+      requestType: "Add",
     },
     {
       id: 2,
       requestName: "Add group2",
       requestId: "JS002",
       requestDetails: "Add group in appilication",
+      requestType: "Add",
     },
     {
       id: 3,
       requestName: "Add group3",
       requestId: "BJ003",
       requestDetails: "Add group in appilication",
+      requestType: "Add",
     },
     {
       id: 4,
       requestName: "Add group4",
       requestId: "AB004",
       requestDetails: "Add group in appilication",
+      requestType: "Add",
     },
     {
       id: 5,
       requestName: "Add group5",
       requestId: "EA005",
       requestDetails: "Add group in appilication",
+      requestType: "Add",
     },
   ];
   const updatedData = [
@@ -44,30 +49,35 @@ const GroupCheckerList = () => {
       requestName: "Update group1",
       requestId: "JD001",
       requestDetails: "Update group in appilication",
+      requestType: "Update",
     },
     {
       id: 2,
       requestName: "Update group2",
       requestId: "JS002",
       requestDetails: "Update group in appilication",
+      requestType: "Update",
     },
     {
       id: 3,
       requestName: "Update group3",
       requestId: "BJ003",
       requestDetails: "Update group in appilication",
+      requestType: "Update",
     },
     {
       id: 4,
       requestName: "Update group4",
       requestId: "AB004",
       requestDetails: "Update group in appilication",
+      requestType: "Update",
     },
     {
       id: 5,
       requestName: "Update group5",
       requestId: "EA005",
       requestDetails: "Update group in appilication",
+      requestType: "Update",
     },
   ];
   const DeletedData = [
@@ -76,30 +86,35 @@ const GroupCheckerList = () => {
       requestName: "Delete group1",
       requestId: "JD001",
       requestDetails: "Delete group in appilication",
+      requestType: "Delete",
     },
     {
       id: 2,
       requestName: "Delete group2",
       requestId: "JS002",
       requestDetails: "Delete group in appilication",
+      requestType: "Delete",
     },
     {
       id: 3,
       requestName: "Delete group3",
       requestId: "BJ003",
       requestDetails: "Delete group in appilication",
+      requestType: "Delete",
     },
     {
       id: 4,
       requestName: "Delete group4",
       requestId: "AB004",
       requestDetails: "Delete group in appilication",
+      requestType: "Delete",
     },
     {
       id: 5,
       requestName: "Delete group5",
       requestId: "EA005",
       requestDetails: "Delete group in appilication",
+      requestType: "Delete",
     },
   ];
   const [rows, setRows] = useState(data);

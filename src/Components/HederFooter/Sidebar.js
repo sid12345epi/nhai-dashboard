@@ -124,6 +124,7 @@ const Sidebar = () => {
                 </div>
               </Link>
               <Link
+                to="/NHAI/FileUpload"
                 className={activeItem.includes("adminFU") ? amenucss : menucss}
                 onClick={() => handleSetActiveItem("adminFU")}
               >

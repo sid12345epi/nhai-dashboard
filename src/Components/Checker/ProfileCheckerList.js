@@ -11,30 +11,35 @@ const ProfileCheckerList = () => {
       requestName: "Add profile1",
       requestId: "JD001",
       requestDetails: "Add profile in appilication",
+      requestType: "Add",
     },
     {
       id: 2,
       requestName: "Add profile2",
       requestId: "JS002",
       requestDetails: "Add profile in appilication",
+      requestType: "Add",
     },
     {
       id: 3,
       requestName: "Add profile3",
       requestId: "BJ003",
       requestDetails: "Add profile in appilication",
+      requestType: "Add",
     },
     {
       id: 4,
       requestName: "Add profile4",
       requestId: "AB004",
       requestDetails: "Add profile in appilication",
+      requestType: "Add",
     },
     {
       id: 5,
       requestName: "Add profile5",
       requestId: "EA005",
       requestDetails: "Add profile in appilication",
+      requestType: "Add",
     },
   ];
   const updatedData = [
@@ -43,30 +48,35 @@ const ProfileCheckerList = () => {
       requestName: "Update profile1",
       requestId: "JD001",
       requestDetails: "Update profile in appilication",
+      requestType: "Update",
     },
     {
       id: 2,
       requestName: "Update profile2",
       requestId: "JS002",
       requestDetails: "Update profile in appilication",
+      requestType: "Update",
     },
     {
       id: 3,
       requestName: "Update profile3",
       requestId: "BJ003",
       requestDetails: "Update profile in appilication",
+      requestType: "Update",
     },
     {
       id: 4,
       requestName: "Update profile4",
       requestId: "AB004",
       requestDetails: "Update profile in appilication",
+      requestType: "Update",
     },
     {
       id: 5,
       requestName: "Update profile5",
       requestId: "EA005",
       requestDetails: "Update profile in appilication",
+      requestType: "Delete",
     },
   ];
   const DeletedData = [
@@ -75,30 +85,35 @@ const ProfileCheckerList = () => {
       requestName: "Delete profile1",
       requestId: "JD001",
       requestDetails: "Delete profile in appilication",
+      requestType: "Delete",
     },
     {
       id: 2,
       requestName: "Delete profile2",
       requestId: "JS002",
       requestDetails: "Delete profile in appilication",
+      requestType: "Delete",
     },
     {
       id: 3,
       requestName: "Delete profile3",
       requestId: "BJ003",
       requestDetails: "Delete profile in appilication",
+      requestType: "Delete",
     },
     {
       id: 4,
       requestName: "Delete profile4",
       requestId: "AB004",
       requestDetails: "Delete profile in appilication",
+      requestType: "Delete",
     },
     {
       id: 5,
       requestName: "Delete profile5",
       requestId: "EA005",
       requestDetails: "Delete profile in appilication",
+      requestType: "Delete",
     },
   ];
   const [rows, setRows] = useState(data);

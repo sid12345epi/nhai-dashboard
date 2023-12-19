@@ -10,30 +10,35 @@ const UserCheckerList = () => {
       requestName: "Add John Doe",
       requestId: "JD001",
       requestDetails: "Add user in appilication",
+      requestType: "Add",
     },
     {
       id: 2,
       requestName: "Add Jane Smith",
       requestId: "JS002",
       requestDetails: "Add user in appilication",
+      requestType: "Add",
     },
     {
       id: 3,
       requestName: "Add Bob Johnson",
       requestId: "BJ003",
       requestDetails: "Add user in appilication",
+      requestType: "Add",
     },
     {
       id: 4,
       requestName: "Add Alice Brown",
       requestId: "AB004",
       requestDetails: "Add user in appilication",
+      requestType: "Add",
     },
     {
       id: 5,
       requestName: "Add Eve Anderson",
       requestId: "EA005",
       requestDetails: "Add user in appilication",
+      requestType: "Add",
     },
   ];
   const updatedData = [
@@ -42,30 +47,35 @@ const UserCheckerList = () => {
       requestName: "Update John Doe",
       requestId: "JD001",
       requestDetails: "Update user in appilication",
+      requestType: "Update",
     },
     {
       id: 2,
       requestName: "Update Jane Smith",
       requestId: "JS002",
       requestDetails: "Update user in appilication",
+      requestType: "Update",
     },
     {
       id: 3,
       requestName: "Update Bob Johnson",
       requestId: "BJ003",
       requestDetails: "Update user in appilication",
+      requestType: "Update",
     },
     {
       id: 4,
       requestName: "Update Alice Brown",
       requestId: "AB004",
       requestDetails: "Update user in appilication",
+      requestType: "Update",
     },
     {
       id: 5,
       requestName: "Update Eve Anderson",
       requestId: "EA005",
       requestDetails: "Update user in appilication",
+      requestType: "Update",
     },
   ];
   const DeletedData = [
@@ -74,30 +84,35 @@ const UserCheckerList = () => {
       requestName: "Delete John Doe",
       requestId: "JD001",
       requestDetails: "Delete user in appilication",
+      requestType: "Delete",
     },
     {
       id: 2,
       requestName: "Delete Jane Smith",
       requestId: "JS002",
       requestDetails: "Delete user in appilication",
+      requestType: "Delete",
     },
     {
       id: 3,
       requestName: "Delete Bob Johnson",
       requestId: "BJ003",
       requestDetails: "Delete user in appilication",
+      requestType: "Delete",
     },
     {
       id: 4,
       requestName: "Delete Alice Brown",
       requestId: "AB004",
       requestDetails: "Delete user in appilication",
+      requestType: "Delete",
     },
     {
       id: 5,
       requestName: "Delete Eve Anderson",
       requestId: "EA005",
       requestDetails: "Delete user in appilication",
+      requestType: "Delete",
     },
   ];
   const [rows, setRows] = useState(data);
