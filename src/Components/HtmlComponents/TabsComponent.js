@@ -31,21 +31,6 @@ const TabsComponent = (props) => {
   ];
 
   const tabsData = data[0].subMenu;
-  // [
-  //   { title: "Snapshot", check: true },
-  //   { title: "Financial", check: false },
-  //   { title: "Financial(D)", check: false },
-  //   { title: "Bank", check: false },
-  //   { title: "Zone", check: true },
-  //   { title: "RO", check: true },
-  //   { title: "PIU", check: true },
-  //   { title: "Account Level", check: true },
-  //   { title: "Transaction", check: true },
-  //   { title: "Ageing", check: true },
-  //   { title: "Events", check: true },
-  //   { title: "Limit Ledger", check: true },
-  //   { title: "Velocity", check: true },
-  // ];
 
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   const tabsRef = useRef(null);

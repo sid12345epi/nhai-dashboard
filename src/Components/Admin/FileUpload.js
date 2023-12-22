@@ -14,7 +14,6 @@ const FileUpload = () => {
   const validationSchema = Yup.object({
     bank: Yup.string().required("Bank is required"),
     fileType: Yup.string().required("File Type is required"),
-    //  file: Yup.file().required("Employee Number is required"),
     // file: Yup.mixed().test(
     //   "fileType",
     //   "Only .txt files are allowed",
@@ -46,33 +45,6 @@ const FileUpload = () => {
                   <div className="modal-body">
                     <div className="row">
                       <div className="col">
-                        <div className="mb-3">
-                          <label
-                            htmlFor="userName"
-                            className="form-label required"
-                          >
-                            Bank
-                          </label>
-                          <div className="row">
-                            <div className="col-md-9">
-                              <Field
-                                as="select"
-                                className="form-control form-select"
-                                id="bank"
-                                name="bank"
-                              >
-                                {" "}
-                                {/* <option value="">--Select Bank--</option> */}
-                                <option value="Kotak">Kotak</option>
-                              </Field>
-                              <ErrorMessage
-                                name="bank"
-                                component="div"
-                                className="error"
-                              />
-                            </div>
-                          </div>
-                        </div>
                         <div className="mb-3">
                           <label
                             htmlFor="location"
@@ -118,10 +90,6 @@ const FileUpload = () => {
                                 name="file"
                                 accept=".txt"
                                 onChange={(event) => {
-                                  // Formik.setFieldValue(
-                                  //   "file",
-                                  //   event.currentTarget.files[0]
-                                  // ),
                                   setFile(event.currentTarget.files[0]);
                                   console.log(
                                     "File->",

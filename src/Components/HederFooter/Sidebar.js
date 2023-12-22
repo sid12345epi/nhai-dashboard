@@ -10,12 +10,13 @@ import {
   faUser,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
-
 const Sidebar = () => {
-  const [activeItem, setActiveItem] = useState("home"); // Initialize with the default active item
+  const [activeItem, setActiveItem] = useState("Home"); // Initialize with the default active item
   const [isToggleA, setToggleA] = useState(false);
   const [isToggleP, setToggleP] = useState(false);
   const [isToggleR, setToggleR] = useState(false);
+  // Create a state object to hold the dynamic toggle states
+  const [toggleStates, setToggleStates] = useState({});
 
   const simpleCss = "alink list-group-item list-group-item-action py-2 ripple";
   const activeCss =
@@ -28,228 +29,271 @@ const Sidebar = () => {
     setActiveItem(itemName);
   };
 
+  const data = [
+    {
+      id: 1,
+      menuName: "Home",
+      url: "/NHAI/Dashboard",
+      subMenu: [
+        { id: 1, name: "Snapshot", check: true, action: [] },
+        { id: 2, name: "Financial", check: false, action: [] },
+        { id: 3, name: "Financial(D)", check: false, action: [] },
+        { id: 4, name: "Bank", check: true, action: [] },
+        { id: 5, name: "Zone", check: true, action: [] },
+        { id: 6, name: "RO", check: true, action: [] },
+        { id: 7, name: "PIU", check: true, action: [] },
+        { id: 8, name: "Account Level", check: true, action: [] },
+        { id: 9, name: "Transaction", check: true, action: [] },
+        { id: 10, name: "Ageing", check: true, action: [] },
+        { id: 11, name: "Events", check: true, action: [] },
+        { id: 12, name: "Limit Ledger", check: true, action: [] },
+        { id: 13, name: "Velocity", check: true, action: [] },
+      ],
+    },
+    {
+      id: 2,
+      menuName: "Admin",
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "User",
+          url: "/NHAI/Users",
+          check: true,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 2,
+          name: "User Profile",
+          url: "/NHAI/Profiles",
+          check: true,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 3,
+          name: "User Group",
+          url: "/NHAI/Groups",
+          check: true,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 4,
+          name: "Function Point",
+          url: "/NHAI/FunctionPoints",
+          check: false,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 5,
+          name: "Assign Rights",
+          url: "/NHAI/AssignRights",
+          check: false,
+          action: [],
+        },
+        {
+          id: 6,
+          name: "Rule",
+          url: "/NHAI/Rule",
+          check: false,
+          action: [],
+        },
+        {
+          id: 7,
+          name: "File Upload",
+          url: "/NHAI/FileUpload",
+          check: true,
+          action: [],
+        },
+        {
+          id: 8,
+          name: "Mapping Master",
+          url: "/NHAI/MappingMaster",
+          check: true,
+          action: [],
+        },
+        {
+          id: 9,
+          name: "Job Execution Log",
+          url: "/NHAI/JobExecutionLog",
+          check: true,
+          action: [],
+        },
+      ],
+    },
+    {
+      id: 3,
+      menuName: "Manage Password",
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "Change Password",
+          url: "/NHAI/ChangePassword",
+          check: true,
+          action: [],
+        },
+      ],
+    },
+    {
+      id: 4,
+      menuName: "Reports",
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "User Login Report",
+          url: "/NHAI/UserLoginReport",
+          check: true,
+          action: [],
+        },
+        {
+          id: 2,
+          name: "User Active/Inactive",
+          url: "/NHAI/UserActiveInactiveReport",
+          check: true,
+          action: [],
+        },
+        {
+          id: 3,
+          name: "FIFO Ageing Report",
+          url: "/NHAI/FIFOAgeingReport",
+          check: true,
+          action: [],
+        },
+      ],
+    },
+  ];
+
+  // Initialize the toggle states based on JSON data
+  const initializeToggleStates = () => {
+    const initialState = {};
+    data.forEach((item) => {
+      initialState[`item_${item.id}`] = false; // Initialize as false (not toggled)
+    });
+    setToggleStates(initialState);
+  };
+
+  // Call the initialization function when the component mounts
+  React.useEffect(() => {
+    initializeToggleStates();
+  }, []);
+
+  const handleToggle = (itemId) => {
+    setToggleStates((prevState) => ({
+      ...prevState,
+      [`item_${itemId}`]: !prevState[`item_${itemId}`], // Toggle the state
+    }));
+  };
+
   return (
-    <nav id="sidebarMenu" className="collapse d-lg-block sidebar collapse">
+    <nav
+      id="sidebarMenu"
+      className="collapse d-lg-block sidebar collapse navColor"
+      // style={{ backgroundColor: "#8ccff0" }}
+      //style={{ backgroundColor: "red" }}
+    >
       <div className="position-sticky">
         <div className="list-group list-group-flush">
-          <Link
-            to="/NHAI/Dashboard"
-            className={activeItem === "home" ? activeCss : simpleCss}
-            aria-current="true"
-            onClick={() => handleSetActiveItem("home")}
-          >
-            <div className="navtitle">
-              <FontAwesomeIcon icon={faHouse} className="MenuIcon" />{" "}
-              <span>Home</span>
-            </div>
-          </Link>
-          <Link
-            className={activeItem.includes("admin") ? activeCss : simpleCss}
-            onClick={() => {
-              handleSetActiveItem("admin");
-              setToggleA(!isToggleA);
-            }}
-          >
-            {" "}
-            <div className="navtitle">
-              <FontAwesomeIcon icon={faUser} className="MenuIcon" />{" "}
-              <span>Admin</span>
-            </div>
-            {isToggleA ? (
-              <FontAwesomeIcon icon={faAngleDown} className="rside" />
-            ) : (
-              <FontAwesomeIcon icon={faAngleRight} className="rside" />
-            )}
-          </Link>
-          {isToggleA ? (
-            <div className="list-group list-group-light">
-              <Link
-                to="/NHAI/Users"
-                className={
-                  activeItem.includes("adminUser") ? amenucss : menucss
-                }
-                onClick={() => handleSetActiveItem("adminUser")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} User
-                </div>
-              </Link>
-              <Link
-                to="/NHAI/Profiles"
-                className={activeItem.includes("adminUP") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminUP")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} User Profile
-                </div>
-              </Link>
-              <Link
-                to="/NHAI/Groups"
-                className={activeItem.includes("adminUG") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminUG")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} User Group
-                </div>
-              </Link>
-              <Link
-                to="/NHAI/FunctionPoints"
-                className={activeItem.includes("adminFP") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminFP")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} Function Point
-                </div>
-              </Link>
-              <Link
-                className={activeItem.includes("adminAR") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminAR")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} Assign Rights
-                </div>
-              </Link>
-              <Link
-                className={activeItem.includes("adminR") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminR")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} Rule
-                </div>
-              </Link>
-              <Link
-                to="/NHAI/FileUpload"
-                className={activeItem.includes("adminFU") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminFU")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} File Upload
-                </div>
-              </Link>
-              <Link
-                to="/NHAI/MappingMaster"
-                className={activeItem.includes("adminMM") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminMM")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} Mapping Master
-                </div>
-              </Link>
-              <Link
-                to="/NHAI/JobExecutionLog"
-                className={activeItem.includes("adminJEL") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("adminJEL")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} Job Execution Log
-                </div>
-              </Link>
-            </div>
-          ) : (
-            ""
-          )}
-
-          <Link
-            className={activeItem.includes("password") ? activeCss : simpleCss}
-            onClick={() => {
-              handleSetActiveItem("password");
-              setToggleP(!isToggleP);
-            }}
-          >
-            {" "}
-            <div className="navtitle">
-              <FontAwesomeIcon icon={faKey} className="MenuIcon" />{" "}
-              <span>Manage Password</span>
-            </div>
-            {isToggleP ? (
-              <FontAwesomeIcon icon={faAngleDown} className="rside" />
-            ) : (
-              <FontAwesomeIcon icon={faAngleRight} className="rside" />
-            )}
-          </Link>
-          {isToggleP ? (
-            <div className="list-group list-group-light">
-              <Link
-                to="/NHAI/ChangePassword"
-                className={
-                  activeItem.includes("passwordC") ? amenucss : menucss
-                }
-                onClick={() => handleSetActiveItem("passwordC")}
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} Change Password
-                </div>
-              </Link>
-            </div>
-          ) : (
-            ""
-          )}
-          <Link
-            className={activeItem.includes("report") ? activeCss : simpleCss}
-            onClick={() => {
-              handleSetActiveItem("report");
-              setToggleR(!isToggleR);
-            }}
-          >
-            {" "}
-            <div className="navtitle">
-              <FontAwesomeIcon icon={faFile} className="MenuIcon" />{" "}
-              <span>Reports</span>
-            </div>
-            {isToggleR ? (
-              <FontAwesomeIcon icon={faAngleDown} className="rside" />
-            ) : (
-              <FontAwesomeIcon icon={faAngleRight} className="rside" />
-            )}
-          </Link>
-          {isToggleR ? (
-            <div className="list-group list-group-light">
-              <Link
-                className={activeItem.includes("reportUL") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("reportUL")}
-                to="/NHAI/UserLoginReport"
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} User Login Report
-                </div>
-              </Link>
-              <Link
-                className={
-                  activeItem.includes("reportUAI") ? amenucss : menucss
-                }
-                onClick={() => handleSetActiveItem("reportUAI")}
-                to="/NHAI/UserActiveInactiveReport"
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} User Active/Inactive
-                </div>
-              </Link>
-              <Link
-                className={activeItem.includes("reportFA") ? amenucss : menucss}
-                onClick={() => handleSetActiveItem("reportFA")}
-                to="/NHAI/FIFOAgeingReport"
-              >
-                <div className="menutitle">
-                  <FontAwesomeIcon icon={faAngleRight} />
-                  {"  "} FIFO Ageing Report
-                </div>
-              </Link>
-            </div>
-          ) : (
-            ""
-          )}
+          {(data || []).map((x) => {
+            return (
+              <>
+                <Link
+                  to={x.url}
+                  className={
+                    activeItem.includes(x.menuName) ? activeCss : simpleCss
+                  }
+                  onClick={() => {
+                    handleSetActiveItem(x.menuName);
+                    handleToggle(x.id);
+                    //setToggle(!isToggle);
+                  }}
+                >
+                  {" "}
+                  <div className="navtitle" key={x.id}>
+                    <FontAwesomeIcon
+                      icon={
+                        x.menuName == "Home"
+                          ? faHouse
+                          : x.menuName == "Admin"
+                          ? faUser
+                          : x.menuName == "Manage Password"
+                          ? faKey
+                          : faFile
+                      }
+                      className="MenuIcon"
+                    />{" "}
+                    <span>{x.menuName}</span>
+                  </div>
+                  <>
+                    {x.menuName != "Home" && ( //  x.subMenu.length != 0
+                      <FontAwesomeIcon
+                        icon={
+                          toggleStates[`item_${x.id}`]
+                            ? faAngleDown
+                            : faAngleRight
+                        }
+                        className="rside"
+                      />
+                    )}
+                  </>
+                </Link>
+                {toggleStates[`item_${x.id}`] ? (
+                  <div className="list-group list-group-light">
+                    {(x.subMenu || []).map((z) => {
+                      return x.menuName != "Home" && z.check ? (
+                        <>
+                          <Link
+                            to={z.url}
+                            className={
+                              activeItem == x.menuName + z.name
+                                ? amenucss
+                                : menucss
+                            }
+                            onClick={() =>
+                              handleSetActiveItem(x.menuName + z.name)
+                            }
+                          >
+                            <div className="menutitle">
+                              <FontAwesomeIcon icon={faAngleRight} />
+                              {"  "} {z.name}
+                            </div>
+                          </Link>
+                        </>
+                      ) : (
+                        ""
+                      );
+                    })}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </>
+            );
+          })}
         </div>
       </div>
     </nav>

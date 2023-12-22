@@ -83,6 +83,7 @@ const AddProfile = () => {
     {
       id: 1,
       menuName: "Home",
+      url: "/NHAI/Dashboard",
       subMenu: [
         { id: 1, name: "Snapshot", check: true, action: [] },
         { id: 2, name: "Financial", check: false, action: [] },
@@ -98,18 +99,17 @@ const AddProfile = () => {
         { id: 12, name: "Limit Ledger", check: true, action: [] },
         { id: 13, name: "Velocity", check: true, action: [] },
       ],
-      url: "/NHAI/Dashboard",
     },
     {
       id: 2,
       menuName: "Admin",
-      url: "",
+      url: "#",
       subMenu: [
         {
           id: 1,
           name: "User",
           url: "/NHAI/Users",
-          check: "",
+          check: false,
           action: [
             { id: 1, actionName: "List", check: true },
             { id: 2, actionName: "Modify", check: true },
@@ -122,6 +122,7 @@ const AddProfile = () => {
           id: 2,
           name: "User Profile",
           url: "/NHAI/Profiles",
+          check: false,
           action: [
             { id: 1, actionName: "List", check: true },
             { id: 2, actionName: "Modify", check: true },
@@ -134,6 +135,7 @@ const AddProfile = () => {
           id: 3,
           name: "User Group",
           url: "/NHAI/Groups",
+          check: false,
           action: [
             { id: 1, actionName: "List", check: true },
             { id: 2, actionName: "Modify", check: true },
@@ -146,6 +148,7 @@ const AddProfile = () => {
           id: 4,
           name: "Function Point",
           url: "/NHAI/FunctionPoint",
+          check: false,
           action: [
             { id: 1, actionName: "List", check: true },
             { id: 2, actionName: "Modify", check: true },
@@ -153,6 +156,84 @@ const AddProfile = () => {
             { id: 4, actionName: "View", check: false },
             { id: 5, actionName: "Delete", check: false },
           ],
+        },
+        {
+          id: 5,
+          name: "Assign Rights",
+          url: "/NHAI/AssignRights",
+          check: false,
+          action: [],
+        },
+        {
+          id: 6,
+          name: "Rule",
+          url: "/NHAI/Rule",
+          check: false,
+          action: [],
+        },
+        {
+          id: 7,
+          name: "File Upload",
+          url: "/NHAI/FileUpload",
+          check: false,
+          action: [],
+        },
+        {
+          id: 8,
+          name: "Mapping Master",
+          url: "/NHAI/MappingMaster",
+          check: false,
+          action: [],
+        },
+        {
+          id: 9,
+          name: "Job Execution Log",
+          url: "/NHAI/JobLog",
+          check: false,
+          action: [],
+        },
+      ],
+    },
+    {
+      id: 3,
+      menuName: "Manage Password",
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "Change Password",
+          url: "/NHAI/ChangePassword",
+          check: false,
+          action: [],
+        },
+      ],
+    },
+    {
+      id: 4,
+      menuName: "Reports",
+
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "User Login Report",
+          url: "/NHAI/UserLoginReport",
+          check: false,
+          action: [],
+        },
+        {
+          id: 2,
+          name: "User Active/Inactive",
+          url: "/NHAI/UserActiveInactiveReport",
+          check: false,
+          action: [],
+        },
+        {
+          id: 3,
+          name: "FIFO Ageing Report",
+          url: "/NHAI/FIFOAgeingReport",
+          check: false,
+          action: [],
         },
       ],
     },
