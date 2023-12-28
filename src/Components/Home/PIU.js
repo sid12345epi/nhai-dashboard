@@ -225,18 +225,6 @@ const PIU = () => {
                   setDateValue(E);
                 }}
               />{" "}
-              <label className="statusOn">Bank : </label>{" "}
-              <select
-                name="bank"
-                className="inputDate"
-                onChange={(e) => {
-                  setBank(e.target.value);
-                }}
-              >
-                <option value="All">All</option>
-                <option value="Kotak">Kotak</option>
-              </select>
-              {"  "}
               <label className="statusOn">Zone : </label>{" "}
               <select
                 name="zone"

@@ -195,7 +195,7 @@ const GroupCheckerDetails = () => {
                 <strong>Field Name</strong>
               </div>
               <div className="col-md-4 UDCoulmns submenuColor p-1">
-                <strong>Existing Value</strong>
+                <strong>Updated Value</strong>
               </div>
               <div className="col-md-4 UDCoulmns submenuColor p-1">
                 <strong>Old Value</strong>

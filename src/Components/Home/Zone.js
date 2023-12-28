@@ -790,20 +790,6 @@ const Zone = ({ setTab }) => {
                   setDateValue(E);
                 }}
               />{" "}
-              <label className="statusOn">Bank : </label>{" "}
-              <select
-                name="bank"
-                className="inputDate"
-                onChange={(e) => {
-                  setBank(e.target.value);
-                }}
-              >
-                <option value="All">All</option>
-                <option value="Kotak">Kotak</option>
-                <option value=""></option>
-                <option value=""></option>
-              </select>
-              {"  "}
             </div>
             <div className="float-end dashboardLabels">
               <button

@@ -150,14 +150,6 @@ const RO = () => {
                 // }}
                 defaultValue={currentDate}
               />{" "}
-              <label className="statusOn">Bank : </label>{" "}
-              <select name="bank" className="inputDate">
-                <option value="Kotak">Kotak</option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-              </select>
-              {"  "}
               <label className="statusOn">Zone : </label>{" "}
               <select name="zone" className="inputDate">
                 <option value="All">All</option>

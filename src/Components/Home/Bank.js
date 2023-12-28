@@ -149,33 +149,6 @@ const Bank = () => {
           </div>
         </div>
       </div>
-      {/* <div className="row">
-        <div className="col-lg-4 col-md-4 mb-4 mt-4">
-        <div className="statusOn">Balance %</div>     
-         <div className='card chartBg'>
-          <div className="card-body p-0">
-          
-            <PieChart data ={chartData} chartid = "balance" />
-          </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-4 mb-4 mt-4">
-        <div classname="statusOn">No. of Account %</div>
-          <div className='card chartBg'>            
-              <div className="card-body p-0">
-               <PieChart data ={chartData} chartid = "account" />
-              </div>
-            </div>
-          </div>
-        <div className="col-lg-4 col-md-4 mb-4 mt-4">
-        <div classname="statusOn">Allocated Limit. %</div>
-          <div className='card chartBg'>            
-              <div className="card-body p-0">
-                <PieChart data ={chartData} chartid = "allocated" />
-              </div>
-          </div>
-        </div>       
-      </div> */}
     </div>
   );
 };

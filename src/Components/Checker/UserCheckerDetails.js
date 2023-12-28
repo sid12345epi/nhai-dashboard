@@ -228,24 +228,14 @@ const UserCheckerDetails = () => {
               <div className="col-md-6 UDCoulmns">{user.fullName}</div>
 
               <div className="col-md-6 UDCoulmns">
-                <strong>User Type:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.userType}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>User Domain Name:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.domainName}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>Gender:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.gender}</div>
-
-              <div className="col-md-6 UDCoulmns">
                 <strong>Mobile Number:</strong>
               </div>
               <div className="col-md-6 UDCoulmns">{user.mobileNumber}</div>
+
+              <div className="col-md-6 UDCoulmns">
+                <strong>EMail:</strong>
+              </div>
+              <div className="col-md-6 UDCoulmns">{user.email}</div>
 
               <div className="col-md-6 UDCoulmns">
                 <strong>Created Date:</strong>
@@ -268,15 +258,6 @@ const UserCheckerDetails = () => {
               <div className="col-md-6 UDCoulmns">{user.userRole}</div>
 
               <div className="col-md-6 UDCoulmns">
-                <strong>EMail:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.email}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>Work Phone:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.workNo}</div>
-              <div className="col-md-6 UDCoulmns">
                 <strong>Created By:</strong>
               </div>
               <div className="col-md-6 UDCoulmns">{user.createdBy}</div>
@@ -289,7 +270,7 @@ const UserCheckerDetails = () => {
                 <strong>Field Name</strong>
               </div>
               <div className="col-md-4 UDCoulmns submenuColor p-1">
-                <strong>Existing Value</strong>
+                <strong>Updated Value</strong>
               </div>
               <div className="col-md-4 UDCoulmns submenuColor p-1">
                 <strong>Old Value</strong>
@@ -299,58 +280,13 @@ const UserCheckerDetails = () => {
               </div>
               <div className="col-md-4 UDCoulmns">{user.fullName}</div>
               <div className="col-md-4 UDCoulmns">{user.fullName}</div>
-              <div className="col-md-4 UDCoulmns">
-                <strong>User Type:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.userType}</div>
-              <div className="col-md-4 UDCoulmns">{user.userType}</div>
-              <div className="col-md-4 UDCoulmns">
-                <strong>User Domain Name:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.domainName}</div>
-              <div className="col-md-4 UDCoulmns">{user.domainName}</div>
-              <div className="col-md-4 UDCoulmns">
-                <strong>Gender:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.gender}</div>
-              <div className="col-md-4 UDCoulmns">{user.gender}</div>
+
               <div className="col-md-4 UDCoulmns">
                 <strong>Mobile No:</strong>
               </div>
               <div className="col-md-4 UDCoulmns">{user.mobileNumber}</div>
               <div className="col-md-4 UDCoulmns">{user.mobileNumber}</div>
             </div>
-            {/* <div className="col-md-6 mx-auto">
-              <div className="col-md-6 UDCoulmns">
-                <strong>User Full Name:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.fullName}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>User Type:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.userType}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>User Domain Name:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.domainName}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>Gender:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.gender}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>Mobile Number:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.mobileNumber}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>Created Date:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.createdDate}</div>
-            </div> */}
           </div>
         )}
 

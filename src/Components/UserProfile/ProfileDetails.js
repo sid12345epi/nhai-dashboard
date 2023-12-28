@@ -44,7 +44,165 @@ function UserDetails() {
       createdDate: "2023-08-07",
     },
   ];
+  const data = [
+    {
+      id: 1,
+      menuName: "Home",
+      url: "/NHAI/Dashboard",
+      subMenu: [
+        { id: 1, name: "Snapshot", check: true, action: [] },
+        { id: 2, name: "Financial", check: false, action: [] },
+        { id: 3, name: "Financial(D)", check: false, action: [] },
+        { id: 4, name: "Bank", check: true, action: [] },
+        { id: 5, name: "Zone", check: true, action: [] },
+        { id: 6, name: "RO", check: true, action: [] },
+        { id: 7, name: "PIU", check: true, action: [] },
+        { id: 8, name: "Account Level", check: true, action: [] },
+        { id: 9, name: "Transaction", check: true, action: [] },
+        { id: 10, name: "Ageing", check: true, action: [] },
+        { id: 11, name: "Events", check: true, action: [] },
+        { id: 12, name: "Limit Ledger", check: true, action: [] },
+        { id: 13, name: "Velocity", check: true, action: [] },
+      ],
+    },
+    {
+      id: 2,
+      menuName: "Admin",
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "User",
+          url: "/NHAI/Users",
+          check: false,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 2,
+          name: "User Profile",
+          url: "/NHAI/Profiles",
+          check: false,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 3,
+          name: "User Group",
+          url: "/NHAI/Groups",
+          check: false,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 4,
+          name: "Function Point",
+          url: "/NHAI/FunctionPoint",
+          check: false,
+          action: [
+            { id: 1, actionName: "List", check: true },
+            { id: 2, actionName: "Modify", check: true },
+            { id: 3, actionName: "Add", check: false },
+            { id: 4, actionName: "View", check: false },
+            { id: 5, actionName: "Delete", check: false },
+          ],
+        },
+        {
+          id: 5,
+          name: "Assign Rights",
+          url: "/NHAI/AssignRights",
+          check: false,
+          action: [],
+        },
+        {
+          id: 6,
+          name: "Rule",
+          url: "/NHAI/Rule",
+          check: false,
+          action: [],
+        },
+        {
+          id: 7,
+          name: "File Upload",
+          url: "/NHAI/FileUpload",
+          check: false,
+          action: [],
+        },
+        {
+          id: 8,
+          name: "Mapping Master",
+          url: "/NHAI/MappingMaster",
+          check: false,
+          action: [],
+        },
+        {
+          id: 9,
+          name: "Job Execution Log",
+          url: "/NHAI/JobLog",
+          check: false,
+          action: [],
+        },
+      ],
+    },
+    {
+      id: 3,
+      menuName: "Manage Password",
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "Change Password",
+          url: "/NHAI/ChangePassword",
+          check: false,
+          action: [],
+        },
+      ],
+    },
+    {
+      id: 4,
+      menuName: "Reports",
 
+      url: "#",
+      subMenu: [
+        {
+          id: 1,
+          name: "User Login Report",
+          url: "/NHAI/UserLoginReport",
+          check: false,
+          action: [],
+        },
+        {
+          id: 2,
+          name: "User Active/Inactive",
+          url: "/NHAI/UserActiveInactiveReport",
+          check: false,
+          action: [],
+        },
+        {
+          id: 3,
+          name: "FIFO Ageing Report",
+          url: "/NHAI/FIFOAgeingReport",
+          check: false,
+          action: [],
+        },
+      ],
+    },
+  ];
   const profile = profiles.find((u) => u.id.toString() === userId);
 
   const path = window.location.pathname;
@@ -111,6 +269,88 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">{profile.createdDate}</div>
           </div>
         </div>
+
+        {/* -----------------Profile Mapping--------------------------------------------------------- */}
+        <div className="row ">
+          {/* border border-dark rounded-2 m-2 */}
+          {/* ---------------------Title------------------------------------------------------------- */}
+          {/* <div className="row "> */}
+          <div className="col-md-12">
+            <h2 className="mb-3 mt-3 pageTitle">Profile Mapping</h2>
+          </div>
+          {/* </div> */}
+          {/* -------------------------------------------------------------------------------------- */}
+          <div className="col-md-11 mx-5 flex p-4">
+            {(data || []).map((m, mindex) => {
+              return (
+                <div className="row p-1" key={m.id}>
+                  <div className="row menuColor">
+                    <div className="col ">{m.menuName}</div>
+                  </div>
+                  {(m.subMenu || []).map((s, sindex) => {
+                    return (
+                      <>
+                        <div className="row p-1">
+                          <div className="col-4 submenuColor"></div>
+                          <div className="col-4 submenuColor ">{s.name}</div>
+                          <div className="col-3 submenuColor"></div>
+                          {s.action.length == 0 ? (
+                            <div className="col-1 submenuColor" key={s.id}>
+                              {" "}
+                              <input
+                                readOnly
+                                className="form-check-input"
+                                type="checkbox"
+                                id="submenu"
+                                checked={s.check}
+                                //checked={s.check || isAllCheck}
+
+                                onClick={(e) => {
+                                  console.log("Submenu -> ", s);
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              className="col-1 submenuColor"
+                              key={s.id}
+                            ></div>
+                          )}
+                        </div>
+                        {(s.action || []).map((a, aindex) => {
+                          return (
+                            <div className="row p-1" key={a.id}>
+                              <div className="col-4 submenuColor"></div>
+                              <div className="col-4 submenuColor"></div>
+                              <div className="col-3  submenuColor">
+                                {a.actionName}
+                              </div>
+                              <div className="col-1 submenuColor" key={a.id}>
+                                {" "}
+                                <input
+                                  readOnly
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  id="submenu"
+                                  checked={a.check}
+                                  //  checked={a.check || isAllCheck}
+                                  onClick={(e) => {
+                                    console.log("Action -> ", s, a);
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {/* -------------------------------------------------------------------------------------------------------------- */}
         <div className="row">
           <div className="addUserBtnDiv col-md-10 text-end mt-3">
             <button

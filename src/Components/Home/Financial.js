@@ -260,12 +260,6 @@ const Financial = () => {
                 type="date"
                 // Add any necessary attributes or event handlers here
               />{" "}
-              <label className="statusOn">Bank : </label>
-              <select id="bankDropdown" className="selectBoxDashbord">
-                <option value="All">All</option>
-                <option value="Kotak">Kotak</option>
-                {/* Add other bank options here */}
-              </select>{" "}
             </div>
             <div className="float-end dashboardLabels">
               <button

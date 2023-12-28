@@ -7,22 +7,16 @@ import Dashboard from "./Components/Home/Dashboard";
 import ProfileList from "./Components/UserProfile/ProfileList";
 import ProfileDetails from "./Components/UserProfile/ProfileDetails";
 import GroupList from "./Components/UserGroup/GroupList";
-import Registration from "./Components/Login/Registration";
 import Logout from "./Components/Login/Logout";
 import AddUser from "./Components/User/AddUser";
 import ChangePassword from "./Components/ManagePassword/ChangePassword";
-
 import Hyperlink from "./Components/Home/Hyperlink";
 import UserLoginReport from "./Components/Reports/userLoginReport";
 import UserActiveInactiveReport from "./Components/Reports/userActiveInactiveReport";
 import FifoAgeingReport from "./Components/Reports/fifoAgeingReport";
-
 import AddProfile from "./Components/UserProfile/AddProfile";
 import AddGroup from "./Components/UserGroup/AddGroup";
 import GroupDetails from "./Components/UserGroup/GroupDetails";
-import FunctionPointList from "./Components/FunctionPoint/FunctionPointList";
-import AddFunctionPoint from "./Components/FunctionPoint/AddFunctionPoint";
-import FunctionPointDetails from "./Components/FunctionPoint/FunctionPointDetails";
 import MappingMaster from "./Components/Admin/MappingMaster";
 import JobExecutionLog from "./Components/Admin/JobExecutionLog";
 import UserCheckerList from "./Components/Checker/UserCheckerList";
@@ -129,27 +123,7 @@ const Routers = () => {
         path="/NHAI/groupDeleteRequestDetails/:userId"
         element={<GroupCheckerDetails />}
       ></Route>
-      {/* ------------Function Point-------------------------------------------------------- */}
-      {/* <Route
-        path="/NHAI/FunctionPoints"
-        element={<FunctionPointList />}
-      ></Route>
-      <Route
-        path="/NHAI/AddFunctionPoint"
-        element={<AddFunctionPoint />}
-      ></Route>
-      <Route
-        path="/NHAI/EditFunctionPoint/:userId"
-        element={<AddFunctionPoint />}
-      ></Route>
-      <Route
-        path="/NHAI/FunctionPointDetails/:userId"
-        element={<FunctionPointDetails />}
-      ></Route>
-      <Route
-        path="/NHAI/DeleteFunctionPoint/:userId"
-        element={<FunctionPointDetails />}
-      ></Route> */}
+
       {/* -------------------------------------------------------------------------------------- */}
       <Route path="/NHAI/FileUpload" element={<FileUpload />}></Route>
     </Routes>

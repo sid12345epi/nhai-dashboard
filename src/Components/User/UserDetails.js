@@ -152,24 +152,14 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">{user.fullName}</div>
 
             <div className="col-md-6 UDCoulmns">
-              <strong>User Type:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.userType}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>User Domain Name:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.domainName}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>Gender:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.gender}</div>
-
-            <div className="col-md-6 UDCoulmns">
               <strong>Mobile Number:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">{user.mobileNumber}</div>
+
+            <div className="col-md-6 UDCoulmns">
+              <strong>EMail:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{user.email}</div>
 
             <div className="col-md-6 UDCoulmns">
               <strong>Is Active:</strong>
@@ -207,15 +197,6 @@ function UserDetails() {
             </div>
             <div className="col-md-6 UDCoulmns">{user.userRole}</div>
 
-            <div className="col-md-6 UDCoulmns">
-              <strong>EMail:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.email}</div>
-
-            <div className="col-md-6 UDCoulmns">
-              <strong>Work Phone:</strong>
-            </div>
-            <div className="col-md-6 UDCoulmns">{user.workNo}</div>
             <div className="col-md-6 UDCoulmns">
               <strong>Created By:</strong>
             </div>

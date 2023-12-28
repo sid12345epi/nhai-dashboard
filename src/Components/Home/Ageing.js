@@ -374,19 +374,6 @@ const Ageing = () => {
           <div className="p-1">
             {/* <label className="float-start pageTitle">Ageing</label> */}
             <div className="float-start dashboardLabels">
-              <label className="statusOn">Bank : </label>{" "}
-              <select
-                name="bank"
-                className="inputDate"
-                onChange={(e) => {
-                  setBank(e.target.value);
-                }}
-              >
-                <option value="Kotak">Kotak</option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-              </select>
               {"  "}
               <label className="statusOn">Zone : </label>{" "}
               <select

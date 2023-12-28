@@ -321,7 +321,7 @@ const FinanacialD = () => {
                   setToDate(E);
                 }}
               />{" "}
-              <label className="statusOn">Bank : </label>{" "}
+              {/* <label className="statusOn">Bank : </label>{" "}
               <select
                 name="bank"
                 className="inputDate"
@@ -333,7 +333,7 @@ const FinanacialD = () => {
                 <option value=""></option>
                 <option value=""></option>
                 <option value=""></option>
-              </select>
+              </select> */}
               {"  "}
             </div>
             <div className="float-end dashboardLabels">

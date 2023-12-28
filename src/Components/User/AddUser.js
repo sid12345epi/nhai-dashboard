@@ -98,16 +98,15 @@ const AddUser = () => {
   const navigate = useNavigate();
   const validationSchema = Yup.object({
     userName: Yup.string().required("User Name is required"),
-    userType: Yup.string().required("User Type is required"),
+    // userType: Yup.string().required("User Type is required"),
     employeeNumber: Yup.string().required("Employee Number is required"),
-    gender: Yup.string().required("Gender is required"),
-    password: Yup.string().required("Password is required"),
+    // gender: Yup.string().required("Gender is required"),
+    // password: Yup.string().required("Password is required"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-
-    userDomainName: Yup.string("User Domain Name is invalid"),
-    workPhone: Yup.string("Work Phone is invalid"),
+    // userDomainName: Yup.string("User Domain Name is invalid"),
+    // workPhone: Yup.string("Work Phone is invalid"),
     userId: Yup.string("User ID is invalid"),
     role: Yup.string("Role is invalid"),
     mobile: Yup.string("Mobile Number is invalid"),
@@ -128,16 +127,11 @@ const AddUser = () => {
               <Formik
                 initialValues={{
                   userName: user ? user.fullName : "",
-                  userType: user ? user.userType : "",
-                  userDomainName: user ? user.domainName : "",
-                  gender: user ? user.gender : "",
                   email: user ? user.email : "",
-                  workPhone: user ? user.workNo : "",
                   userId: user ? user.userId : "",
                   employeeNumber: user ? user.employeeNumber : "",
                   role: user ? user.userRole : "",
                   mobile: user ? user.mobileNumber : "",
-                  password: user ? user.password : "",
                   isActive: user ? user.isActive : "",
                 }}
                 validationSchema={validationSchema}
@@ -170,78 +164,7 @@ const AddUser = () => {
                             className="error"
                           />
                         </div>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="userType"
-                            className="form-label required"
-                          >
-                            User Type
-                          </label>
-                          <Field
-                            as="select"
-                            className="form-control form-select"
-                            id="userType"
-                            name="userType"
-                          >
-                            <option value="" className="greyText">
-                              Select user type
-                            </option>
-                            <option value="NHAI">NHAI</option>
-                            <option value="BANK">BANK</option>
-                            <option value="PD">PD</option>
-                            <option value="RO">RO</option>
-                          </Field>
-                          <ErrorMessage
-                            name="userType"
-                            component="div"
-                            className="error"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="userDomainName"
-                            className="form-label"
-                          >
-                            User Domain Name
-                          </label>
-                          <Field
-                            type="text"
-                            className="form-control"
-                            id="userDomainName"
-                            name="userDomainName"
-                            placeholder="Enter user domain name"
-                          />
-                          <ErrorMessage
-                            name="userDomainName"
-                            component="div"
-                            className="error"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="gender"
-                            className="form-label required"
-                          >
-                            Gender
-                          </label>
-                          <Field
-                            as="select"
-                            className="form-control form-select required"
-                            id="gender"
-                            name="gender"
-                          >
-                            <option value="" className="greyText">
-                              Select gender
-                            </option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                          </Field>
-                          <ErrorMessage
-                            name="gender"
-                            component="div"
-                            className="error"
-                          />
-                        </div>
+
                         <div className="mb-3">
                           <label
                             htmlFor="email"
@@ -258,6 +181,23 @@ const AddUser = () => {
                           />
                           <ErrorMessage
                             name="email"
+                            component="div"
+                            className="error"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label htmlFor="mobile" className="form-label">
+                            Mobile Number
+                          </label>
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="mobile"
+                            name="mobile"
+                            placeholder="Enter mobile no."
+                          />
+                          <ErrorMessage
+                            name="mobile"
                             component="div"
                             className="error"
                           />
@@ -337,41 +277,6 @@ const AddUser = () => {
                           </Field>
                           <ErrorMessage
                             name="role"
-                            component="div"
-                            className="error"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="mobile" className="form-label">
-                            Mobile Number
-                          </label>
-                          <Field
-                            type="text"
-                            className="form-control"
-                            id="mobile"
-                            name="mobile"
-                            placeholder="Enter mobile no."
-                          />
-                          <ErrorMessage
-                            name="mobile"
-                            component="div"
-                            className="error"
-                          />
-                        </div>
-
-                        <div className="mb-3">
-                          <label htmlFor="workPhone" className="form-label">
-                            Work Phone
-                          </label>
-                          <Field
-                            type="text"
-                            className="form-control"
-                            id="workPhone"
-                            name="workPhone"
-                            placeholder="Enter work phone"
-                          />
-                          <ErrorMessage
-                            name="workPhone"
                             component="div"
                             className="error"
                           />

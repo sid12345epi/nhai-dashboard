@@ -278,20 +278,7 @@ const LimitLedger = () => {
           </div>
         </div>
         <div className="col">
-          <div className="float-end">
-            <label className="statusOn">Bank :</label>{" "}
-            <select
-              name="bank"
-              className="inputDate"
-              onChange={(e) => {
-                setBank(e.target.value);
-              }}
-            >
-              <option value="All">All</option>
-              <option value="Kotak">Kotak</option>
-            </select>
-            {"  "}
-          </div>
+          <div className="float-end">{"  "}</div>
         </div>
         <div className="col">
           {" "}
