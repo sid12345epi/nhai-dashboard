@@ -96,16 +96,10 @@ const Sidebar = () => {
         },
         {
           id: 4,
-          name: "Function Point",
-          url: "/NHAI/FunctionPoints",
-          check: false,
-          action: [
-            { id: 1, actionName: "List", check: true },
-            { id: 2, actionName: "Modify", check: true },
-            { id: 3, actionName: "Add", check: false },
-            { id: 4, actionName: "View", check: false },
-            { id: 5, actionName: "Delete", check: false },
-          ],
+          name: "Menu Management",
+          url: "/NHAI/MenuManagement",
+          check: true,
+          action: [],
         },
         {
           id: 5,
