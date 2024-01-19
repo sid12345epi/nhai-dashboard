@@ -27,6 +27,10 @@ import GroupCheckerList from "./Components/Checker/GroupCheckerList";
 import GroupCheckerDetails from "./Components/Checker/GroupCheckerDetails";
 import FileUpload from "./Components/Admin/FileUpload";
 import MenuManagement from "./Components/Admin/MenuManagement";
+import MenuManagementCheckerList from "./Components/Checker/MenuManagementCheckerList";
+import MenuManagementCheckerDetails from "./Components/Checker/MenuManagementCheckerDetails";
+import MappingMasterCheckerList from "./Components/Checker/MappingMasterCheckerList";
+import MappingMasterCheckerDetails from "./Components/Checker/MappingMasterCheckerDetails";
 
 const Routers = () => {
   return (
@@ -78,6 +82,14 @@ const Routers = () => {
         element={<FifoAgeingReport />}
       ></Route>
       <Route path="/NHAI/MappingMaster" element={<MappingMaster />}></Route>
+      <Route
+        path="/NHAI/MappingMasterRequests"
+        element={<MappingMasterCheckerList />}
+      ></Route>
+      <Route
+        path="/NHAI/MappingMasterDetails/:userId"
+        element={<MappingMasterCheckerDetails />}
+      ></Route>
       <Route path="/NHAI/JobExecutionLog" element={<JobExecutionLog />}></Route>
       {/* ------------Checker Screen---------------------------------------------------- */}
       <Route path="/NHAI/UserRequests" element={<UserCheckerList />}></Route>
@@ -128,6 +140,22 @@ const Routers = () => {
       {/* -------------------------------------------------------------------------------------- */}
       <Route path="/NHAI/FileUpload" element={<FileUpload />}></Route>
       <Route path="/NHAI/MenuManagement" element={<MenuManagement />}></Route>
+      <Route
+        path="/NHAI/MenuManagementRequests"
+        element={<MenuManagementCheckerList />}
+      ></Route>
+      <Route
+        path="/NHAI/MenuRequestDetails/:type"
+        element={<MenuManagementCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/SubmenuRequestDetails/:type"
+        element={<MenuManagementCheckerDetails />}
+      ></Route>
+      <Route
+        path="/NHAI/ActionRequestDetails/:type"
+        element={<MenuManagementCheckerDetails />}
+      ></Route>
     </Routes>
   );
 };

@@ -62,6 +62,7 @@
 .menutitle {
   float: left !important;
   margin-left: 30px !important;
+  text-align: left !important;
 }
 nav#sidebarMenu {
   height: 100vh;

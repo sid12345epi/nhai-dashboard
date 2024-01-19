@@ -7,112 +7,31 @@ const UserCheckerList = () => {
   const data = [
     {
       id: 1,
-      requestName: "Add John Doe",
-      requestId: "JD001",
+      requestName: "Add Ajay Dilip Sharma",
+      requestId: "RQ1001",
       requestDetails: "Add user in appilication",
       requestType: "Add",
-    },
-    {
-      id: 2,
-      requestName: "Add Jane Smith",
-      requestId: "JS002",
-      requestDetails: "Add user in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 3,
-      requestName: "Add Bob Johnson",
-      requestId: "BJ003",
-      requestDetails: "Add user in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 4,
-      requestName: "Add Alice Brown",
-      requestId: "AB004",
-      requestDetails: "Add user in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 5,
-      requestName: "Add Eve Anderson",
-      requestId: "EA005",
-      requestDetails: "Add user in appilication",
-      requestType: "Add",
+      requestRaisedBy: "Admin",
     },
   ];
   const updatedData = [
     {
-      id: 1,
-      requestName: "Update John Doe",
-      requestId: "JD001",
-      requestDetails: "Update user in appilication",
-      requestType: "Update",
-    },
-    {
       id: 2,
-      requestName: "Update Jane Smith",
-      requestId: "JS002",
+      requestName: "Update Mandar Sutar",
+      requestId: "RQ1002",
       requestDetails: "Update user in appilication",
       requestType: "Update",
-    },
-    {
-      id: 3,
-      requestName: "Update Bob Johnson",
-      requestId: "BJ003",
-      requestDetails: "Update user in appilication",
-      requestType: "Update",
-    },
-    {
-      id: 4,
-      requestName: "Update Alice Brown",
-      requestId: "AB004",
-      requestDetails: "Update user in appilication",
-      requestType: "Update",
-    },
-    {
-      id: 5,
-      requestName: "Update Eve Anderson",
-      requestId: "EA005",
-      requestDetails: "Update user in appilication",
-      requestType: "Update",
+      requestRaisedBy: "Admin",
     },
   ];
   const DeletedData = [
     {
-      id: 1,
-      requestName: "Delete John Doe",
-      requestId: "JD001",
-      requestDetails: "Delete user in appilication",
-      requestType: "Delete",
-    },
-    {
-      id: 2,
-      requestName: "Delete Jane Smith",
-      requestId: "JS002",
-      requestDetails: "Delete user in appilication",
-      requestType: "Delete",
-    },
-    {
       id: 3,
-      requestName: "Delete Bob Johnson",
-      requestId: "BJ003",
+      requestName: "Delete Sumit Kadam",
+      requestId: "RQ1003",
       requestDetails: "Delete user in appilication",
       requestType: "Delete",
-    },
-    {
-      id: 4,
-      requestName: "Delete Alice Brown",
-      requestId: "AB004",
-      requestDetails: "Delete user in appilication",
-      requestType: "Delete",
-    },
-    {
-      id: 5,
-      requestName: "Delete Eve Anderson",
-      requestId: "EA005",
-      requestDetails: "Delete user in appilication",
-      requestType: "Delete",
+      requestRaisedBy: "Admin",
     },
   ];
   const [rows, setRows] = useState(data);
@@ -122,12 +41,12 @@ const UserCheckerList = () => {
       accessor: "requestId",
     },
     {
-      Header: <div className="float-center">Request Name</div>,
-      accessor: "requestName",
+      Header: <div className="float-center">Request Type</div>,
+      accessor: "requestType",
     },
     {
-      Header: <div className="float-center">Request Details</div>,
-      accessor: "requestDetails",
+      Header: <div className="float-center">Request Raised By</div>,
+      accessor: "requestRaisedBy",
     },
     // { Header: <div className="float-center">Role</div>, accessor: "role" },
     {
@@ -139,7 +58,7 @@ const UserCheckerList = () => {
             className="btn addUser dashbutton"
             type="button"
             onClick={() => {
-              navigate(`/NHAI/${action}/${row.id}`);
+              navigate(`/NHAI/${action}/${row.values.id}`);
             }}
           >
             Details

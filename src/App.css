@@ -149,6 +149,7 @@ svg.svg-inline--fa {
   font-size: 16px;
   color: #ffffff;
   margin-right: 5px;
+  cursor: pointer;
 }
 .wrapper {
   /* margin-left: 200px; */
@@ -289,6 +290,19 @@ body {
   /* padding: 12px !important; */
   min-width: 120px;
   border-radius: 4px !important;
+}
+
+.smallBtn {
+  border-color: #ff0000 !important;
+  color: #ffffff !important;
+  background-color: #ee1c25 !important;
+  border-radius: 4px !important;
+  min-width: 50px;
+}
+
+.button-container {
+  display: flex; /* Use flexbox to arrange items in a row */
+  justify-content: space-between; /* Space between the buttons */
 }
 
 /* .addUser:hover {
@@ -607,4 +621,75 @@ th {
 .checkerAction {
   margin-left: 5px;
   margin-right: 20px;
+}
+.accordion-button:not(.collapsed) {
+  background-color: white !important;
+}
+.accordion-button:focus {
+  border-color: black !important;
+}
+/* ----------------------Loader------------------------------------------------- */
+
+/* Spinner.css */
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(245, 243, 242, 0.7); /* Semi-transparent background */
+  backdrop-filter: blur(4px); /* Adjust the blur amount as needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Place the overlay above other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-container {
+  position: relative; /* Use relative position for the spinner container */
+}
+
+.spinner {
+  width: 8vmax;
+  height: 8vmax;
+  border-right: 4px solid #0f0601;
+  border-radius: 100%;
+  animation: spinRight 800ms linear infinite;
+  position: absolute; /* Use absolute position for the spinner */
+}
+
+.spinner:before,
+.spinner:after {
+  content: "";
+  width: 6vmax;
+  height: 6vmax;
+  display: block;
+  position: absolute;
+  top: calc(50% - 3vmax);
+  left: calc(50% - 3vmax);
+  border-left: 3px solid #0f0601;
+  border-radius: 100%;
+  animation: spinLeft 800ms linear infinite;
+}
+
+@keyframes spinLeft {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes spinRight {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.logoutBtn {
+  margin-top: 20px;
 }

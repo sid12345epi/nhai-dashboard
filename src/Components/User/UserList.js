@@ -3,211 +3,19 @@ import DataTable from "../HtmlComponents/DataTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
-
+import TablesDataChecker from "../Checker/fieldData";
+import sideBarDataChecker from "../Checker/sideBarData";
 const UserList = () => {
   const navigate = useNavigate();
   const [is, setIs] = useState(false);
-
-  const data = [
-    {
-      id: 1,
-      fullName: "John Doe",
-      userId: "JD001",
-      userType: "Admin",
-      role: "Admin",
-      isActive: true,
-    },
-    {
-      id: 2,
-      fullName: "Jane Smith",
-      userId: "JS002",
-      userType: "User",
-      role: "Member",
-      isActive: true,
-    },
-    {
-      id: 3,
-      fullName: "Bob Johnson",
-      userId: "BJ003",
-      userType: "User",
-      role: "Member",
-      isActive: true,
-    },
-    {
-      id: 4,
-      fullName: "Alice Brown",
-      userId: "AB004",
-      userType: "User",
-      role: "Member",
-      isActive: false,
-    },
-    {
-      id: 5,
-      fullName: "Eve Anderson",
-      userId: "EA005",
-      userType: "User",
-      role: "Guest",
-      isActive: false,
-    },
-  ];
-  const sidebarMockData = [
-    {
-      id: 1,
-      menuName: "Home",
-      url: "/NHAI/Dashboard",
-      subMenu: [
-        { id: 1, name: "Snapshot", check: true, action: [] },
-        { id: 2, name: "Financial", check: false, action: [] },
-        { id: 3, name: "Financial(D)", check: false, action: [] },
-        { id: 4, name: "Bank", check: true, action: [] },
-        { id: 5, name: "Zone", check: true, action: [] },
-        { id: 6, name: "RO", check: true, action: [] },
-        { id: 7, name: "PIU", check: true, action: [] },
-        { id: 8, name: "Account Level", check: true, action: [] },
-        { id: 9, name: "Transaction", check: true, action: [] },
-        { id: 10, name: "Ageing", check: true, action: [] },
-        { id: 11, name: "Events", check: true, action: [] },
-        { id: 12, name: "Limit Ledger", check: true, action: [] },
-        { id: 13, name: "Velocity", check: true, action: [] },
-      ],
-    },
-    {
-      id: 2,
-      menuName: "Admin",
-      url: "#",
-      subMenu: [
-        {
-          id: 1,
-          name: "User",
-          url: "/NHAI/Users",
-          check: true,
-          action: [
-            { id: 1, actionName: "List", check: true },
-            { id: 2, actionName: "Modify", check: true },
-            { id: 3, actionName: "Add", check: true },
-            { id: 4, actionName: "View", check: false },
-            { id: 5, actionName: "Delete", check: false },
-          ],
-        },
-        {
-          id: 2,
-          name: "User Profile",
-          url: "/NHAI/Profiles",
-          check: true,
-          action: [
-            { id: 1, actionName: "List", check: true },
-            { id: 2, actionName: "Modify", check: true },
-            { id: 3, actionName: "Add", check: false },
-            { id: 4, actionName: "View", check: false },
-            { id: 5, actionName: "Delete", check: false },
-          ],
-        },
-        {
-          id: 3,
-          name: "User Group",
-          url: "/NHAI/Groups",
-          check: true,
-          action: [
-            { id: 1, actionName: "List", check: true },
-            { id: 2, actionName: "Modify", check: true },
-            { id: 3, actionName: "Add", check: false },
-            { id: 4, actionName: "View", check: false },
-            { id: 5, actionName: "Delete", check: false },
-          ],
-        },
-        {
-          id: 4,
-          name: "Function Point",
-          url: "/NHAI/FunctionPoints",
-          check: false,
-          action: [
-            { id: 1, actionName: "List", check: true },
-            { id: 2, actionName: "Modify", check: true },
-            { id: 3, actionName: "Add", check: false },
-            { id: 4, actionName: "View", check: false },
-            { id: 5, actionName: "Delete", check: false },
-          ],
-        },
-        {
-          id: 5,
-          name: "Assign Rights",
-          url: "/NHAI/AssignRights",
-          check: false,
-          action: [],
-        },
-        {
-          id: 6,
-          name: "Rule",
-          url: "/NHAI/Rule",
-          check: false,
-          action: [],
-        },
-        {
-          id: 7,
-          name: "File Upload",
-          url: "/NHAI/FileUpload",
-          check: true,
-          action: [],
-        },
-        {
-          id: 8,
-          name: "Mapping Master",
-          url: "/NHAI/MappingMaster",
-          check: true,
-          action: [],
-        },
-        {
-          id: 9,
-          name: "Job Execution Log",
-          url: "/NHAI/JobExecutionLog",
-          check: true,
-          action: [],
-        },
-      ],
-    },
-    {
-      id: 3,
-      menuName: "Manage Password",
-      url: "#",
-      subMenu: [
-        {
-          id: 1,
-          name: "Change Password",
-          url: "/NHAI/ChangePassword",
-          check: true,
-          action: [],
-        },
-      ],
-    },
-    {
-      id: 4,
-      menuName: "Reports",
-      url: "#",
-      subMenu: [
-        {
-          id: 1,
-          name: "User Login Report",
-          url: "/NHAI/UserLoginReport",
-          check: true,
-          action: [],
-        },
-        {
-          id: 2,
-          name: "User Active/Inactive",
-          url: "/NHAI/UserActiveInactiveReport",
-          check: true,
-          action: [],
-        },
-        {
-          id: 3,
-          name: "FIFO Ageing Report",
-          url: "/NHAI/FIFOAgeingReport",
-          check: true,
-          action: [],
-        },
-      ],
-    },
-  ];
+  //User Data
+  var jsonData = TablesDataChecker.find((item) => item.type === "User_list");
+  const data = jsonData.data;
+  //Side bar Data
+  var sidejsonData = sideBarDataChecker.find(
+    (item) => item.type === "menuData"
+  );
+  const sidebarMockData = sidejsonData.data;
 
   const isAddUser =
     (sidebarMockData || []).find((x) => {
@@ -247,6 +55,9 @@ const UserList = () => {
     {
       Header: "Action",
       accessor: "id",
+      Cell: ({ row }) => {
+        return row.values.id;
+      },
     },
   ];
 
@@ -255,7 +66,7 @@ const UserList = () => {
   }
 
   const HandleAddUser = () => {
-    navigate("../NHAI/AddUser");
+    navigate("/NHAI/AddUser");
   };
 
   return (

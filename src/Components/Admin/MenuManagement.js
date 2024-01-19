@@ -5,7 +5,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faEdit,
+  faTrash,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuid } from "uuid";
 
 const MenuManagement = () => {
@@ -21,6 +26,7 @@ const MenuManagement = () => {
   const [selectedSubmenuId, setSelectedSubmenuId] = useState("");
   const [selectedActionList, setSelectedActionList] = useState([]);
   const [selectedAction, setSelectedAction] = useState("");
+  const [selectedActionObject, setSelectedActionObject] = useState([]);
   const [selectedActionId, setSelectedActionId] = useState("");
   //------------------------------------------------------------
   const [name, setName] = useState("");
@@ -46,13 +52,25 @@ const MenuManagement = () => {
   };
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
   function openModal() {
     setIsOpen(true);
   }
-
   function closeModal() {
     setIsOpen(false);
+  }
+  const [editmodalIsOpen, setIsEditOpen] = React.useState(false);
+  function openEditModal() {
+    setIsEditOpen(true);
+  }
+  function closeEditModal() {
+    setIsEditOpen(false);
+  }
+  const [deletemodalIsOpen, setIsDeleteOpen] = React.useState(false);
+  function openDeleteModal() {
+    setIsDeleteOpen(true);
+  }
+  function closeDeleteModal() {
+    setIsDeleteOpen(false);
   }
   const menuData = [
     {
@@ -207,7 +225,7 @@ const MenuManagement = () => {
     },
   ];
   const [data, setData] = useState(menuData);
-  //----------------------------------------------------------------------------------
+  //-Add function---------------------------------------------------------------------------------
   // Function to add a menu
   function addMenu(data, newMenu) {
     data.push(newMenu);
@@ -243,7 +261,89 @@ const MenuManagement = () => {
     setData(data);
     return data;
   }
-  //----------------------------------------------------------------------------------
+  //-Edit function---------------------------------------------------------------------------------
+  // Function to edit a menu
+  function editMenu(data, menuId, updatedMenu) {
+    const index = data.findIndex((item) => item.id === menuId);
+    if (index !== -1) {
+      data[index] = { ...data[index], ...updatedMenu };
+    }
+    setData(data);
+    return data;
+  }
+
+  // Function to edit a submenu in a specific menu
+  function editSubMenu(data, menuId, subMenuId, updatedSubMenu) {
+    const menu = data.find((item) => item.id === menuId);
+    if (menu && menu.subMenu) {
+      const subMenuIndex = menu.subMenu.findIndex(
+        (subItem) => subItem.id === subMenuId
+      );
+      if (subMenuIndex !== -1) {
+        menu.subMenu[subMenuIndex] = {
+          ...menu.subMenu[subMenuIndex],
+          ...updatedSubMenu,
+        };
+      }
+    }
+    setData(data);
+    return data;
+  }
+
+  // Function to edit an action in a specific submenu
+  function editAction(data, menuId, subMenuId, actionId, updatedAction) {
+    const menu = data.find((item) => item.id === menuId);
+    if (menu && menu.subMenu) {
+      const subMenu = menu.subMenu.find((subItem) => subItem.id === subMenuId);
+      if (subMenu && subMenu.action) {
+        const actionIndex = subMenu.action.findIndex(
+          (action) => action.id === actionId
+        );
+        if (actionIndex !== -1) {
+          subMenu.action[actionIndex] = {
+            ...subMenu.action[actionIndex],
+            ...updatedAction,
+          };
+        }
+      }
+    }
+    setData(data);
+    return data;
+  }
+  //-Delete Function----------------------------------------------------------------------------------
+  // Function to delete a menu by its ID
+  function deleteMenu(data, menuId) {
+    return data.filter((menu) => menu.id !== menuId);
+  }
+
+  // Function to delete a submenu by its ID inside a specific menu
+  function deleteSubMenu(data, menuId, subMenuId) {
+    return data.map((menu) => {
+      if (menu.id === menuId && menu.subMenu) {
+        menu.subMenu = menu.subMenu.filter(
+          (subMenu) => subMenu.id !== subMenuId
+        );
+      }
+      return menu;
+    });
+  }
+
+  // Function to delete an action by its ID inside a specific submenu
+  function deleteAction(data, menuId, subMenuId, actionId) {
+    return data.map((menu) => {
+      if (menu.id === menuId && menu.subMenu) {
+        menu.subMenu = menu.subMenu.map((subMenu) => {
+          if (subMenu.id === subMenuId && subMenu.action) {
+            subMenu.action = subMenu.action.filter(
+              (action) => action.id !== actionId
+            );
+          }
+          return subMenu;
+        });
+      }
+      return menu;
+    });
+  }
   return (
     <div className="wrapper">
       <div className="container">
@@ -267,13 +367,13 @@ const MenuManagement = () => {
                   <div className="modal-body">
                     <div className="row">
                       <div className="col">
+                        {/* -----------------------------------Menu----------------------------------------- */}
                         <div className="mb-3">
-                          <label htmlFor="menu" className="form-label">
-                            {isMenu ? "Add" : "Select"} Menu
-                          </label>
                           <div className="row">
                             <div className="col-md-3">
-                              {" "}
+                              <label htmlFor="menu" className="form-label">
+                                Menu
+                              </label>
                               <Field
                                 as="select"
                                 className="form-control form-select"
@@ -313,34 +413,94 @@ const MenuManagement = () => {
                                 className="error"
                               />{" "}
                             </div>
-                            <div className="col-md-2 p-0">
-                              {" "}
-                              <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
-                                onClick={() => {
-                                  setName("");
-                                  setUrl("");
-                                  setMenu(true);
-                                  setSubmenu(false);
-                                  setAction(false);
-                                  openModal();
-                                }}
-                              >
-                                Add New
-                              </button>{" "}
+                            <div className="col-md-2 p-0 mt-auto">
+                              <div className="button-container">
+                                <button
+                                  className="btn addUser min"
+                                  style={{ minWidth: "110px" }}
+                                  onClick={() => {
+                                    setName("");
+                                    setUrl("");
+                                    setMenu(true);
+                                    setSubmenu(false);
+                                    setAction(false);
+                                    openModal();
+                                  }}
+                                >
+                                  Add Menu
+                                </button>{" "}
+                                {/* <button
+                                  className="btn smallBtn"
+                                  onClick={() => {}}
+                                > */}
+                                <FontAwesomeIcon
+                                  icon={faEdit}
+                                  style={{
+                                    cursor:
+                                      selectedSubmenuList.length != 0
+                                        ? "pointer"
+                                        : "not-allowed",
+                                    color:
+                                      selectedSubmenuList.length != 0
+                                        ? "#84c0db"
+                                        : "#ccc",
+                                    marginTop: "10px",
+                                  }}
+                                  onClick={() => {
+                                    if (selectedSubmenuList.length != 0) {
+                                      setName(selectedSubmenuList.menuName);
+                                      setUrl(selectedSubmenuList.url);
+                                      setMenu(true);
+                                      setSubmenu(false);
+                                      setAction(false);
+                                      openEditModal();
+                                    }
+                                  }}
+                                />
+                                {/* </button>
+                                <button
+                                  className="btn smallBtn"
+                                  onClick={() => {}}
+                                > */}{" "}
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  style={{
+                                    cursor:
+                                      selectedSubmenuList.length != 0
+                                        ? "pointer"
+                                        : "not-allowed",
+                                    color:
+                                      selectedSubmenuList.length != 0
+                                        ? "#84c0db"
+                                        : "#ccc",
+                                    marginTop: "10px",
+                                  }}
+                                  onClick={() => {
+                                    if (selectedSubmenuList.length != 0) {
+                                      setMenu(true);
+                                      setName(selectedSubmenuList.menuName);
+                                      setUrl(selectedSubmenuList.url);
+                                      setSubmenu(false);
+                                      setAction(false);
+                                      openDeleteModal();
+                                    }
+                                  }}
+                                />
+                                {/* </button>{" "} */}
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="userDomainName"
-                            className="form-label"
-                          >
-                            {isSubmenu ? "Add" : "Select"} Submenu
-                          </label>
+                        {/* -----------------------------------SubMenu----------------------------------------- */}
+                        <div className=" mb-3">
                           <div className="row">
                             <div className="col-md-3">
+                              <label
+                                htmlFor="userDomainName"
+                                className="form-label"
+                              >
+                                Menu
+                              </label>
                               <Field
                                 as="select"
                                 className="form-control form-select"
@@ -355,6 +515,12 @@ const MenuManagement = () => {
                               </Field>
                             </div>
                             <div className="col-md-3">
+                              <label
+                                htmlFor="userDomainName"
+                                className="form-label"
+                              >
+                                Submenu
+                              </label>
                               <Field
                                 as="select"
                                 className="form-control form-select"
@@ -396,30 +562,91 @@ const MenuManagement = () => {
                                 className="error"
                               />
                             </div>
-                            <div className="col-md-2 p-0">
-                              <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
-                                onClick={() => {
-                                  setName("");
-                                  setUrl("");
-                                  setSubmenu(true);
-                                  setMenu(false);
-                                  setAction(false);
-                                  openModal();
-                                }}
-                              >
-                                Add New
-                              </button>{" "}
+                            <div className="col-2 p-0 mt-auto">
+                              <div className="button-container">
+                                <button
+                                  className="btn addUser min"
+                                  style={{ minWidth: "110px" }}
+                                  onClick={() => {
+                                    setName("");
+                                    setUrl("");
+                                    setSubmenu(true);
+                                    setMenu(false);
+                                    setAction(false);
+                                    openModal();
+                                  }}
+                                >
+                                  Add Submenu
+                                </button>{" "}
+                                {/* <button
+                                  className="btn smallBtn"
+                                  onClick={() => {}}
+                                > */}
+                                <FontAwesomeIcon
+                                  icon={faEdit}
+                                  style={{
+                                    cursor:
+                                      selectedActionList.length != 0
+                                        ? "pointer"
+                                        : "not-allowed",
+                                    color:
+                                      selectedActionList.length != 0
+                                        ? "#84c0db"
+                                        : "#ccc",
+                                    marginTop: "10px",
+                                  }}
+                                  onClick={() => {
+                                    if (selectedActionList.length != 0) {
+                                      setName(selectedActionList.name);
+                                      setUrl(selectedActionList.url);
+                                      setSubmenu(true);
+                                      setMenu(false);
+                                      setAction(false);
+                                      openEditModal();
+                                    }
+                                  }}
+                                />
+                                {/* </button>
+                                <button
+                                  className="btn smallBtn"
+                                  onClick={() => {}}
+                                > */}
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  style={{
+                                    cursor:
+                                      selectedActionList.length != 0
+                                        ? "pointer"
+                                        : "not-allowed",
+                                    color:
+                                      selectedActionList.length != 0
+                                        ? "#84c0db"
+                                        : "#ccc",
+                                    marginTop: "10px",
+                                  }}
+                                  onClick={() => {
+                                    if (selectedActionList.length != 0) {
+                                      setName(selectedActionList.name);
+                                      setUrl(selectedActionList.url);
+                                      setSubmenu(true);
+                                      setMenu(false);
+                                      setAction(false);
+                                      openDeleteModal();
+                                    }
+                                  }}
+                                />
+                                {/* </button>{" "} */}
+                              </div>
                             </div>
                           </div>
                         </div>
+                        {/* -----------------------------------Action----------------------------------------- */}
                         <div className="mb-3">
-                          <label htmlFor="email" className="form-label">
-                            {isAction ? "Add" : "Select"} Action
-                          </label>
                           <div className="row">
                             <div className="col-md-3">
+                              <label htmlFor="email" className="form-label">
+                                Menu
+                              </label>
                               <Field
                                 as="select"
                                 className="form-control form-select"
@@ -433,6 +660,9 @@ const MenuManagement = () => {
                               </Field>
                             </div>{" "}
                             <div className="col-md-3">
+                              <label htmlFor="email" className="form-label">
+                                Submenu
+                              </label>
                               <Field
                                 as="select"
                                 className="form-control form-select"
@@ -446,6 +676,9 @@ const MenuManagement = () => {
                               </Field>
                             </div>
                             <div className="col-md-3">
+                              <label htmlFor="email" className="form-label">
+                                Action
+                              </label>
                               <Field
                                 as="select"
                                 className="form-control form-select"
@@ -457,11 +690,13 @@ const MenuManagement = () => {
                                     selectedActionList.action || []
                                   ).find((x) => {
                                     if (x.actionName === e.target.value) {
+                                      setSelectedActionObject([x]);
                                       setSelectedActionId(x.id);
                                       return x;
                                     }
                                   });
                                   console.log("Selected Action->", list);
+                                  setSelectedActionObject([list]);
                                   setSelectedAction(e.target.value);
                                 }}
                               >
@@ -480,21 +715,80 @@ const MenuManagement = () => {
                                 className="error"
                               />
                             </div>
-                            <div className="col-md-2 p-0">
-                              <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
-                                onClick={() => {
-                                  setName("");
-                                  setUrl("");
-                                  setAction(true);
-                                  setMenu(false);
-                                  setSubmenu(false);
-                                  openModal();
-                                }}
-                              >
-                                {isAction ? "Cancel" : "Add New"}
-                              </button>{" "}
+                            <div className="col-2 p-0 mt-auto">
+                              <div className="button-container">
+                                <button
+                                  className="btn addUser min"
+                                  style={{ minWidth: "110px" }}
+                                  onClick={() => {
+                                    setName("");
+                                    setUrl("");
+                                    setAction(true);
+                                    setMenu(false);
+                                    setSubmenu(false);
+                                    openModal();
+                                  }}
+                                >
+                                  Add Action
+                                </button>{" "}
+                                {/* <button
+                                  className="btn smallBtn"
+                                  onClick={() => {}}
+                                > */}
+                                <FontAwesomeIcon
+                                  className="mt-10"
+                                  icon={faEdit}
+                                  style={{
+                                    cursor:
+                                      selectedActionObject.length != 0
+                                        ? "pointer"
+                                        : "not-allowed",
+                                    marginTop: "10px",
+                                    color:
+                                      selectedActionObject.length != 0
+                                        ? "#84c0db"
+                                        : "#ccc",
+                                  }}
+                                  onClick={() => {
+                                    if (selectedActionObject.length != 0) {
+                                      setName(selectedAction);
+                                      setAction(true);
+                                      setMenu(false);
+                                      setSubmenu(false);
+                                      openEditModal();
+                                    }
+                                  }}
+                                />
+                                {/* </button>
+                                <button
+                                  className="btn smallBtn"
+                                  onClick={() => {}}
+                                > */}
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  style={{
+                                    cursor:
+                                      selectedActionObject.length != 0
+                                        ? "pointer"
+                                        : "not-allowed",
+                                    marginTop: "10px",
+                                    color:
+                                      selectedActionObject.length != 0
+                                        ? "#84c0db"
+                                        : "#ccc",
+                                  }}
+                                  onClick={() => {
+                                    if (selectedActionObject.length != 0) {
+                                      setName(selectedAction);
+                                      setAction(true);
+                                      setMenu(false);
+                                      setSubmenu(false);
+                                      openDeleteModal();
+                                    }
+                                  }}
+                                />
+                                {/* </button>{" "} */}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -567,9 +861,9 @@ const MenuManagement = () => {
                     }}
                   />
                 </div>
-                <h3 className="text-left">
+                <h2 className="mb-3 mt-3 pageTitle">
                   Add {isMenu ? "Menu" : isSubmenu ? "Submenu" : "Action"}
-                </h3>
+                </h2>
                 <div className="">
                   <label htmlFor="name" className="form-label">
                     {isMenu ? "Menu" : isSubmenu ? "Submenu" : "Action"} Name
@@ -657,7 +951,7 @@ const MenuManagement = () => {
                         }
                       }}
                     >
-                      Submit
+                      Add
                     </button>
                     <button
                       className="btn addUser checkerAction"
@@ -674,7 +968,285 @@ const MenuManagement = () => {
             </Form>
           </Formik>
         </Modal>
-        {/* ---------------------------------------------------------------------------------------------- */}
+        {/* ----------Edit Pop------------------------------------------------------- */}
+        <Modal
+          isOpen={editmodalIsOpen}
+          onRequestClose={closeEditModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <Formik
+            initialValues={{
+              name: name,
+              url: url,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              // Handle form submission here
+              console.log(values);
+            }}
+          >
+            <Form>
+              <div>
+                <div className="float-end mt-2">
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    style={{
+                      cursor: "pointer",
+                      marginRight: "8px",
+                      color: "black",
+                      float: "right",
+                    }}
+                    onClick={() => {
+                      closeEditModal();
+                    }}
+                  />
+                </div>
+                <h2 className="mb-3 mt-3 pageTitle">
+                  Edit {isMenu ? "Menu" : isSubmenu ? "Submenu" : "Action"}
+                </h2>
+                <div className="">
+                  <label htmlFor="name" className="form-label">
+                    {isMenu ? "Menu" : isSubmenu ? "Submenu" : "Action"} Name
+                  </label>
+                  <Field
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  ></Field>
+                  <ErrorMessage name="name" component="div" className="error" />
+                  <label htmlFor="url" className="form-label">
+                    {isMenu ? "Menu Url" : isSubmenu ? "Submenu Url" : ""}
+                  </label>
+                  {!isAction ? (
+                    <>
+                      <Field
+                        type="text"
+                        className="form-control"
+                        id="url"
+                        name="url"
+                        value={url}
+                        onChange={(e) => {
+                          setUrl(e.target.value);
+                        }}
+                      ></Field>
+                      <ErrorMessage
+                        name="url"
+                        component="div"
+                        className="error"
+                      />
+                    </>
+                  ) : (
+                    ""
+                  )}
+                  <div className="p-2"></div>
+                  <div className="text-center">
+                    <button
+                      className="btn addUser checkerAction"
+                      type="submit"
+                      onClick={() => {
+                        if (isMenu) {
+                          // Editing an existing menu
+                          const newDataWithEditedMenu = editMenu(
+                            data,
+                            selectedMenuId,
+                            {
+                              menuName: name,
+                              url: url,
+                            }
+                          );
+                          console.log("Edited Menu->", newDataWithEditedMenu);
+                          closeEditModal();
+                        } else if (isSubmenu) {
+                          // Editing an existing submenu in a specific menu (e.g., Admin)
+                          const newDataWithEditedSubMenu = editSubMenu(
+                            data,
+                            selectedMenuId,
+                            selectedSubmenuId,
+                            {
+                              name: name,
+                              url: url,
+                              check: false,
+                            }
+                          );
+                          console.log(
+                            "Edited Submenu->",
+                            newDataWithEditedSubMenu
+                          );
+                          closeEditModal();
+                        } else {
+                          // Editing an existing action in a specific submenu (e.g., User Profile)
+                          const newDataWithEditedAction = editAction(
+                            data,
+                            selectedMenuId,
+                            selectedSubmenuId,
+                            selectedActionId,
+                            {
+                              actionName: name,
+                              check: false,
+                            }
+                          );
+                          console.log(
+                            "Edited Action->",
+                            newDataWithEditedAction
+                          );
+                          closeEditModal();
+                        }
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn addUser checkerAction"
+                      type="button"
+                      onClick={() => {
+                        closeEditModal();
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Form>
+          </Formik>
+        </Modal>
+        {/* -----------Delete Popup-------------------------------------------------- */}
+        <Modal
+          isOpen={deletemodalIsOpen}
+          onRequestClose={closeDeleteModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <Formik
+            initialValues={{
+              name: name,
+              url: url,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              // Handle form submission here
+              console.log(values);
+            }}
+          >
+            <Form>
+              <div>
+                <div className="float-end mt-2">
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    style={{
+                      cursor: "pointer",
+                      marginRight: "8px",
+                      color: "black",
+                      float: "right",
+                    }}
+                    onClick={() => {
+                      closeDeleteModal();
+                    }}
+                  />
+                </div>
+                <h2 className="mb-3 mt-3 pageTitle">
+                  Delete {isMenu ? "Menu" : isSubmenu ? "Submenu" : "Action"}
+                </h2>
+
+                <h5 className="mb-4">
+                  Are you sure you want to delete the{" "}
+                  {isMenu
+                    ? "Menu ? This action will also delete respective submenus and their actions."
+                    : isSubmenu
+                    ? "Submenu ? This action will delete submenu and their actions."
+                    : "Action ?"}
+                </h5>
+                <div className="row">
+                  <div className="col-md-6 ">
+                    <div className="col-md-6 UDCoulmns">
+                      <strong>
+                        {isMenu ? "Menu" : isSubmenu ? "Submenu" : "Action"}{" "}
+                        Name:
+                      </strong>
+                    </div>
+                    <div className="col-md-6 UDCoulmns">{name}</div>
+
+                    <div className="col-md-6 UDCoulmns">
+                      <strong>
+                        {" "}
+                        {isMenu
+                          ? "Menu Url :"
+                          : isSubmenu
+                          ? "Submenu Url :"
+                          : ""}
+                      </strong>
+                    </div>
+                    {!isAction ? (
+                      <div className="col-md-6 UDCoulmns">{url}</div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="p-2"></div>
+                  <div className="text-center">
+                    <button
+                      className="btn addUser checkerAction"
+                      type="submit"
+                      onClick={() => {
+                        if (isMenu) {
+                          // Deleting a menu with ID 2
+                          const newDataWithoutMenu = deleteMenu(
+                            data,
+                            selectedMenuId
+                          );
+                          setData(newDataWithoutMenu);
+                          console.log("Deleted Menu->", newDataWithoutMenu);
+                          closeDeleteModal();
+                        } else if (isSubmenu) {
+                          // Deleting a submenu with ID 1 inside the menu with ID 2
+                          const newDataWithoutSubMenu = deleteSubMenu(
+                            data,
+                            selectedMenuId,
+                            selectedSubmenuId
+                          );
+                          setData(newDataWithoutSubMenu);
+                          console.log(
+                            "Deleted Submenu->",
+                            newDataWithoutSubMenu
+                          );
+                          closeDeleteModal();
+                        } else {
+                          const newDataWithoutAction = deleteAction(
+                            data,
+                            selectedMenuId,
+                            selectedSubmenuId,
+                            selectedActionId
+                          );
+                          setData(newDataWithoutAction);
+                          console.log("Deleted Action->", newDataWithoutAction);
+                          closeDeleteModal();
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="btn addUser checkerAction"
+                      type="button"
+                      onClick={() => {
+                        closeDeleteModal();
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Form>
+          </Formik>
+        </Modal>
+        {/* ------------------------------------------------------------------------- */}
       </div>
     </div>
   );

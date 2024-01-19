@@ -1,125 +1,65 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../HtmlComponents/Spinner";
 
 function UserDetails() {
+  const [isLoading, setIsLoading] = useState(false);
   const { userId } = useParams();
   const navigate = useNavigate();
 
   const users = [
     {
       id: 1,
-      fullName: "John Doe",
-      userId: "JD001",
+      fullName: "Sumit Bajrang Kadam",
+      userId: "2697",
       userType: "Admin",
-      employeeNumber: "12345",
-      domainName: "example.com",
-      userRole: "Administrator",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
+      role: "Admin",
       isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
+      employeeNumber: "EMP202",
+      domainName: "example.com",
+      gender: "Male",
+      email: "Sumit@gmail.com",
+      mobileNumber: "999-333-4400",
+      workNo: "W123",
+      createdDate: "15-01-2024", //"2023-08-08",
+      createdBy: "Admin",
     },
     {
       id: 2,
-      fullName: "Jane Smith",
-      userId: "JS002",
+      fullName: "Mandar Milind Naphad",
+      userId: "2698",
       userType: "User",
-      employeeNumber: "12945",
-      domainName: "example.com",
-      userRole: "Administrator",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
+      role: "Member",
       isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
+      employeeNumber: "EMP203",
+      domainName: "example.com",
+      gender: "Male",
+      email: "Mandar@gmail.com",
+      mobileNumber: "999-333-4400",
+      workNo: "W123",
+      createdDate: "15-01-2024", //"2023-08-08",
+      createdBy: "Admin",
     },
     {
       id: 3,
-      fullName: "Bob Johnson",
-      userId: "BJ003",
+      fullName: "Ajay Dilip Sharma",
+      userId: "2699",
       userType: "User",
-      employeeNumber: "12045",
-      domainName: "example.com",
-      userRole: "Administrator",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
+      role: "Member",
       isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-    },
-    {
-      id: 4,
-      fullName: "Alice Brown",
-      userId: "AB004",
-      userType: "User",
-      employeeNumber: "67345",
+      employeeNumber: "EMP202",
       domainName: "example.com",
-      userRole: "Administrator",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
-      isActive: false,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-    },
 
-    {
-      id: 5,
-      fullName: "Eve Anderson",
-      userId: "EA005",
-      userType: "User",
-      role: "Guest",
-      isActive: false,
-    },
-    {
-      id: 6,
-      fullName: "Tom Wilson",
-      userId: "TW006",
-      userType: "User",
-      role: "Guest",
-      isActive: true,
-    },
-    {
-      id: 7,
-      fullName: "Laura Lee",
-      userId: "LL007",
-      userType: "User",
-      role: "Guest",
-      isActive: true,
-    },
-    {
-      id: 8,
-      fullName: "Michael Johnson",
-      userId: "MJ008",
-      userType: "User",
-      role: "Member",
-      isActive: false,
-    },
-    {
-      id: 9,
-      fullName: "Olivia Brown",
-      userId: "OB009",
-      userType: "User",
-      role: "Member",
-      isActive: true,
-    },
-    {
-      id: 10,
-      fullName: "William Lee",
-      userId: "WL010",
-      userType: "User",
-      role: "Member",
-      isActive: true,
+      gender: "Male",
+      email: "Ajay@gmail.com",
+      mobileNumber: "999-333-4400",
+      workNo: "W123",
+      createdDate: "15-01-2024", //"2023-08-08",
+      createdBy: "Admin",
     },
   ];
+
   const user = users.find((u) => u.id.toString() === userId);
   const path = window.location.pathname;
   const isDelete = path.includes("DeleteUser") ? true : false;
@@ -129,6 +69,7 @@ function UserDetails() {
 
   return (
     <div className="container UDContainer">
+      <Spinner isLoading={isLoading} />
       <div className="ULContainer">
         <div className="row">
           <div className="col-md-12 ">
@@ -195,7 +136,7 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">
               <strong>Role:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{user.userRole}</div>
+            <div className="col-md-6 UDCoulmns">{user.role}</div>
 
             <div className="col-md-6 UDCoulmns">
               <strong>Created By:</strong>
@@ -219,10 +160,18 @@ function UserDetails() {
               className="btn addUser"
               type="button"
               onClick={() => {
+                setIsLoading(true);
                 //setIsOpen(true);
-                navigate(
-                  `/NHAI/${isDelete ? "DeleteUser" : "EditUser"}/${user.id}`
-                );
+                toast.success("Request raised successfully!", {
+                  position: "top-right",
+                  autoClose: 3000,
+                });
+                setTimeout(() => {
+                  setIsLoading(false);
+                  navigate(
+                    isDelete ? `/NHAI/Users` : `/NHAI/EditUser/${user.id}`
+                  );
+                }, 1000);
               }}
             >
               {isDelete ? "Delete" : "Edit"}

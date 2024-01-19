@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import { toast } from "react-toastify";
-import Spinner from "../HtmlComponents/Spinner";
-const UserCheckerDetails = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { userId } = useParams();
+const MenuManagementCheckerDetails = () => {
+  const userId = 2; //useParams();
   const navigate = useNavigate();
   const customStyles = {
     content: {
@@ -24,15 +21,6 @@ const UserCheckerDetails = () => {
   };
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  //-----------------------------------------------------------------------------
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-  const day = String(currentDate.getDate()).padStart(2, "0");
-
-  const formattedDate = `${day}-${month}-${year}`;
-
-  console.log(formattedDate);
 
   function openModal() {
     setIsOpen(true);
@@ -44,129 +32,62 @@ const UserCheckerDetails = () => {
 
   const users = [
     {
-      id: 3,
-      fullName: "Sumit Bajrang Kadam",
-      userId: "2697",
+      id: 1,
+      fullName: "John Doe",
+      userId: "JD001",
       userType: "Admin",
-      role: "Admin",
-      isActive: true,
-      employeeNumber: "EMP202",
+      employeeNumber: "12345",
       domainName: "example.com",
+      userRole: "Administrator",
       gender: "Male",
-      email: "Sumit@gmail.com",
-      mobileNumber: "999-333-4400",
+      email: "johndoe@example.com",
+      mobileNumber: "123-456-7890",
       workNo: "W123",
-      createdDate: "15-01-2024", //"2023-08-08",
-      createdBy: "Admin",
+      isActive: true,
+      createdDate: "2023-08-08",
+      createdBy: "Admin User",
     },
     {
       id: 2,
-      fullName: "Mandar Milind Sutar",
-      userId: "2698",
+      fullName: "Jane Smith",
+      userId: "JS002",
       userType: "User",
       role: "Member",
       isActive: true,
-      employeeNumber: "EMP202",
-      domainName: "example.com",
-      gender: "Male",
-      email: "Mandar@gmail.com",
-      mobileNumber: "999-333-4400",
-      workNo: "W123",
-      createdDate: "15-01-2024", //"2023-08-08",
-      createdBy: "Admin",
     },
     {
-      id: 1,
-      fullName: "Ajay Dilip Sharma",
-      userId: "2699",
+      id: 3,
+      fullName: "Bob Johnson",
+      userId: "BJ003",
       userType: "User",
       role: "Member",
       isActive: true,
-      employeeNumber: "EMP202",
-      domainName: "example.com",
-
-      gender: "Male",
-      email: "Ajay@gmail.com",
-      mobileNumber: "999-333-4400",
-      workNo: "W123",
-
-      createdDate: "15-01-2024", //"2023-08-08",
-      createdBy: "Admin",
     },
-    //{
-    //   id: 3,
-    //   fullName: "Bob Johnson",
-    //   userId: "BJ003",
-    //   userType: "User",
-    //   role: "Member",
-    //   isActive: true,
-    // },
-    // {
-    //   id: 4,
-    //   fullName: "Alice Brown",
-    //   userId: "AB004",
-    //   userType: "User",
-    //   role: "Member",
-    //   isActive: false,
-    // },
-    // {
-    //   id: 5,
-    //   fullName: "Eve Anderson",
-    //   userId: "EA005",
-    //   userType: "User",
-    //   role: "Guest",
-    //   isActive: false,
-    // },
-    // {
-    //   id: 6,
-    //   fullName: "Tom Wilson",
-    //   userId: "TW006",
-    //   userType: "User",
-    //   role: "Guest",
-    //   isActive: true,
-    // },
-    // {
-    //   id: 7,
-    //   fullName: "Laura Lee",
-    //   userId: "LL007",
-    //   userType: "User",
-    //   role: "Guest",
-    //   isActive: true,
-    // },
-    // {
-    //   id: 8,
-    //   fullName: "Michael Johnson",
-    //   userId: "MJ008",
-    //   userType: "User",
-    //   role: "Member",
-    //   isActive: false,
-    // },
-    // {
-    //   id: 9,
-    //   fullName: "Olivia Brown",
-    //   userId: "OB009",
-    //   userType: "User",
-    //   role: "Member",
-    //   isActive: true,
-    // },
-    // {
-    //   id: 10,
-    //   fullName: "William Lee",
-    //   userId: "WL010",
-    //   userType: "User",
-    //   role: "Member",
-    //   isActive: true,
-    // },
+    {
+      id: 4,
+      fullName: "Alice Brown",
+      userId: "AB004",
+      userType: "User",
+      role: "Member",
+      isActive: false,
+    },
+    {
+      id: 5,
+      fullName: "Eve Anderson",
+      userId: "EA005",
+      userType: "User",
+      role: "Guest",
+      isActive: false,
+    },
   ];
 
   const data = [
     {
       id: 1,
-      requestName: "Add Ajay Dilip Sharma",
-      requestId: "RQ1001",
+      requestName: "Add John Doe",
+      requestId: "JD001",
       requestDetails: "Add user in appilication",
-      requestType: "Add",
-      requestRaisedBy: "Admin",
+      requestType: "Update",
     },
     {
       id: 2,
@@ -174,25 +95,37 @@ const UserCheckerDetails = () => {
       requestId: "JS002",
       requestDetails: "Add user in appilication",
       requestType: "Update",
-      requestRaisedBy: "Admin",
     },
     {
       id: 3,
       requestName: "Add Bob Johnson",
       requestId: "BJ003",
       requestDetails: "Add user in appilication",
-      requestType: "Delete",
+      requestType: "Update",
+    },
+    {
+      id: 4,
+      requestName: "Add Alice Brown",
+      requestId: "AB004",
+      requestDetails: "Add user in appilication",
+      requestType: "Update",
+    },
+    {
+      id: 5,
+      requestName: "Eve Anderson",
+      requestId: "EA005",
+      requestDetails: "Add user in appilication",
+      requestType: "Add",
     },
   ];
-  const user = users.find((u) => u.id.toString() === userId.toString());
+  const user = users.find((u) => u.id === 1);
   const path = window.location.pathname;
-  const req = data.find((u) => u.id.toString() === userId.toString());
+  const req = data.find((u) => u.id === 2);
   if (!user) {
     return <p>User not found.</p>;
   }
   return (
     <div className="container UDContainer">
-      <Spinner isLoading={isLoading} />
       <div className="ULContainer">
         {/* -----------Request Details------------------ */}
         <div className="row">
@@ -226,7 +159,7 @@ const UserCheckerDetails = () => {
             <div className="col-md-6 UDCoulmns">
               <strong>Request Date:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{formattedDate}</div>
+            <div className="col-md-6 UDCoulmns">{}</div>
             <div className="col-md-6 UDCoulmns">
               <strong>Request Type:</strong>
             </div>
@@ -237,33 +170,36 @@ const UserCheckerDetails = () => {
         <div className="row">
           <div className="col-md-12 ">
             <h2 className="mb-3 mt-3 pageTitle">
-              {path.includes("userAddRequestDetails")
+              {path.includes("/Add")
                 ? "Add "
-                : path.includes("userUpdateRequestDetails")
+                : path.includes("/Update")
                 ? "Update "
                 : "Delete "}
-              User Details
+              {path.includes("/MenuRequestDetails")
+                ? "Menu"
+                : path.includes("/SubmenuRequestDetails")
+                ? "Submenu"
+                : "Action"}{" "}
+              Details
             </h2>
           </div>
         </div>
 
-        {!path.includes("userUpdateRequestDetails") ? (
+        {!path.includes("/Update") ? (
           <div className="row UserDetails mt-3">
             <div className="col-md-6 mx-auto">
               <div className="col-md-6 UDCoulmns">
-                <strong>User Full Name:</strong>
+                <strong>
+                  {" "}
+                  {path.includes("/MenuRequestDetails")
+                    ? "Menu "
+                    : path.includes("/SubmenuRequestDetails")
+                    ? "Submenu "
+                    : "Action "}
+                  Name:
+                </strong>
               </div>
-              <div className="col-md-6 UDCoulmns">{user.fullName}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>Mobile Number:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.mobileNumber}</div>
-
-              <div className="col-md-6 UDCoulmns">
-                <strong>EMail:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.email}</div>
+              <div className="col-md-6 UDCoulmns">Admin</div>
 
               <div className="col-md-6 UDCoulmns">
                 <strong>Created Date:</strong>
@@ -272,18 +208,16 @@ const UserCheckerDetails = () => {
             </div>
             {/* -------------------------------------------------------- */}
             <div className="col-md-5">
-              <div className="col-md-6 UDCoulmns">
-                <strong>User ID:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.userId}</div>
-              <div className="col-md-6 UDCoulmns">
-                <strong>Employee Number:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.employeeNumber}</div>
-              <div className="col-md-6 UDCoulmns">
-                <strong>Role:</strong>
-              </div>
-              <div className="col-md-6 UDCoulmns">{user.role}</div>
+              {!path.includes("/ActionRequestDetails") ? (
+                <>
+                  <div className="col-md-6 UDCoulmns">
+                    <strong>Url:</strong>
+                  </div>
+                  <div className="col-md-6 UDCoulmns">/NHAI/Admin</div>
+                </>
+              ) : (
+                ""
+              )}
 
               <div className="col-md-6 UDCoulmns">
                 <strong>Created By:</strong>
@@ -304,34 +238,31 @@ const UserCheckerDetails = () => {
                 <strong>Old Value</strong>
               </div>
               <div className="col-md-4 UDCoulmns">
-                <strong>User Full Name:</strong>
+                <strong>
+                  {" "}
+                  {path.includes("/MenuRequestDetails")
+                    ? "Menu "
+                    : path.includes("/SubmenuRequestDetails")
+                    ? "Submenu "
+                    : "Action "}
+                  Name:
+                </strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.fullName}</div>
-              <div className="col-md-4 UDCoulmns">Mandar Milind Naphad</div>
+              <div className="col-md-4 UDCoulmns"> Super Admin</div>
+              <div className="col-md-4 UDCoulmns"> Admin</div>
 
-              <div className="col-md-4 UDCoulmns">
-                <strong>Mobile No:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.mobileNumber}</div>
-              <div className="col-md-4 UDCoulmns">{user.mobileNumber}</div>
-
-              <div className="col-md-4 UDCoulmns">
-                <strong>EMail:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.email}</div>
-              <div className="col-md-4 UDCoulmns">{user.email}</div>
-
-              <div className="col-md-4 UDCoulmns">
-                <strong>Employee Number:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.employeeNumber}</div>
-              <div className="col-md-4 UDCoulmns">{user.employeeNumber}</div>
-
-              <div className="col-md-4 UDCoulmns">
-                <strong>Role:</strong>
-              </div>
-              <div className="col-md-4 UDCoulmns">{user.role}</div>
-              <div className="col-md-4 UDCoulmns">{user.role}</div>
+              {!path.includes("/ActionRequestDetails") ? (
+                <>
+                  {" "}
+                  <div className="col-md-4 UDCoulmns">
+                    <strong>Url:</strong>
+                  </div>
+                  <div className="col-md-4 UDCoulmns">/NHAI/SuperAdmin</div>
+                  <div className="col-md-4 UDCoulmns">/NHAI/Admin</div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         )}
@@ -342,7 +273,7 @@ const UserCheckerDetails = () => {
               className="btn BackBtn"
               type="button"
               onClick={() => {
-                navigate("/NHAI/UserRequests");
+                navigate("/NHAI/MenuManagementRequests");
               }}
             >
               Back to List
@@ -351,15 +282,8 @@ const UserCheckerDetails = () => {
               className="btn addUser checkerAction"
               type="button"
               onClick={() => {
-                setIsLoading(true);
-                toast.success("Request Approved successfully!", {
-                  position: "top-right",
-                  autoClose: 3000,
-                });
-                setTimeout(() => {
-                  navigate("/NHAI/UserRequests");
-                }, 1000);
                 //setIsOpen(true);
+                navigate();
               }}
             >
               Approve
@@ -412,17 +336,7 @@ const UserCheckerDetails = () => {
                 <button
                   className="btn addUser checkerAction"
                   type="button"
-                  onClick={() => {
-                    setIsLoading(true);
-                    toast.success("Request Declined!", {
-                      position: "top-right",
-                      autoClose: 3000,
-                    });
-                    setTimeout(() => {
-                      setIsLoading(false);
-                      navigate("/NHAI/UserRequests");
-                    }, 1000);
-                  }}
+                  onClick={() => {}}
                 >
                   Decline
                 </button>
@@ -444,4 +358,4 @@ const UserCheckerDetails = () => {
   );
 };
 
-export default UserCheckerDetails;
+export default MenuManagementCheckerDetails;

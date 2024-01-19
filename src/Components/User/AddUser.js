@@ -1,95 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../HtmlComponents/Spinner";
 
 const AddUser = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { userId } = useParams();
   const users = [
     {
       id: 1,
-      fullName: "John Doe",
-      userId: "JD001",
-      userType: "NHAI",
-      employeeNumber: "12345",
-      domainName: "example.com",
-      userRole: "AdminRole",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
+      fullName: "Sumit Bajrang Kadam",
+      userId: "2697",
+      userType: "Admin",
+      role: "Admin",
       isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-      password: "Secure@890",
+      employeeNumber: "EMP202",
+      domainName: "example.com",
+      gender: "Male",
+      email: "Sumit@gmail.com",
+      mobileNumber: "999-333-4400",
+      workNo: "W123",
+      createdDate: "15-01-2024", //"2023-08-08",
+      createdBy: "Admin",
     },
     {
       id: 2,
-      fullName: "Jane Smith",
-      userId: "JS002",
-      userType: "Bank",
-      employeeNumber: "12345",
-      domainName: "example.com",
-      userRole: "Role",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
+      fullName: "Mandar Milind Naphad",
+      userId: "2698",
+      userType: "User",
+      role: "Member",
       isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-      password: "Secure@890",
+      employeeNumber: "EMP203",
+      domainName: "example.com",
+      gender: "Male",
+      email: "Mandar@gmail.com",
+      mobileNumber: "999-333-4400",
+      workNo: "W123",
+      createdDate: "15-01-2024", //"2023-08-08",
+      createdBy: "Admin",
     },
     {
       id: 3,
-      fullName: "Bob Johnson",
-      userId: "BJ003",
-      userType: "PD",
-      employeeNumber: "12345",
-      domainName: "example.com",
-      userRole: "AdminRole",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
+      fullName: "Ajay Dilip Sharma",
+      userId: "2699",
+      userType: "User",
+      role: "Member",
       isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-      password: "Secure@890",
-    },
-    {
-      id: 4,
-      fullName: "Alice Brown",
-      userId: "AB004",
-      userType: "RO",
-      employeeNumber: "12345",
+      employeeNumber: "EMP202",
       domainName: "example.com",
-      userRole: "Role",
       gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
+      email: "Ajay@gmail.com",
+      mobileNumber: "999-333-4400",
       workNo: "W123",
-      isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-      password: "Secure@890",
-    },
-    {
-      id: 5,
-      fullName: "Eve Anderson",
-      userId: "EA005",
-      userType: "Bank",
-      employeeNumber: "12345",
-      domainName: "example.com",
-      userRole: "AdminRole",
-      gender: "Male",
-      email: "johndoe@example.com",
-      mobileNumber: "123-456-7890",
-      workNo: "W123",
-      isActive: true,
-      createdDate: "2023-08-08",
-      createdBy: "Admin User",
-      password: "Secure@890",
+      createdDate: "15-01-2024", //"2023-08-08",
+      createdBy: "Admin",
     },
   ];
   const user = users.find((u) => u.id.toString() === userId);
@@ -113,6 +79,7 @@ const AddUser = () => {
   });
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -271,8 +238,10 @@ const AddUser = () => {
                             <option value="" className="greyText">
                               Select role
                             </option>
-                            <option value="AdminRole">AdminRole</option>
-                            <option value="Role">Role</option>
+                            <option value="NHAIHO">NHAIHO</option>
+                            <option value="Bank">Bank</option>
+                            <option value="RO">RO</option>
+                            <option value="Admin">Admin</option>
                             {/* Add more role options */}
                           </Field>
                           <ErrorMessage
@@ -303,6 +272,15 @@ const AddUser = () => {
                       }}
                       type="submit"
                       onClick={() => {
+                        setIsLoading(true);
+                        toast.success("Request raised successfully!", {
+                          position: "top-right",
+                          autoClose: 3000,
+                        });
+                        setTimeout(() => {
+                          setIsLoading(false);
+                          navigate("/NHAI/Users");
+                        }, 1000);
                         // setModal(false);
                       }}
                     >
