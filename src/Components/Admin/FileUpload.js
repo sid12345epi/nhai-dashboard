@@ -112,11 +112,7 @@ const FileUpload = () => {
                   {/* <div className="modal-footer"> */}
                   <div className="float-start">
                     <button
-                      className=" btn addUser min"
-                      style={{
-                        marginRight: "10px",
-                        marginTop: "10px",
-                      }}
+                      className=" btn addUser min me-2 mt-2"
                       type="submit"
                       onClick={() => {}}
                     >

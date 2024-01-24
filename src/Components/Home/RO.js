@@ -4,10 +4,15 @@ import "../../Assets/Css/Dashboard.css";
 import axios from "axios";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const RO = () => {
-  const [dynamicDate, setDate] = useState(new Date());
-  const currentDate = new Date().toISOString().split("T")[0];
+  const [asOnDate, setAsOnDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [dbdata, setDbdata] = useState([]);
   const [reginoalTable, setReginoalTable] = useState([]);
   const [corDecimalType, setcoreDecimalType] = useState("");
@@ -145,10 +150,11 @@ const RO = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                // onChange={(e) => {
-                //   setDate(e.target.value);
-                // }}
-                defaultValue={currentDate}
+                value={asOnDate || ""}
+                onChange={(e) => {
+                  setAsOnDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
+                }}
               />{" "}
               <label className="statusOn">Zone : </label>{" "}
               <select name="zone" className="inputDate">

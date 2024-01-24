@@ -4,12 +4,13 @@ import "../../Assets/Css/Dashboard.css";
 import { v4 as uuid } from "uuid";
 import PieChart from "../Charts/PieChart";
 import BarChart from "../Charts/BarChart";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const Zone = ({ setTab }) => {
-  const currentDate = new Date().toISOString().split("T")[0];
-  const cdate = formatDate(currentDate);
-  const [dynamicDate, setDate] = useState(cdate);
-  const [dateValue, setDateValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
   const [bankD, setBank] = useState("");
@@ -41,11 +42,11 @@ const Zone = ({ setTab }) => {
         ) {
           return (
             <a
+              className="text-black float-end"
               href="#"
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
             >
               {row.total}
             </a>
@@ -69,11 +70,11 @@ const Zone = ({ setTab }) => {
         ) {
           return (
             <a
+              className="text-black float-end"
               href="#"
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
             >
               {row.eastZone}
             </a>
@@ -97,11 +98,11 @@ const Zone = ({ setTab }) => {
         ) {
           return (
             <a
+              className="text-black float-end"
               href="#"
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
             >
               {row.northZone}
             </a>
@@ -125,11 +126,11 @@ const Zone = ({ setTab }) => {
         ) {
           return (
             <a
+              className="text-black float-end"
               href="#"
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
             >
               {row.southZone}
             </a>
@@ -157,7 +158,7 @@ const Zone = ({ setTab }) => {
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
+              className="text-black float-end"
             >
               {row.westZone}
             </a>
@@ -185,7 +186,7 @@ const Zone = ({ setTab }) => {
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
+              className="text-black float-end"
             >
               {row.MoRTH}
             </a>
@@ -213,7 +214,7 @@ const Zone = ({ setTab }) => {
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
+              className="text-black float-end"
             >
               {row.northEastZone}
             </a>
@@ -237,11 +238,11 @@ const Zone = ({ setTab }) => {
         ) {
           return (
             <a
+              className="text-black float-end"
               href="#"
               onClick={() => {
                 columnClick(row.parameter);
               }}
-              style={{ color: "black", float: "right" }}
             >
               {row.unMappedZone}
             </a>
@@ -251,9 +252,7 @@ const Zone = ({ setTab }) => {
         }
       },
       Cell: ({ value }) => (
-        <div className=" wrap-10-char" style={{ float: "right" }}>
-          {value}
-        </div>
+        <div className=" wrap-10-char float-end">{value}</div>
       ),
     },
   ];
@@ -346,30 +345,10 @@ const Zone = ({ setTab }) => {
   ];
 
   useEffect(() => {
-    const d = formatDate(dateValue);
-    setDate(d);
-  }, [dateValue]);
-  useEffect(() => {
     console.log("reqBody-->", reqBody);
-  }, [dynamicDate]);
+  }, [asOnDate]);
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    // Parse the input date string into a Date object
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const reqBody = {
     requestMetaData: {
@@ -377,7 +356,7 @@ const Zone = ({ setTab }) => {
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
     userName: "nhai",
-    statusAsOn: dynamicDate, //"28-09-2023",
+    statusAsOn: ConvertFormat(asOnDate), //"28-09-2023",
     bank: bankD, //"All", //Kotak,
   };
 
@@ -783,11 +762,10 @@ const Zone = ({ setTab }) => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                value={dateValue || ""}
+                value={asOnDate || ""}
                 onChange={(e) => {
-                  const E = e.target.value;
-                  console.log("----->", E);
-                  setDateValue(E);
+                  setAsOnDate(e.target.value);
+                  console.log("-> ", ConvertFormat(e.target.value));
                 }}
               />{" "}
             </div>

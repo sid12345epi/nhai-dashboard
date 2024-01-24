@@ -103,8 +103,7 @@ const MappingMaster = () => {
                             <div className="col-md-2 p-0">
                               {" "}
                               <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
+                                className="btn addUser min min-width-110px"
                                 onClick={() => {
                                   setLocation(!isLocation);
                                 }}
@@ -149,8 +148,7 @@ const MappingMaster = () => {
                             </div>
                             <div className="col-md-2 p-0">
                               <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
+                                className="btn addUser min min-width-110px"
                                 onClick={() => {
                                   setPIU(!isPIU);
                                 }}
@@ -212,8 +210,7 @@ const MappingMaster = () => {
                             </div>
                             <div className="col-md-2 p-0">
                               <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
+                                className="btn addUser min min-width-110px"
                                 onClick={() => {
                                   setZone(!isZone);
                                 }}
@@ -258,8 +255,7 @@ const MappingMaster = () => {
                             </div>
                             <div className="col-md-2 p-0">
                               <button
-                                className="btn addUser min"
-                                style={{ minWidth: "110px" }}
+                                className="btn addUser min min-width-110px"
                                 onClick={() => {
                                   setPD(!isPD);
                                 }}
@@ -308,18 +304,11 @@ const MappingMaster = () => {
                   </div>
                   <hr />
                   <div className="modal-footer">
-                    <button
-                      className="btn BackBtn"
-                      style={{ marginRight: "10px" }}
-                      onClick={() => {}}
-                    >
+                    <button className="btn BackBtn me-2" onClick={() => {}}>
                       Reset
                     </button>
                     <button
-                      className="btn addUser min"
-                      style={{
-                        marginRight: "10px",
-                      }}
+                      className="btn addUser min me-2"
                       type="submit"
                       onClick={() => {}}
                     >

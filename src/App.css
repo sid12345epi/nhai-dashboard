@@ -693,3 +693,80 @@ th {
 .logoutBtn {
   margin-top: 20px;
 }
+/* ------------------------Inline CSS------------------------------------------------- */
+.bgAppColor {
+  background-color: #003366;
+}
+/* ---btn---- */
+.min-width-110px {
+  min-width: 110px;
+}
+/* -----Menu Mgmt--------- */
+.activeIcon {
+  cursor: pointer;
+  color: #84c0db;
+  margin-top: 10px;
+}
+.disableIcon {
+  cursor: not-allowed;
+  color: #ccc;
+  margin-top: 10px;
+}
+.closeIconPopup {
+  cursor: pointer;
+  margin-right: 8px;
+  color: black;
+  float: right;
+}
+/* ---------barChart------ */
+.barCss {
+  width: 100%;
+  height: 300px;
+}
+/* -----------financial---------- */
+.fBgColor {
+  background-color: #f8f9f9;
+}
+/* ------Hyperlink popup------------- */
+.closeIconPopupWhite {
+  cursor: pointer;
+  margin-right: 8px;
+  color: #ffffff;
+  float: right;
+}
+/* ------------Snapshot------------------ */
+.cardFlex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.inputType1 {
+  border-radius: 4px !important;
+  width: 50% !important;
+}
+.inputType2 {
+  text-align: end !important;
+  color: black !important;
+  font-weight: bold !important;
+  background-color: white !important;
+}
+/* --------------DataTable-------------------------- */
+.tableBorder {
+  border: 1px solid black;
+}
+.tableIcon {
+  cursor: pointer;
+  margin-right: 8px;
+}
+.tablePointer {
+  cursor: pointer;
+}
+/* ------------Tab component------------------ */
+.arrowColor {
+  color: #999999;
+}
+/* -------------Add User,Group,Profile------------------------------ */
+.box30 {
+  width: 30px;
+  height: 30px;
+}

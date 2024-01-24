@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../HtmlComponents/Spinner";
+import { UserService } from "../../Service/UserService";
 
 const AddUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -77,6 +78,36 @@ const AddUser = () => {
     role: Yup.string("Role is invalid"),
     mobile: Yup.string("Mobile Number is invalid"),
   });
+
+  function AddUser() {
+    UserService.addUser(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567", //uuid
+        },
+        requsterUserId: "201",
+        userName: "Shantanu",
+        fullName: "Shanatnu",
+        userType: "Admin",
+        employeeNumber: "12345",
+        domainName: "example.com",
+        userRole: "Administrator",
+        gender: "Male",
+        email: "shantanu@example.com",
+        mobileNumber: "123-456-7890",
+        workNo: "W123",
+        isActive: true,
+        createdDate: "28-08-2023",
+        createdBy: "Admin User",
+        requestType: "Add",
+        status: "Initiated",
+        profileId: 901,
+      },
+      (res) => {}
+    );
+  }
+
   return (
     <div className="wrapper">
       <Spinner isLoading={isLoading} />
@@ -177,10 +208,9 @@ const AddUser = () => {
                             <br />
                             <Field
                               name="isActive"
-                              className="form-check-input form-control"
+                              className="form-check-input form-control box30"
                               type="checkbox"
                               id="flexSwitchCheckChecked"
-                              style={{ width: "30px", height: "30px" }}
                             />
                           </div>
                         ) : (
@@ -256,8 +286,7 @@ const AddUser = () => {
                   <hr />
                   <div className="modal-footer">
                     <button
-                      className="btn BackBtn"
-                      style={{ marginRight: "10px" }}
+                      className="btn BackBtn me-2"
                       type="submit"
                       onClick={() => {
                         navigate("/NHAI/Users");
@@ -266,10 +295,7 @@ const AddUser = () => {
                       Back to List
                     </button>
                     <button
-                      className="btn addUser min"
-                      style={{
-                        marginRight: "10px",
-                      }}
+                      className="btn addUser min me-2"
                       type="submit"
                       onClick={() => {
                         setIsLoading(true);

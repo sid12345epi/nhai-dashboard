@@ -5,9 +5,13 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import TablesDataChecker from "../Checker/fieldData";
 import sideBarDataChecker from "../Checker/sideBarData";
+import { UserService } from "../../Service/UserService";
+import Spinner from "../HtmlComponents/Spinner";
 const UserList = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [is, setIs] = useState(false);
+  const [userList, setUserList] = useState([]);
   //User Data
   var jsonData = TablesDataChecker.find((item) => item.type === "User_list");
   const data = jsonData.data;
@@ -24,7 +28,7 @@ const UserList = () => {
           if (s.name === "User") {
             return (s.action || []).find((a) => {
               if (a.actionName === "Add") {
-                console.log("Is add user ->", a.check);
+                //console.log("Is add user ->", a.check);
                 return a.check;
               }
             });
@@ -33,7 +37,6 @@ const UserList = () => {
       }
     }) !== undefined;
   useEffect(() => {
-    console.log("useEffect", isAddUser);
     setIs(isAddUser);
   }, []);
 
@@ -47,7 +50,7 @@ const UserList = () => {
       Header: <div className="float-center">User Type</div>,
       accessor: "userType",
     },
-    { Header: <div className="float-center">Role</div>, accessor: "role" },
+    { Header: <div className="float-center">Role</div>, accessor: "userRole" },
     {
       Header: "Is Active",
       accessor: "isActive",
@@ -61,9 +64,42 @@ const UserList = () => {
     },
   ];
 
-  function handleAction(id) {
-    // Implement your action logic here based on the id
+  useEffect(() => {
+    setIsLoading(true);
+    fetchUserList();
+  }, []);
+
+  function fetchUserList() {
+    var UserList = [];
+    UserService.getUserList(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.data.responseMetaData.status === "200") {
+          UserList = res.data.users;
+          setUserList(UserList);
+          setIsLoading(false);
+        }
+        // else if (res.data.responseMetaData.status === "500") {
+        //   prompt("Internal Server Error");
+        // } else if (res.status === "404") {
+        //   prompt("Please provide valid inputs.");
+        // } else {
+        // }
+        //   return data;
+      }
+    );
+    console.log("UserList->", UserList);
+
+    return UserList;
   }
+
+  function handleAction(id) {}
 
   const HandleAddUser = () => {
     navigate("/NHAI/AddUser");
@@ -71,6 +107,7 @@ const UserList = () => {
 
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -97,7 +134,7 @@ const UserList = () => {
               {/* <div className="col-md-11 mx-auto flex"> */}
               <DataTable
                 columns={columns}
-                data={data}
+                data={userList} //{data}
                 // customClass="ULTable"
                 detailpage="UserDetails"
                 editpage="EditUser"

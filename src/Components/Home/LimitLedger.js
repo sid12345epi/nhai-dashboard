@@ -3,19 +3,20 @@ import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import Hyperlink from "./Hyperlink";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 const LimitLedger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [rowdata, setRData] = useState("");
 
   const navigate = useNavigate();
-  const [formDate, setFormDate] = useState("");
-  const [toDate, setToDate] = useState("");
-  const [dateFromValue, setDateFromValue] = useState(
-    new Date().toISOString().split("T")[0]
+  const [fromDate, setFromDate] = useState(
+    "2023-04-01" // new Date().toISOString().split("T")[0]
   );
-  const [dateToValue, setDateToValue] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  const [toDate, setToDate] = useState(new Date().toISOString().split("T")[0]);
+
   const [bankD, setBank] = useState("");
   const [roD, setRo] = useState("");
   const [zoneD, setZone] = useState("");
@@ -45,7 +46,7 @@ const LimitLedger = () => {
             setRData(row.values);
             setIsOpen(true);
           }}
-          style={{ color: "black" }}
+          className="text-black"
         >
           {row.values.PIU}
         </a>
@@ -63,7 +64,7 @@ const LimitLedger = () => {
             setRData(row.values);
             setIsOpen(true);
           }}
-          style={{ color: "black", float: "right" }}
+          className="text-black float-end"
         >
           {row.values.accountNumber}
         </a>
@@ -80,28 +81,28 @@ const LimitLedger = () => {
     {
       Header: "Limit Loaded Amount",
       accessor: "limitLoadedAmount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Limit Reduced",
       accessor: "limitReduced",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
 
     {
       Header: "Limit Utilized",
       accessor: "limitUtilized",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Returns",
       accessor: "returns",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Limit Balance",
       accessor: "limitBalance",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Transaction Type",
@@ -168,20 +169,9 @@ const LimitLedger = () => {
 
   useEffect(() => {
     console.log("reqBody-->", reqBody);
-  }, [toDate]);
+  }, [fromDate, toDate]);
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1;
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const reqBody = {
     requestMetaData: {
@@ -194,8 +184,8 @@ const LimitLedger = () => {
     zone: zoneD, //"All", //East,West,North South
     piu: piuD,
     accountNumber: accNo,
-    fromDate: formDate, //"01-04-2017",
-    toData: toDate, //"01-09-2023",
+    fromDate: ConvertFormat(fromDate), //"01-04-2017",
+    toData: ConvertFormat(toDate), //"01-09-2023",
     transactionType: typeTransaction, //"All",
   };
 
@@ -249,12 +239,10 @@ const LimitLedger = () => {
               id="dateInput"
               className="inputDate"
               type="date"
-              value={dateFromValue || ""}
+              value={fromDate || ""}
               onChange={(e) => {
-                const E = formatDate(e.target.value);
-                setDateFromValue(e.target.value);
-                console.log("----->", E);
-                setFormDate(E);
+                setFromDate(e.target.value);
+                console.log("->", ConvertFormat(e.target.value));
               }}
             />{" "}
           </div>
@@ -267,12 +255,10 @@ const LimitLedger = () => {
               id="dateInput"
               className="inputDate"
               type="date"
-              value={dateToValue || ""}
+              value={toDate || ""}
               onChange={(e) => {
-                setDateToValue(e.target.value);
-                const E = formatDate(e.target.value);
-                console.log("----->", E);
-                setToDate(E);
+                setToDate(e.target.value);
+                console.log("->", ConvertFormat(e.target.value));
               }}
             />{" "}
           </div>

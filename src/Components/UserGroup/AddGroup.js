@@ -141,10 +141,9 @@ const AddGroup = ({ isOpen, setModal }) => {
                             <br />
                             <Field
                               name="isActive"
-                              className="form-check-input form-control"
+                              className="form-check-input form-control box30"
                               type="checkbox"
                               id="flexSwitchCheckChecked"
-                              style={{ width: "30px", height: "30px" }}
                             />
                           </div>
                         ) : (
@@ -156,8 +155,7 @@ const AddGroup = ({ isOpen, setModal }) => {
                   <hr />
                   <div className="modal-footer">
                     <button
-                      className="btn BackBtn"
-                      style={{ marginRight: "10px" }}
+                      className="btn BackBtn me-2"
                       type="submit"
                       onClick={() => {
                         navigate("/NHAI/Groups");
@@ -166,10 +164,7 @@ const AddGroup = ({ isOpen, setModal }) => {
                       Back to List
                     </button>
                     <button
-                      className="btn addUser min"
-                      style={{
-                        marginRight: "10px",
-                      }}
+                      className="btn addUser min me-2"
                       type="submit"
                       onClick={() => {
                         // setModal(false);

@@ -319,8 +319,7 @@ const AddProfile = () => {
               </h2>
               <div className="float-end mb-3 mt-3">
                 <button
-                  className="btn BackBtn"
-                  style={{ marginRight: "10px" }}
+                  className="btn BackBtn me-2"
                   type="submit"
                   onClick={() => {
                     navigate("/NHAI/Profiles");
@@ -329,8 +328,7 @@ const AddProfile = () => {
                   Back to List
                 </button>
                 <button
-                  className="btn addUser min"
-                  style={{ marginRight: "10px" }}
+                  className="btn addUser min me-2"
                   type="submit"
                   onClick={() => {
                     //setModal(false);
@@ -431,10 +429,9 @@ const AddProfile = () => {
                             <br />
                             <Field
                               name="isActive"
-                              className="form-check-input"
+                              className="form-check-input box30"
                               type="checkbox"
                               id="flexSwitchCheckChecked"
-                              style={{ width: "30px", height: "30px" }}
                             />
                           </div>
                         ) : (
@@ -457,9 +454,8 @@ const AddProfile = () => {
               <h2 className="mb-3 mt-3 pageTitle">Profile Mapping</h2>
               <div className="float-end mb-1 mt-4 mx-3">
                 <button
-                  className="btn addUser"
+                  className="btn addUser me-2 min-width-110px"
                   type="button"
-                  style={{ marginRight: "10px", minWidth: "110px" }}
                   onClick={() => {
                     // setAllCheck(true);
 

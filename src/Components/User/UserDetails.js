@@ -1,66 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../HtmlComponents/Spinner";
+import { UserService } from "../../Service/UserService";
 
 function UserDetails() {
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState({});
   const { userId } = useParams();
   const navigate = useNavigate();
 
-  const users = [
-    {
-      id: 1,
-      fullName: "Sumit Bajrang Kadam",
-      userId: "2697",
-      userType: "Admin",
-      role: "Admin",
-      isActive: true,
-      employeeNumber: "EMP202",
-      domainName: "example.com",
-      gender: "Male",
-      email: "Sumit@gmail.com",
-      mobileNumber: "999-333-4400",
-      workNo: "W123",
-      createdDate: "15-01-2024", //"2023-08-08",
-      createdBy: "Admin",
-    },
-    {
-      id: 2,
-      fullName: "Mandar Milind Naphad",
-      userId: "2698",
-      userType: "User",
-      role: "Member",
-      isActive: true,
-      employeeNumber: "EMP203",
-      domainName: "example.com",
-      gender: "Male",
-      email: "Mandar@gmail.com",
-      mobileNumber: "999-333-4400",
-      workNo: "W123",
-      createdDate: "15-01-2024", //"2023-08-08",
-      createdBy: "Admin",
-    },
-    {
-      id: 3,
-      fullName: "Ajay Dilip Sharma",
-      userId: "2699",
-      userType: "User",
-      role: "Member",
-      isActive: true,
-      employeeNumber: "EMP202",
-      domainName: "example.com",
+  // const users = [
+  //   {
+  //     id: 1,
+  //     fullName: "Sumit Bajrang Kadam",
+  //     userId: "2697",
+  //     userType: "Admin",
+  //     role: "Admin",
+  //     isActive: true,
+  //     employeeNumber: "EMP202",
+  //     domainName: "example.com",
+  //     gender: "Male",
+  //     email: "Sumit@gmail.com",
+  //     mobileNumber: "999-333-4400",
+  //     workNo: "W123",
+  //     createdDate: "15-01-2024", //"2023-08-08",
+  //     createdBy: "Admin",
+  //   },
+  //   {
+  //     id: 2,
+  //     fullName: "Mandar Milind Naphad",
+  //     userId: "2698",
+  //     userType: "User",
+  //     role: "Member",
+  //     isActive: true,
+  //     employeeNumber: "EMP203",
+  //     domainName: "example.com",
+  //     gender: "Male",
+  //     email: "Mandar@gmail.com",
+  //     mobileNumber: "999-333-4400",
+  //     workNo: "W123",
+  //     createdDate: "15-01-2024", //"2023-08-08",
+  //     createdBy: "Admin",
+  //   },
+  //   {
+  //     id: 3,
+  //     fullName: "Ajay Dilip Sharma",
+  //     userId: "2699",
+  //     userType: "User",
+  //     role: "Member",
+  //     isActive: true,
+  //     employeeNumber: "EMP202",
+  //     domainName: "example.com",
 
-      gender: "Male",
-      email: "Ajay@gmail.com",
-      mobileNumber: "999-333-4400",
-      workNo: "W123",
-      createdDate: "15-01-2024", //"2023-08-08",
-      createdBy: "Admin",
-    },
-  ];
+  //     gender: "Male",
+  //     email: "Ajay@gmail.com",
+  //     mobileNumber: "999-333-4400",
+  //     workNo: "W123",
+  //     createdDate: "15-01-2024", //"2023-08-08",
+  //     createdBy: "Admin",
+  //   },
+  // ];
 
-  const user = users.find((u) => u.id.toString() === userId);
+  useEffect(() => {
+    fetchUserById();
+  }, []);
+
+  function fetchUserById() {
+    var user = {};
+    UserService.getUserById(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userId: userId,
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.data.responseMetaData.status === "200") {
+          user = res.data.responseObject;
+          // console.log("UserList->", UserList);
+          setUser(user);
+        }
+        //   return data;
+      }
+    );
+    console.log("user->", user);
+    return user;
+  }
+
+  // const user = users.find((u) => u.id.toString() === userId);
   const path = window.location.pathname;
   const isDelete = path.includes("DeleteUser") ? true : false;
   if (!user) {
@@ -112,7 +142,6 @@ function UserDetails() {
                 className="form-check-input"
                 type="checkbox"
                 id="flexSwitchCheckChecked"
-                //style={{ width: "30px", height: "30px" }}
                 checked={user.isActive}
                 readOnly
               />
@@ -136,7 +165,7 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">
               <strong>Role:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{user.role}</div>
+            <div className="col-md-6 UDCoulmns">{user.userRole}</div>
 
             <div className="col-md-6 UDCoulmns">
               <strong>Created By:</strong>

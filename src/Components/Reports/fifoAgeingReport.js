@@ -1,30 +1,16 @@
 import React, { useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const FifoAgeingReport = () => {
-  const [formDate, setFormDate] = useState("");
-
-  const [dateFromValue, setDateFromValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
 
-  function formatDate(inputDate) {
-    // Parse the input date string into a Date object
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
   const columns = [
     {
       Header: "PIU Name",
@@ -146,12 +132,10 @@ const FifoAgeingReport = () => {
                   id="dateInput"
                   className="inputDate"
                   type="date"
-                  value={dateFromValue || ""}
+                  value={asOnDate || ""}
                   onChange={(e) => {
-                    const E = formatDate(e.target.value);
-                    setDateFromValue(e.target.value);
-                    console.log("----->", E);
-                    setFormDate(E);
+                    setAsOnDate(e.target.value);
+                    console.log("->", ConvertFormat(e.target.value));
                   }}
                 />{" "}
               </div>

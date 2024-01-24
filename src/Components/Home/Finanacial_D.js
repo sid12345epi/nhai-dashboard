@@ -3,16 +3,17 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const FinanacialD = () => {
-  const [formDate, setFormDate] = useState("");
-  const [toDate, setToDate] = useState("");
-  const [dateFromValue, setDateFromValue] = useState(
-    new Date().toISOString().split("T")[0]
+  const [fromDate, setFromDate] = useState(
+    "2023-04-01" // new Date().toISOString().split("T")[0]
   );
-  const [dateToValue, setDateToValue] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  const [toDate, setToDate] = useState(new Date().toISOString().split("T")[0]);
+
   const [Decimal, setDecimal] = useState(true);
   const [bankD, setBank] = useState("");
   const [yearD, setYear] = useState("");
@@ -64,22 +65,6 @@ const FinanacialD = () => {
   // };
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    // Parse the input date string into a Date object
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const data = [
     {
@@ -231,32 +216,32 @@ const FinanacialD = () => {
     {
       Header: "Deposits",
       accessor: "deposits",
-      Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-start">{value}</div>,
     },
     {
       Header: "Amount",
       accessor: "depositsAmount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Amount",
       accessor: "finalDepositsAmount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Disbursements",
       accessor: "disbursements",
-      Cell: ({ value }) => <div style={{ float: "left" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-start">{value}</div>,
     },
     {
       Header: "Amount",
       accessor: "disbursementsAmount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Amount",
       accessor: "finalDisbursementsAmount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
   ];
 
@@ -268,7 +253,7 @@ const FinanacialD = () => {
     userName: "nhai",
     year: yearD, //"28-09-2023",
     bank: bankD, //"All", //Kotak,
-    fromDate: formDate, //"01-04-2017",
+    fromDate: fromDate, //"01-04-2017",
     toData: toDate, //"01-09-2023",
   };
 
@@ -288,10 +273,17 @@ const FinanacialD = () => {
                   setYear(e.target.value);
                 }}
               >
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
+                <option value="2018">2014</option>
+                <option value="2019">2015</option>
+                <option value="2020">2016</option>
+                <option value="2021">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
                 <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
               </select>{" "}
               <label className="statusOn">From : </label>
               {"  "}
@@ -299,12 +291,10 @@ const FinanacialD = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                value={dateFromValue || ""}
+                value={fromDate || ""}
                 onChange={(e) => {
-                  const E = formatDate(e.target.value);
-                  setDateFromValue(e.target.value);
-                  console.log("----->", E);
-                  setFormDate(E);
+                  setFromDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
                 }}
               />{" "}
               <label className="statusOn">To : </label>
@@ -313,12 +303,10 @@ const FinanacialD = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                value={dateToValue || ""}
+                value={toDate || ""}
                 onChange={(e) => {
-                  setDateToValue(e.target.value);
-                  const E = formatDate(e.target.value);
-                  console.log("----->", E);
-                  setToDate(E);
+                  setToDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
                 }}
               />{" "}
               {/* <label className="statusOn">Bank : </label>{" "}

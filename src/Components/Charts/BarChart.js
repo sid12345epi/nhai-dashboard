@@ -64,7 +64,7 @@ const BarChart = ({ chartdata, name }) => {
     };
   }, [chartdata]);
 
-  return <div id="chartdiv" style={{ width: "100%", height: "300px" }}></div>;
+  return <div id="chartdiv" className="barCss"></div>;
 };
 
 export default BarChart;

@@ -50,7 +50,7 @@ const PieChart = ({ data, chartid }) => {
   }, [data]);
 
   return (
-    <div id={chartid} style={{ width: "100%", height: "300px" }}>
+    <div id={chartid} className="barCss">
       {/* This div will be used by AmCharts to render the chart */}
     </div>
   );

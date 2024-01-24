@@ -416,8 +416,7 @@ const MenuManagement = () => {
                             <div className="col-md-2 p-0 mt-auto">
                               <div className="button-container">
                                 <button
-                                  className="btn addUser min"
-                                  style={{ minWidth: "110px" }}
+                                  className="btn addUser min min-width-110px"
                                   onClick={() => {
                                     setName("");
                                     setUrl("");
@@ -435,17 +434,11 @@ const MenuManagement = () => {
                                 > */}
                                 <FontAwesomeIcon
                                   icon={faEdit}
-                                  style={{
-                                    cursor:
-                                      selectedSubmenuList.length != 0
-                                        ? "pointer"
-                                        : "not-allowed",
-                                    color:
-                                      selectedSubmenuList.length != 0
-                                        ? "#84c0db"
-                                        : "#ccc",
-                                    marginTop: "10px",
-                                  }}
+                                  className={
+                                    selectedSubmenuList.length != 0
+                                      ? "activeIcon"
+                                      : "disableIcon"
+                                  }
                                   onClick={() => {
                                     if (selectedSubmenuList.length != 0) {
                                       setName(selectedSubmenuList.menuName);
@@ -464,17 +457,11 @@ const MenuManagement = () => {
                                 > */}{" "}
                                 <FontAwesomeIcon
                                   icon={faTrash}
-                                  style={{
-                                    cursor:
-                                      selectedSubmenuList.length != 0
-                                        ? "pointer"
-                                        : "not-allowed",
-                                    color:
-                                      selectedSubmenuList.length != 0
-                                        ? "#84c0db"
-                                        : "#ccc",
-                                    marginTop: "10px",
-                                  }}
+                                  className={
+                                    selectedSubmenuList.length != 0
+                                      ? "activeIcon"
+                                      : "disableIcon"
+                                  }
                                   onClick={() => {
                                     if (selectedSubmenuList.length != 0) {
                                       setMenu(true);
@@ -565,8 +552,12 @@ const MenuManagement = () => {
                             <div className="col-2 p-0 mt-auto">
                               <div className="button-container">
                                 <button
-                                  className="btn addUser min"
-                                  style={{ minWidth: "110px" }}
+                                  className="btn addUser min min-width-110px"
+                                  disabled={
+                                    selectedSubmenuList.length != 0
+                                      ? false
+                                      : true
+                                  }
                                   onClick={() => {
                                     setName("");
                                     setUrl("");
@@ -584,17 +575,11 @@ const MenuManagement = () => {
                                 > */}
                                 <FontAwesomeIcon
                                   icon={faEdit}
-                                  style={{
-                                    cursor:
-                                      selectedActionList.length != 0
-                                        ? "pointer"
-                                        : "not-allowed",
-                                    color:
-                                      selectedActionList.length != 0
-                                        ? "#84c0db"
-                                        : "#ccc",
-                                    marginTop: "10px",
-                                  }}
+                                  className={
+                                    selectedActionList.length != 0
+                                      ? "activeIcon"
+                                      : "disableIcon"
+                                  }
                                   onClick={() => {
                                     if (selectedActionList.length != 0) {
                                       setName(selectedActionList.name);
@@ -613,17 +598,11 @@ const MenuManagement = () => {
                                 > */}
                                 <FontAwesomeIcon
                                   icon={faTrash}
-                                  style={{
-                                    cursor:
-                                      selectedActionList.length != 0
-                                        ? "pointer"
-                                        : "not-allowed",
-                                    color:
-                                      selectedActionList.length != 0
-                                        ? "#84c0db"
-                                        : "#ccc",
-                                    marginTop: "10px",
-                                  }}
+                                  className={
+                                    selectedActionList.length != 0
+                                      ? "activeIcon"
+                                      : "disableIcon"
+                                  }
                                   onClick={() => {
                                     if (selectedActionList.length != 0) {
                                       setName(selectedActionList.name);
@@ -718,8 +697,12 @@ const MenuManagement = () => {
                             <div className="col-2 p-0 mt-auto">
                               <div className="button-container">
                                 <button
-                                  className="btn addUser min"
-                                  style={{ minWidth: "110px" }}
+                                  className="btn addUser min min-width-110px"
+                                  disabled={
+                                    selectedActionList.length != 0
+                                      ? false
+                                      : true
+                                  }
                                   onClick={() => {
                                     setName("");
                                     setUrl("");
@@ -736,19 +719,12 @@ const MenuManagement = () => {
                                   onClick={() => {}}
                                 > */}
                                 <FontAwesomeIcon
-                                  className="mt-10"
                                   icon={faEdit}
-                                  style={{
-                                    cursor:
-                                      selectedActionObject.length != 0
-                                        ? "pointer"
-                                        : "not-allowed",
-                                    marginTop: "10px",
-                                    color:
-                                      selectedActionObject.length != 0
-                                        ? "#84c0db"
-                                        : "#ccc",
-                                  }}
+                                  className={
+                                    selectedActionObject.length != 0
+                                      ? "activeIcon"
+                                      : "disableIcon"
+                                  }
                                   onClick={() => {
                                     if (selectedActionObject.length != 0) {
                                       setName(selectedAction);
@@ -766,17 +742,11 @@ const MenuManagement = () => {
                                 > */}
                                 <FontAwesomeIcon
                                   icon={faTrash}
-                                  style={{
-                                    cursor:
-                                      selectedActionObject.length != 0
-                                        ? "pointer"
-                                        : "not-allowed",
-                                    marginTop: "10px",
-                                    color:
-                                      selectedActionObject.length != 0
-                                        ? "#84c0db"
-                                        : "#ccc",
-                                  }}
+                                  className={
+                                    selectedActionObject.length != 0
+                                      ? "activeIcon"
+                                      : "disableIcon"
+                                  }
                                   onClick={() => {
                                     if (selectedActionObject.length != 0) {
                                       setName(selectedAction);
@@ -798,8 +768,7 @@ const MenuManagement = () => {
                   <hr />
                   <div className="modal-footer">
                     <button
-                      className="btn BackBtn"
-                      style={{ marginRight: "10px" }}
+                      className="btn BackBtn me-2"
                       onClick={() => {
                         setSelectedAction("");
                         setSelectedSubmenuList([]);
@@ -810,16 +779,7 @@ const MenuManagement = () => {
                     >
                       Reset
                     </button>
-                    {/* <button
-                      className="btn addUser min"
-                      style={{
-                        marginRight: "10px",
-                      }}
-                      type="submit"
-                      onClick={() => {}}
-                    >
-                      Save
-                    </button> */}
+
                     {"  "}
                   </div>
                 </Form>
@@ -849,13 +809,8 @@ const MenuManagement = () => {
               <div>
                 <div className="float-end mt-2">
                   <FontAwesomeIcon
+                    className="closeIconPopup"
                     icon={faTimes}
-                    style={{
-                      cursor: "pointer",
-                      marginRight: "8px",
-                      color: "black",
-                      float: "right",
-                    }}
                     onClick={() => {
                       closeModal();
                     }}
@@ -990,13 +945,8 @@ const MenuManagement = () => {
               <div>
                 <div className="float-end mt-2">
                   <FontAwesomeIcon
+                    className="closeIconPopup"
                     icon={faTimes}
-                    style={{
-                      cursor: "pointer",
-                      marginRight: "8px",
-                      color: "black",
-                      float: "right",
-                    }}
                     onClick={() => {
                       closeEditModal();
                     }}
@@ -1138,13 +1088,8 @@ const MenuManagement = () => {
               <div>
                 <div className="float-end mt-2">
                   <FontAwesomeIcon
+                    className="closeIconPopup"
                     icon={faTimes}
-                    style={{
-                      cursor: "pointer",
-                      marginRight: "8px",
-                      color: "black",
-                      float: "right",
-                    }}
                     onClick={() => {
                       closeDeleteModal();
                     }}

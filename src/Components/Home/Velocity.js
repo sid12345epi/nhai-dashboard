@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
 import Hyperlink from "./Hyperlink";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const Velocity = () => {
-  const currentDate = new Date().toISOString().split("T")[0];
-  const cdate = formatDate(currentDate);
-  const [dynamicDate, setDate] = useState(cdate);
-  const [dateValue, setDateValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
-
   const [isOpen, setIsOpen] = useState(false);
   const [rowdata, setRData] = useState("");
 
@@ -46,7 +46,7 @@ const Velocity = () => {
             //  navigate("/NHAI/Hyperlink");
             //window.open("/NHAI/Hyperlink", "_blank");
           }}
-          style={{ color: "black" }}
+          className="text-black"
         >
           {row.values.PIU}
         </a>
@@ -64,7 +64,7 @@ const Velocity = () => {
             setRData(row.values);
             setIsOpen(true);
           }}
-          style={{ color: "black", float: "right" }}
+          className="text-black float-end"
         >
           {row.values.accountNumber}
         </a>
@@ -77,12 +77,12 @@ const Velocity = () => {
     {
       Header: "Limit Utilization %",
       accessor: "limitUtilization",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Velocity %",
       accessor: "velocity",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
   ];
   const data = [
@@ -142,29 +142,12 @@ const Velocity = () => {
       percentage: "99.80%",
     },
   ];
-  useEffect(() => {
-    const d = formatDate(dateValue);
-    setDate(d);
-  }, [dateValue]);
+
   useEffect(() => {
     console.log("reqBody-->", reqBody);
-  }, [dynamicDate]);
+  }, [asOnDate]);
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const reqBody = {
     requestMetaData: {
@@ -172,7 +155,7 @@ const Velocity = () => {
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
     userName: "nhai",
-    asOnDate: dynamicDate, //"28-09-2023",
+    asOnDate: ConvertFormat(asOnDate), //"28-09-2023",
     bank: bankD, //"All", //Kotak,
     ro: roD, //"All", // Bhubaneswar
     zone: zoneD, //"All", //East,West,North South
@@ -220,11 +203,10 @@ const Velocity = () => {
               id="dateInput"
               className="inputDate"
               type="date"
-              value={dateValue || ""}
+              value={asOnDate || ""}
               onChange={(e) => {
-                const E = e.target.value;
-                console.log("----->", E);
-                setDateValue(E);
+                setAsOnDate(e.target.value);
+                console.log("->", ConvertFormat(e.target.value));
               }}
             />{" "}
           </div>
@@ -265,7 +247,6 @@ const Velocity = () => {
       <div className="row p-1">
         <div className="col">
           <div className="float-end">
-            {/* style={{ paddingLeft: "35px" }} */}
             <label className="statusOn">Zone :</label>{" "}
             <select
               name="zone"
@@ -285,7 +266,6 @@ const Velocity = () => {
         </div>
         <div className="col">
           <div className="float-end">
-            {/* style={{ paddingLeft: "18px" }} */}
             <label className="statusOn">RO :</label>{" "}
             <select
               name="ro"
@@ -304,7 +284,6 @@ const Velocity = () => {
         </div>
         <div className="col">
           <div className="float-end">
-            {/* style={{ paddingRight: "30px" }} */}
             <label className="statusOn">PIU :</label>{" "}
             <select
               name="piu"

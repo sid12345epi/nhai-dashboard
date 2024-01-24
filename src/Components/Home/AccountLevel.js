@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
 import Hyperlink from "./Hyperlink";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const AccountLevel = () => {
-  const currentDate = new Date().toISOString().split("T")[0];
-  const cdate = formatDate(currentDate);
-  const [dynamicDate, setDate] = useState(cdate);
-  const [dateValue, setDateValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
-
   const [isOpen, setIsOpen] = useState(false);
   const [rowdata, setRData] = useState("");
 
@@ -34,7 +34,7 @@ const AccountLevel = () => {
             setRData(row.values);
             setIsOpen(true);
           }}
-          style={{ color: "black" }}
+          className="text-black"
         >
           {row.values.piu}
         </a>
@@ -58,7 +58,7 @@ const AccountLevel = () => {
             setRData(row.values);
             setIsOpen(true);
           }}
-          style={{ color: "black", float: "right" }}
+          className="text-black float-end"
         >
           {row.values.accNum}
         </a>
@@ -74,7 +74,7 @@ const AccountLevel = () => {
             setRData(row.values);
             setIsOpen(true);
           }}
-          style={{ color: "black" }}
+          className="text-black"
         >
           {row.values.projectName}
         </a>
@@ -91,28 +91,28 @@ const AccountLevel = () => {
     {
       Header: "Sanction Limit",
       accessor: "crore.sanctionLimit", // Decimal ? "decimal.sanctionLimit" :
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Utilized Limit",
       accessor: "crore.utilizedLimit", //Decimal ? "decimal.utilizedLimit" :
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Un-Utilized Limit",
       accessor: "crore.unUtilizedLimit", // Decimal ? "decimal.unUtilizedLimit" :
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Utilization %",
       accessor: "crore.utilizedPercent", // Decimal ? "decimal.utilizedPercent" :
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Active/Inactive",
       accessor: "status",
       Cell: ({ value }) => (
-        <div style={{ float: "center" }}>
+        <div className="mx-auto">
           <input
             class="form-check-input"
             type="checkbox"
@@ -189,31 +189,12 @@ const AccountLevel = () => {
       percentage: "99.80%",
     },
   ];
-  useEffect(() => {
-    const d = formatDate(dateValue);
-    setDate(d);
-  }, [dateValue]);
+
   useEffect(() => {
     console.log("reqBody-->", reqBody);
-  }, [dynamicDate]);
+  }, [asOnDate]);
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    // Parse the input date string into a Date object
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const reqBody = {
     requestMetaData: {
@@ -221,7 +202,7 @@ const AccountLevel = () => {
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
     userName: "nhai",
-    statusAsOn: dynamicDate, //"28-09-2023",
+    statusAsOn: ConvertFormat(asOnDate), //"28-09-2023",
     bank: bankD, //"All", //Kotak,
   };
 
@@ -285,11 +266,10 @@ const AccountLevel = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                value={dateValue || ""}
+                value={asOnDate || ""}
                 onChange={(e) => {
-                  const E = e.target.value;
-                  console.log("----->", E);
-                  setDateValue(E);
+                  setAsOnDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
                 }}
               />{" "}
             </div>

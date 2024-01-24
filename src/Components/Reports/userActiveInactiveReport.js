@@ -1,32 +1,17 @@
 import React, { useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const UserActiveInactiveReport = () => {
-  const [formDate, setFormDate] = useState("");
-  const [toDate, setToDate] = useState("");
-  const [dateFromValue, setDateFromValue] = useState(
-    new Date().toISOString().split("T")[0]
+  const [fromDate, setFromDate] = useState(
+    "2023-04-01" //  new Date().toISOString().split("T")[0]
   );
-  const [dateToValue, setDateToValue] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  function formatDate(inputDate) {
-    // Parse the input date string into a Date object
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
+  const [toDate, setToDate] = useState(new Date().toISOString().split("T")[0]);
 
-    // Extract day, month, and year components
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
   const columns = [
     {
       Header: "User ID",
@@ -127,12 +112,10 @@ const UserActiveInactiveReport = () => {
                   id="dateInput"
                   className="inputDate"
                   type="date"
-                  value={dateFromValue || ""}
+                  value={fromDate || ""}
                   onChange={(e) => {
-                    const E = formatDate(e.target.value);
-                    setDateFromValue(e.target.value);
-                    console.log("----->", E);
-                    setFormDate(E);
+                    setFromDate(e.target.value);
+                    console.log("->", ConvertFormat(e.target.value));
                   }}
                 />{" "}
                 <label className="statusOn ms-5">To :</label>
@@ -141,12 +124,10 @@ const UserActiveInactiveReport = () => {
                   id="dateInput"
                   className="inputDate"
                   type="date"
-                  value={dateToValue || ""}
+                  value={toDate || ""}
                   onChange={(e) => {
-                    setDateToValue(e.target.value);
-                    const E = formatDate(e.target.value);
-                    console.log("----->", E);
-                    setToDate(E);
+                    setToDate(e.target.value);
+                    console.log("->", ConvertFormat(e.target.value));
                   }}
                 />{" "}
                 <label className="statusOn  ms-5">Status :</label>{" "}

@@ -614,12 +614,7 @@ const ProfilleCheckerDetails = () => {
             <div className="float-end mt-2">
               <FontAwesomeIcon
                 icon={faTimes}
-                style={{
-                  cursor: "pointer",
-                  marginRight: "8px",
-                  color: "black",
-                  float: "right",
-                }}
+                className="closeIconPopup"
                 onClick={() => {
                   closeModal();
                 }}

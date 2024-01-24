@@ -17,7 +17,7 @@ function App() {
     location.pathname === "/NHAI/varients"
       ? true
       : false;
-  console.log("->>>>>", isLoginPage);
+
   return (
     <div className="App">
       <Header />
@@ -25,15 +25,12 @@ function App() {
       <div className="row">
         {!isLoginPage && (
           <>
-            <div
-              className="col-3 sideBar "
-              style={{ backgroundColor: "#003366" }}
-            >
+            <div className="col-3 sideBar bgAppColor">
               <MobileMenuToggle />
               <Sidebar />
             </div>
             <div className="col-9 dataContainer pageWrapper">
-              <div style={{ paddingLeft: "10px" }}>
+              <div className="ps-4">
                 <Routers />
               </div>
             </div>

@@ -56,8 +56,6 @@ const Sidebar = () => {
     <nav
       id="sidebarMenu"
       className="collapse d-lg-block sidebar collapse navColor"
-      // style={{ backgroundColor: "#8ccff0" }}
-      //style={{ backgroundColor: "red" }}
     >
       <div className="position-sticky">
         <div className="list-group list-group-flush">

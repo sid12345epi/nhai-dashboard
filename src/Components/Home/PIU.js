@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import "../../Assets/Css/Dashboard.css";
 import { v4 as uuid } from "uuid";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 const PIU = () => {
-  const currentDate = new Date().toISOString().split("T")[0];
-  const cdate = formatDate(currentDate);
-  const [dynamicDate, setDate] = useState(cdate);
-  const [dateValue, setDateValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
   const [bankD, setBank] = useState("");
@@ -19,7 +20,7 @@ const PIU = () => {
       accessor: "piu",
 
       Cell: ({ row }) => (
-        <a href="#" onClick={() => {}} style={{ color: "black" }}>
+        <a href="#" onClick={() => {}} className="text-black">
           {row.values.piu}
         </a>
       ),
@@ -36,11 +37,7 @@ const PIU = () => {
       Header: "No. of Subsidiary Accounts",
       accessor: "countOfSubsidiaryAccounts",
       Cell: ({ row }) => (
-        <a
-          href="#"
-          onClick={() => {}}
-          style={{ color: "black", float: "right" }}
-        >
+        <a href="#" onClick={() => {}} className="text-black float-end">
           {row.values.countOfSubsidiaryAccounts}
         </a>
       ),
@@ -48,22 +45,22 @@ const PIU = () => {
     {
       Header: "Sanction Limit",
       accessor: Decimal ? "decimal.sanctionLimit" : "crore.sanctionLimit",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Utilized Limit",
       accessor: Decimal ? "decimal.utilizedLimit" : "crore.utilizedLimit",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Un-Utilized Limit",
       accessor: Decimal ? "decimal.unUtilizedLimit" : "crore.unUtilizedLimit",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
     {
       Header: "Utilized Percentage",
       accessor: Decimal ? "decimal.utilizedPercent" : "crore.utilizedPercent",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
   ];
   const data = [
@@ -123,28 +120,12 @@ const PIU = () => {
       percentage: "99.80%",
     },
   ];
-  useEffect(() => {
-    const d = formatDate(dateValue);
-    setDate(d);
-  }, [dateValue]);
+
   useEffect(() => {
     console.log("reqBody-->", reqBody);
-  }, [dynamicDate]);
+  }, [asOnDate]);
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1;
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0");
-    const yyyy = formattedDate.getFullYear();
-
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const reqBody = {
     requestMetaData: {
@@ -152,7 +133,7 @@ const PIU = () => {
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
     userName: "nhai",
-    statusAsOn: dynamicDate, //"28-09-2023",
+    statusAsOn: ConvertFormat(asOnDate), //"28-09-2023",
     bank: bankD, //"All", //Kotak,
     ro: roD, //"All", // Bhubaneswar
     zone: zoneD, //"All", //East,West,North South
@@ -218,11 +199,10 @@ const PIU = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                value={dateValue || ""}
+                value={asOnDate || ""}
                 onChange={(e) => {
-                  const E = e.target.value;
-                  console.log("----->", E);
-                  setDateValue(E);
+                  setAsOnDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
                 }}
               />{" "}
               <label className="statusOn">Zone : </label>{" "}

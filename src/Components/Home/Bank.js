@@ -3,10 +3,15 @@ import DataTable from "../HtmlComponents/DataTable";
 import "../../Assets/Css/Dashboard.css";
 import axios from "axios";
 import PieChart from "../Charts/PieChart";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const Bank = () => {
-  const [dynamicDate, setDate] = useState(new Date());
-  const currentDate = new Date().toISOString().split("T")[0];
+  const [asOnDate, setAsOnDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [dbdata, setDbdata] = useState([]);
   const [bankTable, setBankTable] = useState([]);
   const data = {
@@ -102,7 +107,11 @@ const Bank = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                defaultValue={currentDate}
+                value={asOnDate || ""}
+                onChange={(e) => {
+                  setAsOnDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
+                }}
               />{" "}
               <label className="statusOn">Zone : </label>{" "}
               <select name="zone" className="inputDate">

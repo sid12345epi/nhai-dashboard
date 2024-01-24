@@ -8,45 +8,17 @@ import DataTable from "../HtmlComponents/DataTable";
 import ExcelJS from "exceljs";
 import logo from "../../Assets/images/Kotak_logo.png";
 import { v4 as uuid } from "uuid";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const Snapshot = () => {
-  const currentDate = new Date().toISOString().split("T")[0];
-  const cdate = formatDate(currentDate);
-  const [dynamicDate, setDate] = useState(cdate);
-  const [dateValue, setDateValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
   const [Decimal, setDecimal] = useState(true);
-
   const [dbdata, setDbdata] = useState(null);
-  const [selectedDate, setSelectedDate] = useState("");
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
-  useEffect(() => {
-    console.log("selectedDate1", selectedDate);
-    const formatValidDate = formatDate(selectedDate);
-    // setDynamicDate(formatValidDate);
-    console.log("formatValidDate", dynamicDate);
-  }, [selectedDate]);
-
-  function formatDate(inputDate) {
-    // Parse the input date string into a Date object
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-
-    // Extract day, month, and year components
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-
-    // Format the date in "dd-mm-yyyy" format
-    return `${dd}-${mm}-${yyyy}`;
-  }
 
   const columns = [
     {
@@ -100,34 +72,18 @@ const Snapshot = () => {
   }, []);
 
   useEffect(() => {
-    const d = formatDate(dateValue);
-    setDate(d);
-  }, [dateValue]);
-  useEffect(() => {
     console.log("reqBody-->", reqBody);
-  }, [dynamicDate]);
+  }, [asOnDate]);
 
   //Mock----------------------------------------------------------------------
-  function formatDate(inputDate) {
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1;
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
 
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0");
-    const yyyy = formattedDate.getFullYear();
-
-    return `${dd}-${mm}-${yyyy}`;
-  }
   const reqBody = {
     requestMetaData: {
       applicationId: "nhai-dashboard",
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
     userName: "nhai",
-    statusAsOn: dynamicDate, //"28-09-2023",
+    statusAsOn: ConvertFormat(asOnDate), //"28-09-2023",
   };
 
   const mockRes = {
@@ -225,7 +181,7 @@ const Snapshot = () => {
     });
 
     // Save the PDF with a unique name
-    const fileName = `snapshot_${currentDate}.pdf`;
+    const fileName = `snapshot_${ConvertFormat(asOnDate)}.pdf`;
     doc.save(fileName);
   };
 
@@ -247,7 +203,7 @@ const Snapshot = () => {
     // Create a download link
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
-    link.download = `snapshot_${currentDate}.csv`;
+    link.download = `snapshot_${ConvertFormat(asOnDate)}.csv`;
 
     // Trigger a click on the link to initiate the download
     link.click();
@@ -334,7 +290,7 @@ const Snapshot = () => {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       })
     );
-    link.download = `snapshot_${currentDate}.xlsx`;
+    link.download = `snapshot_${ConvertFormat(asOnDate)}.xlsx`;
 
     link.click();
   };
@@ -352,11 +308,10 @@ const Snapshot = () => {
                 id="dateInput"
                 className="inputDate"
                 type="date"
-                value={dateValue || ""}
+                value={asOnDate || ""}
                 onChange={(e) => {
-                  const E = e.target.value;
-                  console.log("----->", E);
-                  setDateValue(E);
+                  setAsOnDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
                 }}
               />
               {"  "}
@@ -399,44 +354,22 @@ const Snapshot = () => {
         </div>
       </div>
       <hr />
-      <div
-        className="row snapshotForm pt-1"
-        style={{ backgroundColor: "#F8F9F9" }}
-      >
+      <div className="row snapshotForm pt-1 fBgColor">
         <div className="col-12 col-md-8">
           {" "}
           {(cardData || []).map((x, index) => {
             return (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
+              <div key={index} className="cardFlex">
                 <input
-                  className="form-control m-1 fieldLabel"
+                  className="form-control m-1 fieldLabel inputType1"
                   type="text"
                   name="title"
                   value={x.title}
                   disabled
-                  style={{
-                    borderRadius: "4px",
-                    width: "50%",
-                  }}
                 />
                 {"  "}
                 <input
-                  className="form-control m-1 fieldInput"
-                  style={{
-                    textAlign: "end",
-                    color: "black",
-                    fontWeight: "bold",
-                    backgroundColor: "white",
-                    borderRadius: "4px",
-                    width: "50%",
-                  }}
+                  className="form-control m-1 fieldInput inputType1 inputType2"
                   type="text"
                   name="count"
                   value={x.count}

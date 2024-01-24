@@ -4,10 +4,18 @@ import bg from "../../Assets/images/NHAI_bg.png";
 import DataTable from "../HtmlComponents/DataTable";
 import logo from "../../Assets/images/Kotak_logo.png";
 import jsPDF from "jspdf";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
 
 const Financial = () => {
   const [dbdata, setDbdata] = useState([]);
-  const currentDate = new Date().toISOString().split("T")[0];
+
+  const [fromDate, setFromDate] = useState(
+    "2023-04-01" // new Date().toISOString().split("T")[0]
+  );
+  const [toDate, setToDate] = useState(new Date().toISOString().split("T")[0]);
   const [depositsTable, setdepositsTable] = useState([]);
   const [disbursementsTable, setDisbursementsTable] = useState([]);
   const [summaryTable, setSummaryTable] = useState([]);
@@ -63,6 +71,31 @@ const Financial = () => {
     }
   }, [apiData]);
 
+  const rowdata = {
+    deposits: {
+      cumulativeDeposits: "0.0",
+      interestCredited: "0.0",
+      totalBalance: "0.0",
+    },
+    disbursements: {
+      cumulativeDisbursements: "0.0",
+      paidtoBeneficiary: "0.0",
+      paidforAdminExpenses: "0.0",
+      paidforTDS: "0.0",
+      otherDebits: "0.0",
+      interestTransfer: "0.0",
+      lastDaytransactionReturn: "0.0",
+    },
+    summary: {
+      nodalAccountBalance: "10,360.07",
+      cumulativeLimitAssigned: "39,430.72",
+      returnCreditinPDAccount: "0.0",
+      balanceLimittobeAssigned: "0.0",
+      interestAccruedtillNow: "0.0",
+      creditAdjustment: "0.0",
+    },
+  };
+
   // Define columns for your DataTable
 
   const columns = [
@@ -73,7 +106,7 @@ const Financial = () => {
     {
       Header: "Amount",
       accessor: "amount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
   ];
 
@@ -85,7 +118,7 @@ const Financial = () => {
     {
       Header: "Amount",
       accessor: "amount",
-      Cell: ({ value }) => <div style={{ float: "right" }}>{value}</div>,
+      Cell: ({ value }) => <div className="float-end">{value}</div>,
     },
   ];
 
@@ -97,13 +130,10 @@ const Financial = () => {
     {
       Header: "Amount",
       accessor: "amount",
-      Cell: ({ value }) => (
-        <div className="amount" style={{ float: "right" }}>
-          {value}
-        </div>
-      ),
+      Cell: ({ value }) => <div className="amount float-end">{value}</div>,
     },
   ];
+
   const generatePDF = () => {
     const doc = new jsPDF();
     const currentDate = new Date().toISOString().slice(0, 10); // Get the current date in YYYY-MM-DD format
@@ -243,6 +273,10 @@ const Financial = () => {
             <div className="float-start dashboardLabels">
               <label className="statusOn">Financial Year : </label>
               <select id="financialYear" className="selectBoxDashbord">
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
                 <option value="2018">2018</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
@@ -252,12 +286,26 @@ const Financial = () => {
                 <option value="2024">2024</option>
               </select>{" "}
               <label className="statusOn">From : </label>{" "}
-              <input id="fromDate" className="inputDate" type="date" />{" "}
+              <input
+                id="fromDate"
+                className="inputDate"
+                type="date"
+                value={fromDate || ""}
+                onChange={(e) => {
+                  setFromDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
+                }}
+              />{" "}
               <label className="statusOn">To : </label>{" "}
               <input
                 id="toDate"
                 className="inputDate"
                 type="date"
+                value={toDate || ""}
+                onChange={(e) => {
+                  setToDate(e.target.value);
+                  console.log("->", ConvertFormat(e.target.value));
+                }}
                 // Add any necessary attributes or event handlers here
               />{" "}
             </div>
@@ -267,7 +315,7 @@ const Financial = () => {
                 type="button"
                 onClick={() => {}}
               >
-                Core
+                Crore
               </button>{" "}
               <button
                 className="btn addUser dashbutton"
@@ -295,7 +343,7 @@ const Financial = () => {
         </div>
       </div>
       <hr />
-      <div className="row snapshotForm" style={{ backgroundColor: "#F8F9F9" }}>
+      <div className="row snapshotForm fBgColor">
         <div className="col-12">
           {depositsTable && (
             <div className="pt-2">

@@ -29,7 +29,7 @@ const Ageing = () => {
               onClick={() => {
                 console.log("click618");
               }}
-              style={{ color: "black" }}
+              className="text-black"
             >
               {row.total}
             </a>
@@ -46,7 +46,7 @@ const Ageing = () => {
       accessor: (row) => {
         if (row.parameter === "No. of Subsidiary Accounts") {
           return (
-            <a href="#" onClick={() => {}} style={{ color: "black" }}>
+            <a href="#" onClick={() => {}} className="text-black">
               {row.belowThirtyDays}
             </a>
           );
@@ -64,7 +64,7 @@ const Ageing = () => {
       accessor: (row) => {
         if (row.parameter === "No. of Subsidiary Accounts") {
           return (
-            <a href="#" onClick={() => {}} style={{ color: "black" }}>
+            <a href="#" onClick={() => {}} className="text-black">
               {row.belowNintyDays}
             </a>
           );
@@ -82,7 +82,7 @@ const Ageing = () => {
       accessor: (row) => {
         if (row.parameter === "No. of Subsidiary Accounts") {
           return (
-            <a href="#" onClick={() => {}} style={{ color: "black" }}>
+            <a href="#" onClick={() => {}} className="text-black">
               {row.belowOneEightyDays}
             </a>
           );
@@ -100,7 +100,7 @@ const Ageing = () => {
       accessor: (row) => {
         if (row.parameter === "No. of Subsidiary Accounts") {
           return (
-            <a href="#" onClick={() => {}} style={{ color: "black" }}>
+            <a href="#" onClick={() => {}} className="text-black">
               {row.aboveOneEightyDays}
             </a>
           );

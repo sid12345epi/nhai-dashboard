@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { ProfileService } from "../../Service/ProfileService";
+import Spinner from "../HtmlComponents/Spinner";
 
 const UserList = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [profileList, setProfileList] = useState([]);
   const data = [
     {
       id: 1,
@@ -52,8 +56,38 @@ const UserList = () => {
     {
       Header: "Action",
       accessor: "id",
+      Cell: ({ row }) => {
+        return row.values.id;
+      },
     },
   ];
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchProfileList();
+  }, []);
+
+  function fetchProfileList() {
+    var ProfileList = [];
+    ProfileService.getProfileList(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.data.responseMetaData.status === "200") {
+          ProfileList = res.data.profiles;
+          // console.log("UserList->", UserList);
+          setProfileList(ProfileList);
+          setIsLoading(false);
+        }
+      }
+    );
+    return ProfileList;
+  }
 
   function handleAction(id) {
     // Implement your action logic here based on the id
@@ -61,6 +95,7 @@ const UserList = () => {
 
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -86,7 +121,7 @@ const UserList = () => {
               {/* col-md-11 mx-auto flex */}
               <DataTable
                 columns={columns}
-                data={data}
+                data={profileList} //{data}
                 // customClass="ULTable"
                 detailpage="ProfileDetails"
                 editpage="EditProfile"

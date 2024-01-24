@@ -1,45 +1,18 @@
 import React, { useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { v4 as uuid } from "uuid";
-
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
+import { useEffect } from "react";
 const JobExecutionLog = () => {
-  const [formDate, setFormDate] = useState("");
-
-  const [dateFromValue, setDateFromValue] = useState(
+  const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+  const [day, setDay] = useState("");
+  useEffect(() => {}, [asOnDate]);
 
-  function formatDate(inputDate) {
-    const dateParts = inputDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; // JavaScript months are zero-based
-    const day = parseInt(dateParts[2]);
-    const formattedDate = new Date(year, month, day);
-    const dd = String(formattedDate.getDate()).padStart(2, "0");
-    const mm = String(formattedDate.getMonth() + 1).padStart(2, "0"); // Add 1 to the month (zero-based)
-    const yyyy = formattedDate.getFullYear();
-    var today = new Date(inputDate);
-    var dayOfWeek = today.getDay();
-    var daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-
-    // Get the day name from the array
-    var dayName = daysOfWeek[dayOfWeek];
-    console.log(dayName);
-    // Format the date in "dd-mm-yyyy" format
-    return (
-      <div>
-        {dd}-{mm}-{yyyy} {dayName}
-      </div>
-    );
-  }
   const columns = [
     {
       Header: "Sr. No",
@@ -128,12 +101,23 @@ const JobExecutionLog = () => {
                   id="dateInput"
                   className="inputDate"
                   type="date"
-                  value={dateFromValue || ""}
+                  value={asOnDate}
                   onChange={(e) => {
-                    const E = formatDate(e.target.value);
-                    setDateFromValue(e.target.value);
-                    console.log("----->", E);
-                    setFormDate(E);
+                    setAsOnDate(e.target.value);
+                    var today = new Date(e.target.value);
+                    var dayOfWeek = today.getDay();
+                    var daysOfWeek = [
+                      "Sunday",
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday",
+                    ];
+                    var d = daysOfWeek[dayOfWeek];
+                    setDay(d);
+                    console.log("->", ConvertFormat(e.target.value), d);
                   }}
                 />{" "}
               </div>

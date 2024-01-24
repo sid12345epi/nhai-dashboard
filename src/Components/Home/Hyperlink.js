@@ -134,12 +134,7 @@ const Hyperlink = ({ isOpen, setModal, row }) => {
           <div className="float-end">
             <FontAwesomeIcon
               icon={faTimes}
-              style={{
-                cursor: "pointer",
-                marginRight: "8px",
-                color: "#ffffff",
-                float: "right",
-              }}
+              className="closeIconPopupWhite"
               onClick={() => {
                 setModal(false);
               }}

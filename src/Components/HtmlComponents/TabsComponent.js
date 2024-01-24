@@ -64,8 +64,8 @@ const TabsComponent = (props) => {
         <div className="buttons">
           <button className="scrollbtn" onClick={handlePreviousClick}>
             <FontAwesomeIcon
+              className="arrowColor"
               icon={faCircleChevronLeft}
-              style={{ color: "#999999" }}
             />{" "}
           </button>
         </div>
@@ -88,8 +88,8 @@ const TabsComponent = (props) => {
           <button className="scrollbtn" onClick={handleNextClick}>
             {" "}
             <FontAwesomeIcon
+              className="arrowColor"
               icon={faCircleChevronRight}
-              style={{ color: "#999999" }}
             />
           </button>
         </div>
