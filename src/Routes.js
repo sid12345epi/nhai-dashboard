@@ -31,6 +31,8 @@ import MenuManagementCheckerList from "./Components/Checker/MenuManagementChecke
 import MenuManagementCheckerDetails from "./Components/Checker/MenuManagementCheckerDetails";
 import MappingMasterCheckerList from "./Components/Checker/MappingMasterCheckerList";
 import MappingMasterCheckerDetails from "./Components/Checker/MappingMasterCheckerDetails";
+import Error404 from "./Components/HtmlComponents/Error404";
+import Error500 from "./Components/HtmlComponents/Error500";
 
 const Routers = () => {
   return (
@@ -68,7 +70,6 @@ const Routers = () => {
         path="/NHAI/DeleteGroup/:userId"
         element={<GroupDetails />}
       ></Route>
-
       <Route path="/NHAI/Logout" element={<Logout />}></Route>
       <Route path="/NHAI/ChangePassword" element={<ChangePassword />}></Route>
       <Route path="/NHAI/Hyperlink" element={<Hyperlink />}></Route>
@@ -136,7 +137,6 @@ const Routers = () => {
         path="/NHAI/groupDeleteRequestDetails/:userId"
         element={<GroupCheckerDetails />}
       ></Route>
-
       {/* -------------------------------------------------------------------------------------- */}
       <Route path="/NHAI/FileUpload" element={<FileUpload />}></Route>
       <Route path="/NHAI/MenuManagement" element={<MenuManagement />}></Route>
@@ -156,6 +156,9 @@ const Routers = () => {
         path="/NHAI/ActionRequestDetails/:type"
         element={<MenuManagementCheckerDetails />}
       ></Route>
+      {/* -----------------------------Error Page--------------------------------------------- */}
+      <Route path="/NHAI/Error/404" element={<Error404 />}></Route>
+      <Route path="/NHAI/Error/500" element={<Error500 />}></Route>
     </Routes>
   );
 };

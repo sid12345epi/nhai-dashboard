@@ -767,6 +767,6 @@ th {
 }
 /* -------------Add User,Group,Profile------------------------------ */
 .box30 {
-  width: 30px;
-  height: 30px;
+  width: 30px !important;
+  height: 30px !important;
 }

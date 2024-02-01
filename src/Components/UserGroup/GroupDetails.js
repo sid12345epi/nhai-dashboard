@@ -1,56 +1,146 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AddGroup from "./AddGroup";
+import { GroupService } from "../../Service/GroupService";
+import { ConvertFormat } from "../HtmlComponents/DateFunction";
+import Spinner from "../HtmlComponents/Spinner";
+import { toast } from "react-toastify";
 
 function GroupDetails() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [group, setGroup] = useState({});
 
-  const groups = [
-    {
-      id: 1,
-      groupName: "Admin Group",
-      groupDescription: "Admin Group Description",
-      isActive: true,
-      createdBy: "AdminUser1",
-      createdDate: "2023-08-10",
-    },
-    {
-      id: 2,
-      groupName: "Finance Group",
-      groupDescription: "Finance Group Description",
-      isActive: true,
-      createdBy: "AdminUser2",
-      createdDate: "2023-08-09",
-    },
-    {
-      id: 3,
-      groupName: "HR Group",
-      groupDescription: "HR Group Description",
-      isActive: true,
-      createdBy: "AdminUser3",
-      createdDate: "2023-08-08",
-    },
-    {
-      id: 4,
-      groupName: "IT Group",
-      groupDescription: "IT Group Description",
-      isActive: false,
-      createdBy: "AdminUser4",
-      createdDate: "2023-08-07",
-    },
-  ];
+  // const groups = [
+  //   {
+  //     id: 1,
+  //     groupName: "Admin Group",
+  //     groupDescription: "Admin Group Description",
+  //     isActive: true,
+  //     createdBy: "AdminUser1",
+  //     createdDate: "2023-08-10",
+  //   },
+  //   {
+  //     id: 2,
+  //     groupName: "Finance Group",
+  //     groupDescription: "Finance Group Description",
+  //     isActive: true,
+  //     createdBy: "AdminUser2",
+  //     createdDate: "2023-08-09",
+  //   },
+  //   {
+  //     id: 3,
+  //     groupName: "HR Group",
+  //     groupDescription: "HR Group Description",
+  //     isActive: true,
+  //     createdBy: "AdminUser3",
+  //     createdDate: "2023-08-08",
+  //   },
+  //   {
+  //     id: 4,
+  //     groupName: "IT Group",
+  //     groupDescription: "IT Group Description",
+  //     isActive: false,
+  //     createdBy: "AdminUser4",
+  //     createdDate: "2023-08-07",
+  //   },
+  // ];
 
-  const group = groups.find((g) => g.id.toString() === userId);
+  useEffect(() => {
+    fetchGroupById();
+  }, []);
+
+  //const group = groups.find((g) => g.id.toString() === userId);
   const path = window.location.pathname;
   const isDelete = path.includes("DeleteGroup") ? true : false;
   if (!group) {
     return <p>Group not found.</p>;
   }
 
+  //-----------Get Group Function-----------------------------------------------
+  function fetchGroupById() {
+    var group = {};
+    GroupService.getGroupById(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        id: Number(userId),
+        userName: "nhai",
+      },
+      (res) => {
+        //meta data issue
+        if (res.status == 200) {
+          group = res.data;
+          setGroup(group);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          prompt("500 Internal Server Error...!");
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+        //   return data;
+      }
+    );
+    console.log("group->", group);
+    return group;
+  }
+
+  //-----------Delete Group Function-----------------------------------------------
+  function DeleteGroupById() {
+    GroupService.deleteGroup(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        requsterUserId: "6789",
+        id: Number(userId),
+        userName: "nhai",
+        requestType: "Delete",
+        status: "Initiated",
+      },
+      (res) => {
+        if (res.status == 200) {
+          toast.success(res.data.responseMetaData.message, {
+            //"Request raised successful!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Groups");
+        } else if (res.status == 404) {
+          toast.error("404 Not found !", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          toast.error("Request failed 500. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   return (
     <div className="container UDContainer">
+      <Spinner isLoading={isLoading} />
       <div className="ULContainer">
         <div className="row">
           <div className="col-md-11 mx-auto">
@@ -100,7 +190,9 @@ function GroupDetails() {
             <div className="col-md-6 UDCoulmns">
               <strong>Created Date:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{group.createdDate}</div>
+            <div className="col-md-6 UDCoulmns">
+              {ConvertFormat(group.createdDate)}
+            </div>
           </div>
         </div>
         <div className="row">
@@ -122,6 +214,9 @@ function GroupDetails() {
                 navigate(
                   `/NHAI/${isDelete ? "DeleteGroup" : "EditGroup"}/${group.id}`
                 );
+                if (isDelete) {
+                  DeleteGroupById();
+                }
               }}
             >
               {isDelete ? "Delete" : "Edit"}
