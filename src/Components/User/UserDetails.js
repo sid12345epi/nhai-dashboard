@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../HtmlComponents/Spinner";
 import { UserService } from "../../Service/UserService";
+import { ConvertFormat } from "../HtmlComponents/DateFunction";
 
 function UserDetails() {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,6 +11,10 @@ function UserDetails() {
   const { userId } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchUserById();
+  }, []);
   // const users = [
   //   {
   //     id: 1,
@@ -62,10 +67,14 @@ function UserDetails() {
   //   },
   // ];
 
-  useEffect(() => {
-    fetchUserById();
-  }, []);
+  // const user = users.find((u) => u.id.toString() === userId);
+  const path = window.location.pathname;
+  const isDelete = path.includes("DeleteUser") ? true : false;
+  if (!user) {
+    return <p>User not found.</p>;
+  }
 
+  //----------------------Get User--------------------------------------------
   function fetchUserById() {
     var user = {};
     UserService.getUserById(
@@ -78,10 +87,18 @@ function UserDetails() {
         userName: "nhai",
       },
       (res) => {
-        if (res.data.responseMetaData.status === "200") {
+        if (res.status == 200) {
           user = res.data.responseObject;
           // console.log("UserList->", UserList);
           setUser(user);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          prompt("500 Internal Server Error...!");
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
         }
         //   return data;
       }
@@ -89,14 +106,51 @@ function UserDetails() {
     console.log("user->", user);
     return user;
   }
-
-  // const user = users.find((u) => u.id.toString() === userId);
-  const path = window.location.pathname;
-  const isDelete = path.includes("DeleteUser") ? true : false;
-  if (!user) {
-    return <p>User not found.</p>;
+  //----------------------Delete User-----------------------------------------
+  function DeleteUser() {
+    UserService.deleteUser(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+        requsterUserId: "35611",
+        userId: userId,
+        requestType: "Delete",
+        status: "Initiated",
+      },
+      (res) => {
+        if (res.status == 200) {
+          toast.success(res.data.responseMetaData.message, {
+            //"Request raised successful!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Users");
+        } else if (res.status == 404) {
+          toast.error("404 Not found !", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          toast.error("Request failed 500. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
   }
-
   return (
     <div className="container UDContainer">
       <Spinner isLoading={isLoading} />
@@ -150,7 +204,9 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">
               <strong>Created Date:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{user.createdDate}</div>
+            <div className="col-md-6 UDCoulmns">
+              {ConvertFormat(user.createdDate)}
+            </div>
           </div>
           {/* -------------------------------------------------------- */}
           <div className="col-md-5">
@@ -191,16 +247,17 @@ function UserDetails() {
               onClick={() => {
                 setIsLoading(true);
                 //setIsOpen(true);
-                toast.success("Request raised successfully!", {
-                  position: "top-right",
-                  autoClose: 3000,
-                });
-                setTimeout(() => {
-                  setIsLoading(false);
-                  navigate(
-                    isDelete ? `/NHAI/Users` : `/NHAI/EditUser/${user.id}`
-                  );
-                }, 1000);
+                // toast.success("Request raised successfully!", {
+                //   position: "top-right",
+                //   autoClose: 3000,
+                // });
+                // setTimeout(() => {
+                //   setIsLoading(false);
+                navigate(`/NHAI/EditUser/${user.id}`);
+                if (isDelete) {
+                  DeleteUser();
+                }
+                // }, 1000);
               }}
             >
               {isDelete ? "Delete" : "Edit"}

@@ -57,9 +57,9 @@ const Sidebar = () => {
       id="sidebarMenu"
       className="collapse d-lg-block sidebar collapse navColor"
     >
-      <div className="position-sticky">
-        <div className="list-group list-group-flush">
-          {(data || []).map((x) => {
+      <div className="position-sticky" key="0">
+        <div className="list-group list-group-flush" key="0">
+          {(data || []).map((x, index) => {
             return (
               <>
                 <Link
@@ -103,7 +103,7 @@ const Sidebar = () => {
                   </>
                 </Link>
                 {toggleStates[`item_${x.id}`] ? (
-                  <div className="list-group list-group-light">
+                  <div className="list-group list-group-light" key={x.id}>
                     {(x.subMenu || []).map((z) => {
                       return x.menuName != "Home" && z.check ? (
                         <>

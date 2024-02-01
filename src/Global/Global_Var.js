@@ -11,7 +11,7 @@ export const Global_var = {
   URL_GET_GROUP_BY_ID: "/usermanagement/admin/groupDetails/v1",
   URL_ADD_GROUP: "/usermanagement/admin/addGroup/v1",
   URL_UPDATE_GROUP: "/usermanagement/admin/updateGroup/v1",
-  URL_DELETE_GROUP: "/usermanagement/admin/deleteGroup/v1",
+  URL_DELETE_GROUP: "/usermanagement/admin/deleteUserGroup/v1",
   //--------Profile----------------------------------
   URL_GET_PROFILES: "/usermanagement/admin/profiles/v1",
   URL_GET_PROFILE_BY_ID: "/usermanagement/admin/profileDetails/v1",

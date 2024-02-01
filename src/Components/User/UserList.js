@@ -84,14 +84,14 @@ const UserList = () => {
           UserList = res.data.users;
           setUserList(UserList);
           setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          prompt("500 Internal Server Error...!");
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
         }
-        // else if (res.data.responseMetaData.status === "500") {
-        //   prompt("Internal Server Error");
-        // } else if (res.status === "404") {
-        //   prompt("Please provide valid inputs.");
-        // } else {
-        // }
-        //   return data;
       }
     );
     console.log("UserList->", UserList);

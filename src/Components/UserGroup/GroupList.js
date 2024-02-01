@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import AddGroup from "./AddGroup";
 import { useNavigate } from "react-router-dom";
+import { GroupService } from "../../Service/GroupService";
+import Spinner from "../HtmlComponents/Spinner";
 
 const GroupList = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [groupList, setGroupList] = useState([]);
   const data = [
     {
       id: 1,
@@ -53,8 +57,51 @@ const GroupList = () => {
     {
       Header: "Action",
       accessor: "id",
+      Cell: ({ row }) => {
+        return row.values.id;
+      },
     },
   ];
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchGroupList();
+  }, []);
+
+  function fetchGroupList() {
+    var GroupList = [];
+
+    GroupService.getGroupList(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.status === 200) {
+          GroupList = res.data.groups;
+          // console.log("UserList->", UserList);
+          setGroupList(GroupList);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          prompt("500 Internal Server Error..!");
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (err) => {
+        setIsLoading(false);
+        console.error("Exception - >", err);
+        navigate("/NHAI/Error/500");
+      }
+    );
+    return GroupList;
+  }
 
   function handleAction(id) {
     // Implement your action logic here based on the id
@@ -62,6 +109,7 @@ const GroupList = () => {
 
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -87,7 +135,7 @@ const GroupList = () => {
               {/* col-md-11 mx-auto flex */}
               <DataTable
                 columns={columns}
-                data={data}
+                data={groupList || data} //{groupList} //{data}
                 //  customClass="ULTable"
                 detailpage="GroupDetails"
                 editpage="EditGroup"

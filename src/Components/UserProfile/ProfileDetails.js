@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProfileService } from "../../Service/ProfileService";
+import { ConvertFormat } from "../HtmlComponents/DateFunction";
+import { toast } from "react-toastify";
 
 function UserDetails() {
   const { userId } = useParams();
@@ -210,34 +212,9 @@ function UserDetails() {
   //const profile = profiles.find((u) => u.id.toString() === userId);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchProfileById();
   }, []);
-
-  function fetchProfileById() {
-    var profile = {};
-    var profileId = parseInt("47", 10);
-    ProfileService.getProfileById(
-      {
-        requestMetaData: {
-          applicationId: "nhai-dashboard",
-          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
-        },
-        id: profileId,
-        userName: "nhai",
-      },
-      (res) => {
-        if (res.data.responseMetaData.status === "200") {
-          profile = res.data;
-          // console.log("UserList->", UserList);
-          setMapping(res.data.mapping);
-          setProfile(profile);
-        }
-        //   return data;
-      }
-    );
-    console.log("profile->", profile);
-    return profile;
-  }
 
   const path = window.location.pathname;
   const isDelete = path.includes("DeleteProfile") ? true : false;
@@ -245,6 +222,85 @@ function UserDetails() {
     return <p>Function not found.</p>;
   }
 
+  //-----------Get Profile----------------------------------------------
+  function fetchProfileById() {
+    var profile = {};
+    var profileId = parseInt(userId, 10);
+    ProfileService.getProfileById(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        id: 47, //profileId,
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.status == 200) {
+          profile = res.data;
+          // console.log("UserList->", UserList);
+          setMapping(res.data.mapping);
+          setProfile(profile);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          prompt("500 Internal Server Error...!");
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+        //   return data;
+      }
+    );
+    console.log("profile->", profile);
+    return profile;
+  }
+  //-----------Delete Profile-------------------------------------------
+  function deleteProfile() {
+    ProfileService.deleteProfile(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        requsterUserId: "6789",
+        id: Number(userId),
+        userName: "nhai",
+        requestType: "Delete",
+        status: "Initiated",
+      },
+      (res) => {
+        if (res.status == 200) {
+          toast.success(res.data.responseMetaData.message, {
+            //"Request raised successful!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Profiles");
+        } else if (res.status == 404) {
+          toast.error("404 Not found !", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          toast.error("Request failed 500. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
   return (
     <div className="container UDContainer">
       <div className="ULContainer">
@@ -277,6 +333,11 @@ function UserDetails() {
             </div>
 
             <div className="col-md-6 UDCoulmns">
+              <strong>Group:</strong>
+            </div>
+            <div className="col-md-6 UDCoulmns">{profile.groupName}</div>
+
+            <div className="col-md-6 UDCoulmns">
               <strong>Is Active:</strong>
             </div>
             <div className="col-md-6 UDCoulmns">
@@ -299,7 +360,9 @@ function UserDetails() {
             <div className="col-md-6 UDCoulmns">
               <strong>Created Date:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{profile.createdDate}</div>
+            <div className="col-md-6 UDCoulmns">
+              {ConvertFormat(profile.createdDate)}
+            </div>
           </div>
         </div>
 
@@ -401,11 +464,10 @@ function UserDetails() {
               type="button"
               onClick={() => {
                 //setIsOpen(true);
-                navigate(
-                  `/NHAI/${
-                    isDelete ? "DeleteProfile" : "EditProfile"
-                  }/${userId}`
-                );
+                navigate(`/NHAI/EditProfile/${userId}`);
+                if (isDelete) {
+                  deleteProfile();
+                }
               }}
             >
               {isDelete ? "Delete" : "Edit"}
