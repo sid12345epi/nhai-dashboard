@@ -18,4 +18,25 @@ export const Global_var = {
   URL_ADD_PROFILE: "/usermanagement/admin/addProfile/v1",
   URL_UPDATE_PROFILE: "/usermanagement/admin/updateProfile/v1",
   URL_DELETE_PROFILE: "/usermanagement/admin/deleteProfile/v1",
+  //----------Checker-USER-----------------------------------------------
+  URL_CHECKER_USER_REQUESTS: "/usermanagement/checker/userRequests/v1",
+  URL_CHECKER_USER_ADD_DELETE_DETAILS:
+    "/usermanagement/checker/requestDetails/v1",
+  //PUT
+  URL_CHECKER_USER_UPDATE_DETAILS: "/usermanagement/checker/requestDetails/v1",
+  URL_CHECKER_USER_APPROVAL: "/usermanagement/checker/user/action/v1",
+  //----------Checker-GROUP-------------------------------------------------------
+  URL_CHECKER_GROUP_REQUESTS: "/usermanagement/checker/groupRequests/v1",
+  URL_CHECKER_GROUP_ADD_DELETE_DETAILS: "/usermanagement/checker/group/v1",
+  //PUT
+  URL_CHECKER_GROUP_UPDATE_DETAILS: "/usermanagement/checker/group/v1",
+  URL_CHECKER_GROUP_APPROVAL: "/usermanagement/checker/group/action/v1",
+  //----------Checker-PROFILE-------------------------------------------------------
+  //PUT
+  URL_CHECKER_PROFILE_REQUESTS: "/usermanagement/checker/profile/v1",
+  URL_CHECKER_PROFILE_ADD_DELETE_DETAILS: "/usermanagement/checker/profile/v1",
+  URL_CHECKER_PROFILE_UPDATE_DETAILS:
+    "/usermanagement/checker/profileRequests/v1",
+  URL_CHECKER_PROFILE_APPROVAL: "/usermanagement/checker/profile/action/v1",
+  //------------------------------------------------------------------
 };

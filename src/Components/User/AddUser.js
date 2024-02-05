@@ -116,7 +116,7 @@ const AddUser = () => {
           applicationId: "nhai-dashboard",
           correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567", //uuid
         },
-        requsterUserId: "201",
+        requsterUserId: "35605",
         userName: values.userId, //"Shantanu",
         fullName: values.userName, //"Shanatnu",
         userType: "", //"Admin",
@@ -129,7 +129,7 @@ const AddUser = () => {
         workNo: "", //"W123",
         isActive: false,
         createdDate: DateFormatFunction(new Date().toISOString().split("T")[0]),
-        //createdBy: "Admin User",
+        createdBy: "Admin",
         requestType: "Add",
         status: "Initiated",
         profileId: Number(values.role),
@@ -197,11 +197,14 @@ const AddUser = () => {
           setIsLoading(false);
           navigate("/NHAI/Error/404");
         } else if (res.status == 500) {
-          prompt("500 Internal Server Error...!");
           setIsLoading(false);
           navigate("/NHAI/Error/500");
         }
         //   return data;
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
       }
     );
     console.log("user->", user);

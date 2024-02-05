@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import Spinner from "../HtmlComponents/Spinner";
+import { CheckerProfileService } from "../../Service/CheckerService/CheckerProfileService";
 const ProfileCheckerList = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState("profileAddRequestDetails");
+  const [isLoading, setIsLoading] = useState(false);
+  const [profileRequests, setProfileRequests] = useState([]);
+
   const data = [
     {
       id: 1,
@@ -150,8 +155,43 @@ const ProfileCheckerList = () => {
     },
   ];
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchProfileRequests();
+  }, []);
+  //-------------------User Request List--------------------------------------------------------
+  function fetchProfileRequests() {
+    CheckerProfileService.getProfileRequests(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.status === 200) {
+          setProfileRequests();
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+  //--------------------------------------------------------------------------------------------
+
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -172,7 +212,10 @@ const ProfileCheckerList = () => {
                   value="Add"
                   defaultChecked={true}
                   onClick={() => {
-                    setRows(data);
+                    const addList = (profileRequests || []).filter((x) => {
+                      if (x.requestType === "Add") return x;
+                    });
+                    setRows(addList);
                     setAction("profileAddRequestDetails");
                   }}
                 />
@@ -184,7 +227,10 @@ const ProfileCheckerList = () => {
                   name="request"
                   value="Update"
                   onClick={() => {
-                    setRows(updatedData);
+                    const updateList = (profileRequests || []).filter((x) => {
+                      if (x.requestType === "Update") return x;
+                    });
+                    setRows(updateList);
                     setAction("profileUpdateRequestDetails");
                   }}
                 />
@@ -196,7 +242,10 @@ const ProfileCheckerList = () => {
                   name="request"
                   value="Delete"
                   onClick={() => {
-                    setRows(DeletedData);
+                    const deleteList = (profileRequests || []).filter((x) => {
+                      if (x.requestType === "Delete") return x;
+                    });
+                    setRows(deleteList);
                     setAction("profileDeleteRequestDetails");
                   }}
                 />

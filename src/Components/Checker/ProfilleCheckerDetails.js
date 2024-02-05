@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
+import { toast } from "react-toastify";
+import Spinner from "../HtmlComponents/Spinner";
+import { CheckerProfileService } from "../../Service/CheckerService/CheckerProfileService";
 const ProfilleCheckerDetails = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const customStyles = {
     content: {
       top: "50%",
@@ -288,8 +291,33 @@ const ProfilleCheckerDetails = () => {
   if (!user) {
     return <p>User not found.</p>;
   }
+
+  //-------------------User Request List--------------------------------------------------------
+  function requsts() {
+    CheckerProfileService.getProfileRequests(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+  //--------------------------------------------------------------------------------------------
+
   return (
     <div className="container UDContainer">
+      <Spinner isLoading={isLoading} />
       <div className="ULContainer">
         {/* -----------Request Details------------------ */}
         <div className="row">

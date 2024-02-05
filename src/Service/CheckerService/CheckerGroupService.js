@@ -1,16 +1,15 @@
-import RestDataSource from "./RestDataSource";
-import { Global_var } from "../Global/Global_Var";
+import RestDataSource from "../RestDataSource";
+import { Global_var } from "../../Global/Global_Var";
 
-export const UserService = {
-  getUserList,
-  getUserById,
-  addUser,
-  updateUser,
-  deleteUser,
+export const CheckerGroupService = {
+  getGroupRequests,
+  getGroupAddDeleteDetails,
+  getGroupUpdateDetails,
+  checkerGroupApproval,
 };
 
-function getUserList(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_GET_USERS;
+function getGroupRequests(mfaInfo, fn, fnError) {
+  var url = Global_var.BASEURL + Global_var.URL_CHECKER_GROUP_REQUESTS;
 
   return new RestDataSource(url, fn).Store(
     mfaInfo,
@@ -30,48 +29,9 @@ function getUserList(mfaInfo, fn, fnError) {
   );
 }
 
-function getUserById(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_GET_USER_BY_ID;
-
-  return new RestDataSource(url, fn).Store(
-    mfaInfo,
-    (res) => {
-      if (res != null) {
-        // If you had other headers to handle, you can do so here
-
-        fn(res);
-      }
-    },
-    (err) => {
-      // Handle error
-      if (fnError) {
-        fnError(err);
-      }
-    }
-  );
-}
-function addUser(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_ADD_USER;
-
-  return new RestDataSource(url, fn).Store(
-    mfaInfo,
-    (res) => {
-      if (res != null) {
-        // If you had other headers to handle, you can do so here
-
-        fn(res);
-      }
-    },
-    (err) => {
-      // Handle error
-      if (fnError) {
-        fnError(err);
-      }
-    }
-  );
-}
-function updateUser(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_UPDATE_USER;
+function getGroupAddDeleteDetails(mfaInfo, fn, fnError) {
+  var url =
+    Global_var.BASEURL + Global_var.URL_CHECKER_GROUP_ADD_DELETE_DETAILS;
 
   return new RestDataSource(url, fn).Store(
     mfaInfo,
@@ -91,8 +51,29 @@ function updateUser(mfaInfo, fn, fnError) {
   );
 }
 
-function deleteUser(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_DELETE_USER;
+function getGroupUpdateDetails(mfaInfo, fn, fnError) {
+  var url = Global_var.BASEURL + Global_var.URL_CHECKER_GROUP_UPDATE_DETAILS;
+
+  return new RestDataSource(url, fn).Update(
+    mfaInfo,
+    (res) => {
+      if (res != null) {
+        // If you had other headers to handle, you can do so here
+
+        fn(res);
+      }
+    },
+    (err) => {
+      // Handle error
+      if (fnError) {
+        fnError(err);
+      }
+    }
+  );
+}
+
+function checkerGroupApproval(mfaInfo, fn, fnError) {
+  var url = Global_var.BASEURL + Global_var.URL_CHECKER_GROUP_APPROVAL;
 
   return new RestDataSource(url, fn).Store(
     mfaInfo,

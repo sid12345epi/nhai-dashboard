@@ -466,6 +466,7 @@ function UserDetails() {
                 //setIsOpen(true);
                 navigate(`/NHAI/EditProfile/${userId}`);
                 if (isDelete) {
+                  setIsLoading(true);
                   deleteProfile();
                 }
               }}

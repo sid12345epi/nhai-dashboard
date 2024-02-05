@@ -1,11 +1,19 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import DataTable from "../HtmlComponents/DataTable";
-
+import { toast } from "react-toastify";
+import Spinner from "../HtmlComponents/Spinner";
+import { CheckerGroupService } from "../../Service/CheckerService/CheckerGroupService";
 const GroupCheckerList = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState("groupAddRequestDetails");
+  const [isLoading, setIsLoading] = useState(false);
+  const [groupRequests, setGroupRequests] = useState([]);
+  useEffect(() => {
+    setIsLoading(true);
+    fetchGroupRequests();
+  }, []);
   const data = [
     {
       id: 1,
@@ -150,8 +158,40 @@ const GroupCheckerList = () => {
       ),
     },
   ];
+
+  //-------------------User Request List--------------------------------------------------------
+  function fetchGroupRequests() {
+    CheckerGroupService.getGroupRequests(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.status === 200) {
+          debugger;
+          setGroupRequests();
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+  //--------------------------------------------------------------------------------------------
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -172,7 +212,10 @@ const GroupCheckerList = () => {
                   value="Add"
                   defaultChecked={true}
                   onClick={() => {
-                    setRows(data);
+                    const addList = (groupRequests || []).filter((x) => {
+                      if (x.requestType === "Add") return x;
+                    });
+                    setRows(addList);
                     setAction("groupAddRequestDetails");
                   }}
                 />
@@ -184,7 +227,10 @@ const GroupCheckerList = () => {
                   name="request"
                   value="Update"
                   onClick={() => {
-                    setRows(updatedData);
+                    const updateList = (groupRequests || []).filter((x) => {
+                      if (x.requestType === "Update") return x;
+                    });
+                    setRows(updateList);
                     setAction("groupUpdateRequestDetails");
                   }}
                 />
@@ -196,7 +242,10 @@ const GroupCheckerList = () => {
                   name="request"
                   value="Delete"
                   onClick={() => {
-                    setRows(DeletedData);
+                    const deleteList = (groupRequests || []).filter((x) => {
+                      if (x.requestType === "Delete") return x;
+                    });
+                    setRows(deleteList);
                     setAction("groupDeleteRequestDetails");
                   }}
                 />
