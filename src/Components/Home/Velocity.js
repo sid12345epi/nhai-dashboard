@@ -6,6 +6,8 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { useNavigate } from "react-router-dom";
+import { DashboardService } from "../../Service/DashboardService";
 
 const Velocity = () => {
   const [asOnDate, setAsOnDate] = useState(
@@ -13,6 +15,9 @@ const Velocity = () => {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [rowdata, setRData] = useState("");
+
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [bankD, setBank] = useState("");
   const [roD, setRo] = useState("");
@@ -191,6 +196,29 @@ const Velocity = () => {
       },
     ],
   };
+
+  //---------------------------------------------------------------------------------------
+  function FetchVelocity() {
+    DashboardService.getVelocity(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
   const [rows, setRows] = useState(mockRes.velocityDetails);
   return (
     <div>

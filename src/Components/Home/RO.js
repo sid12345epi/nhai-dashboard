@@ -8,6 +8,9 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { DashboardService } from "../../Service/DashboardService";
+import Spinner from "../HtmlComponents/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const RO = () => {
   const [asOnDate, setAsOnDate] = useState(
@@ -16,6 +19,8 @@ const RO = () => {
   const [dbdata, setDbdata] = useState([]);
   const [reginoalTable, setReginoalTable] = useState([]);
   const [corDecimalType, setcoreDecimalType] = useState("");
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Initialize the data to "Core" when the component mounts
@@ -137,9 +142,33 @@ const RO = () => {
     },
   ];
 
+  //---------------------------------------------------------------------------------------
+  function FetchRO() {
+    DashboardService.getRO(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">RO</label> */}

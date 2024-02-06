@@ -7,11 +7,14 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { DashboardService } from "../../Service/DashboardService";
+import Spinner from "../HtmlComponents/Spinner";
 const LimitLedger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [rowdata, setRData] = useState("");
 
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [fromDate, setFromDate] = useState(
     "2023-04-01" // new Date().toISOString().split("T")[0]
   );
@@ -227,10 +230,33 @@ const LimitLedger = () => {
       },
     ],
   };
+  //---------------------------------------------------------------------------------------
+  function FetchEvents() {
+    DashboardService.getLimitledger(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
   const [rows, setRows] = useState(mockRes.limitLedgerDetails);
   return (
     <div>
       <div className="row p-1">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="float-end ">
             <label className="statusOn">From :</label>
