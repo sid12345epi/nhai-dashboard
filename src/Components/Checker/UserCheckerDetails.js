@@ -582,6 +582,9 @@ const UserCheckerDetails = () => {
                 name="remark"
                 className="form-control"
                 placeholder="Enter your remark here"
+                onChange={(e) => {
+                  setRemark(e.target.value);
+                }}
               />
               <div className="p-2"></div>
               <div className="text-center">

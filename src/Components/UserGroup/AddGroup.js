@@ -103,6 +103,7 @@ const AddGroup = () => {
         createdDate: DateFormatFunction(new Date().toISOString().split("T")[0]),
         requestType: "Add",
         status: "Initiated",
+        createdBy: "Admin",
       },
       (res) => {
         if (res.status == 200) {
@@ -194,6 +195,7 @@ const AddGroup = () => {
         groupDescription: values.groupDescription, //"Developer Group",
         isActive: Boolean(values.isActive),
         updatedDate: DateFormatFunction(new Date().toISOString().split("T")[0]),
+        updatedBy: "Admin",
         requestType: "Update",
         status: "Initiated",
       },

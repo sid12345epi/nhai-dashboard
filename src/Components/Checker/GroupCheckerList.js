@@ -5,139 +5,149 @@ import DataTable from "../HtmlComponents/DataTable";
 import { toast } from "react-toastify";
 import Spinner from "../HtmlComponents/Spinner";
 import { CheckerGroupService } from "../../Service/CheckerService/CheckerGroupService";
+import { DateFormatFunction } from "../HtmlComponents/DateFunction";
 const GroupCheckerList = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState("groupAddRequestDetails");
   const [isLoading, setIsLoading] = useState(false);
   const [groupRequests, setGroupRequests] = useState([]);
+  const [rows, setRows] = useState([]);
+
   useEffect(() => {
     setIsLoading(true);
     fetchGroupRequests();
   }, []);
-  const data = [
-    {
-      id: 1,
-      requestName: "Add group1",
-      requestId: "JD001",
-      requestDetails: "Add group in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 2,
-      requestName: "Add group2",
-      requestId: "JS002",
-      requestDetails: "Add group in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 3,
-      requestName: "Add group3",
-      requestId: "BJ003",
-      requestDetails: "Add group in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 4,
-      requestName: "Add group4",
-      requestId: "AB004",
-      requestDetails: "Add group in appilication",
-      requestType: "Add",
-    },
-    {
-      id: 5,
-      requestName: "Add group5",
-      requestId: "EA005",
-      requestDetails: "Add group in appilication",
-      requestType: "Add",
-    },
-  ];
-  const updatedData = [
-    {
-      id: 1,
-      requestName: "Update group1",
-      requestId: "JD001",
-      requestDetails: "Update group in appilication",
-      requestType: "Update",
-    },
-    {
-      id: 2,
-      requestName: "Update group2",
-      requestId: "JS002",
-      requestDetails: "Update group in appilication",
-      requestType: "Update",
-    },
-    {
-      id: 3,
-      requestName: "Update group3",
-      requestId: "BJ003",
-      requestDetails: "Update group in appilication",
-      requestType: "Update",
-    },
-    {
-      id: 4,
-      requestName: "Update group4",
-      requestId: "AB004",
-      requestDetails: "Update group in appilication",
-      requestType: "Update",
-    },
-    {
-      id: 5,
-      requestName: "Update group5",
-      requestId: "EA005",
-      requestDetails: "Update group in appilication",
-      requestType: "Update",
-    },
-  ];
-  const DeletedData = [
-    {
-      id: 1,
-      requestName: "Delete group1",
-      requestId: "JD001",
-      requestDetails: "Delete group in appilication",
-      requestType: "Delete",
-    },
-    {
-      id: 2,
-      requestName: "Delete group2",
-      requestId: "JS002",
-      requestDetails: "Delete group in appilication",
-      requestType: "Delete",
-    },
-    {
-      id: 3,
-      requestName: "Delete group3",
-      requestId: "BJ003",
-      requestDetails: "Delete group in appilication",
-      requestType: "Delete",
-    },
-    {
-      id: 4,
-      requestName: "Delete group4",
-      requestId: "AB004",
-      requestDetails: "Delete group in appilication",
-      requestType: "Delete",
-    },
-    {
-      id: 5,
-      requestName: "Delete group5",
-      requestId: "EA005",
-      requestDetails: "Delete group in appilication",
-      requestType: "Delete",
-    },
-  ];
-  const [rows, setRows] = useState(data);
+  // const data = [
+  //   {
+  //     id: 1,
+  //     requestName: "Add group1",
+  //     requestId: "JD001",
+  //     requestDetails: "Add group in appilication",
+  //     requestType: "Add",
+  //   },
+  //   {
+  //     id: 2,
+  //     requestName: "Add group2",
+  //     requestId: "JS002",
+  //     requestDetails: "Add group in appilication",
+  //     requestType: "Add",
+  //   },
+  //   {
+  //     id: 3,
+  //     requestName: "Add group3",
+  //     requestId: "BJ003",
+  //     requestDetails: "Add group in appilication",
+  //     requestType: "Add",
+  //   },
+  //   {
+  //     id: 4,
+  //     requestName: "Add group4",
+  //     requestId: "AB004",
+  //     requestDetails: "Add group in appilication",
+  //     requestType: "Add",
+  //   },
+  //   {
+  //     id: 5,
+  //     requestName: "Add group5",
+  //     requestId: "EA005",
+  //     requestDetails: "Add group in appilication",
+  //     requestType: "Add",
+  //   },
+  // ];
+  // const updatedData = [
+  //   {
+  //     id: 1,
+  //     requestName: "Update group1",
+  //     requestId: "JD001",
+  //     requestDetails: "Update group in appilication",
+  //     requestType: "Update",
+  //   },
+  //   {
+  //     id: 2,
+  //     requestName: "Update group2",
+  //     requestId: "JS002",
+  //     requestDetails: "Update group in appilication",
+  //     requestType: "Update",
+  //   },
+  //   {
+  //     id: 3,
+  //     requestName: "Update group3",
+  //     requestId: "BJ003",
+  //     requestDetails: "Update group in appilication",
+  //     requestType: "Update",
+  //   },
+  //   {
+  //     id: 4,
+  //     requestName: "Update group4",
+  //     requestId: "AB004",
+  //     requestDetails: "Update group in appilication",
+  //     requestType: "Update",
+  //   },
+  //   {
+  //     id: 5,
+  //     requestName: "Update group5",
+  //     requestId: "EA005",
+  //     requestDetails: "Update group in appilication",
+  //     requestType: "Update",
+  //   },
+  // ];
+  // const DeletedData = [
+  //   {
+  //     id: 1,
+  //     requestName: "Delete group1",
+  //     requestId: "JD001",
+  //     requestDetails: "Delete group in appilication",
+  //     requestType: "Delete",
+  //   },
+  //   {
+  //     id: 2,
+  //     requestName: "Delete group2",
+  //     requestId: "JS002",
+  //     requestDetails: "Delete group in appilication",
+  //     requestType: "Delete",
+  //   },
+  //   {
+  //     id: 3,
+  //     requestName: "Delete group3",
+  //     requestId: "BJ003",
+  //     requestDetails: "Delete group in appilication",
+  //     requestType: "Delete",
+  //   },
+  //   {
+  //     id: 4,
+  //     requestName: "Delete group4",
+  //     requestId: "AB004",
+  //     requestDetails: "Delete group in appilication",
+  //     requestType: "Delete",
+  //   },
+  //   {
+  //     id: 5,
+  //     requestName: "Delete group5",
+  //     requestId: "EA005",
+  //     requestDetails: "Delete group in appilication",
+  //     requestType: "Delete",
+  //   },
+  // ];
+
   const columns = [
     {
       Header: <div className="float-center">Request Id</div>,
       accessor: "requestId",
     },
     {
-      Header: <div className="float-center">Request Name</div>,
-      accessor: "requestName",
+      Header: <div className="float-center">Request Type</div>,
+      accessor: "requestType",
     },
     {
-      Header: <div className="float-center">Request Details</div>,
-      accessor: "requestDetails",
+      Header: <div className="float-center">Request Date</div>,
+      accessor: "requestRaisedTime",
+      Cell: ({ row }) => (
+        <div>{DateFormatFunction(row.values.requestRaisedTime)}</div>
+      ),
+    },
+    {
+      Header: <div className="float-center">Request Raised By</div>,
+      accessor: "requestRaisedBy",
     },
     // { Header: <div className="float-center">Role</div>, accessor: "role" },
     {
@@ -149,7 +159,7 @@ const GroupCheckerList = () => {
             className="btn addUser dashbutton"
             type="button"
             onClick={() => {
-              navigate(`/NHAI/${action}/${row.id}`);
+              navigate(`/NHAI/${action}/${row.values.requestId}`);
             }}
           >
             Details
@@ -171,8 +181,12 @@ const GroupCheckerList = () => {
       },
       (res) => {
         if (res.status === 200) {
-          debugger;
-          setGroupRequests();
+          var reqList = res.data.requests;
+          setGroupRequests(reqList);
+          const addList = (reqList || []).filter((x) => {
+            if (x.requestType === "Add") return x;
+          });
+          setRows(addList);
           setIsLoading(false);
         } else if (res.status == 404) {
           setIsLoading(false);

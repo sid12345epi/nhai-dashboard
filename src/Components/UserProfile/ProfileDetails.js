@@ -232,7 +232,7 @@ function UserDetails() {
           applicationId: "nhai-dashboard",
           correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
         },
-        id: 47, //profileId,
+        id: profileId, //47,
         userName: "nhai",
       },
       (res) => {
@@ -264,11 +264,21 @@ function UserDetails() {
           applicationId: "nhai-dashboard",
           correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
         },
-        requsterUserId: "6789",
+        requsterUserId: "35607",
         id: Number(userId),
         userName: "nhai",
         requestType: "Delete",
         status: "Initiated",
+        //--------------------
+        profileName: profile.profileName,
+        profileDescription: profile.profileDescription,
+        //group: values.group,
+        groupId: Number(profile.group),
+        groupName: profile.groupName,
+        isActive: profile.isActive,
+        createdDate: profile.createdDate,
+        createdBy: profile.createdBy,
+        mapping: profile.mapping || [],
       },
       (res) => {
         if (res.status == 200) {

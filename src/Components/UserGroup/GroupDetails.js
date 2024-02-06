@@ -105,6 +105,12 @@ function GroupDetails() {
         userName: "nhai",
         requestType: "Delete",
         status: "Initiated",
+        //------------------------
+        groupName: group.groupName, //"Backend Developer",
+        groupDescription: group.groupDescription, //"Developer Group",
+        isActive: Boolean(group.isActive),
+        createdDate: ConvertFormat(group.createdDate),
+        createdBy: group.createdBy,
       },
       (res) => {
         if (res.status == 200) {

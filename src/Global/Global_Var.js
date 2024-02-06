@@ -1,5 +1,8 @@
 export const Global_var = {
   BASEURL: "http://172.16.16.99:8091", //Amol local with VPN
+  BASEURL1: "http://172.16.16.99:8085",
+  //--------Login----------------------------------------
+  URL_LOGIN: "/usermanagement/login/v1",
   //--------Users----------------------------------
   URL_GET_USERS: "/usermanagement/admin/users/v1",
   URL_GET_USER_BY_ID: "/usermanagement/admin/userDetails/v1",
@@ -38,5 +41,14 @@ export const Global_var = {
   URL_CHECKER_PROFILE_UPDATE_DETAILS:
     "/usermanagement/checker/profileRequests/v1",
   URL_CHECKER_PROFILE_APPROVAL: "/usermanagement/checker/profile/action/v1",
-  //------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------------------------
+  //--------Dashboard API----------------------------------------------------------------------------------------
+  URL_BANK_AND_EVENTS: "/dashboard/events/v1",
+  URL_SNAPSHOT: "/dashboard/snapshort/v1",
+  URL_VELOCITY: "/dashboard/velocity/v1",
+  URL_AGEING: "/dashboard/ageingitem/v1",
+  URL_LIMITLEDGER: "/dashboard/limit-ledger/v1",
+  URL_RO: "/dashboard/regional-office/v1",
+  URL_PIU: "/dashboard/piu/v1",
+  URL_ACCOUNT_LEVEL: "/dashboard/acc-level/v1",
 };
