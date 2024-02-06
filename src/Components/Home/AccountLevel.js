@@ -6,6 +6,9 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { DashboardService } from "../../Service/DashboardService";
+import Spinner from "../HtmlComponents/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const AccountLevel = () => {
   const [asOnDate, setAsOnDate] = useState(
@@ -18,6 +21,8 @@ const AccountLevel = () => {
   const [roD, setRo] = useState("");
   const [zoneD, setZone] = useState("");
   const [Decimal, setDecimal] = useState(true);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const columns = [
     {
       Header: "Bank",
@@ -253,9 +258,33 @@ const AccountLevel = () => {
     ],
   };
   const [rows, setRows] = useState(mockRes.accWiseData);
+
+  //---------------------------------------------------------------------------------------
+  function FetchAccountLevel() {
+    DashboardService.getAccountLevel(
+      reqBody,
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">Account Level</label> */}

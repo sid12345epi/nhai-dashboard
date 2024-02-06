@@ -4,6 +4,9 @@ import "../../Assets/Css/Dashboard.css";
 import { v4 as uuid } from "uuid";
 import PieChart from "../Charts/PieChart";
 import BarChart from "../Charts/BarChart";
+import { useNavigate } from "react-router-dom";
+import { DashboardService } from "../../Service/DashboardService";
+import Spinner from "../HtmlComponents/Spinner";
 const Ageing = () => {
   const [Decimal, setDecimal] = useState(true);
   const [bankD, setBank] = useState("");
@@ -11,6 +14,8 @@ const Ageing = () => {
   const [zoneD, setZone] = useState("");
   const [piuD, setPiu] = useState("");
   const title = "> 180 Days";
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const columns = [
     {
       Header: "Parameters",
@@ -264,6 +269,29 @@ const Ageing = () => {
     ],
   };
 
+  //---------------------------------------------------------------------------------------
+  function FetchAccountLevel() {
+    DashboardService.getAgeing(
+      reqBody,
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   function per(total, value) {
     total = parseFloat(total.replace(/,/g, ""));
     value = parseFloat(value.replace(/,/g, ""));
@@ -370,6 +398,7 @@ const Ageing = () => {
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">Ageing</label> */}

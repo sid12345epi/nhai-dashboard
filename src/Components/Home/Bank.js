@@ -7,6 +7,9 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { DashboardService } from "../../Service/DashboardService";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../HtmlComponents/Spinner";
 
 const Bank = () => {
   const [asOnDate, setAsOnDate] = useState(
@@ -14,6 +17,8 @@ const Bank = () => {
   );
   const [dbdata, setDbdata] = useState([]);
   const [bankTable, setBankTable] = useState([]);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const data = {
     decimal: {
       nodalAccountBalance: "10,360.07",
@@ -94,9 +99,33 @@ const Bank = () => {
     },
   ];
 
+  //---------------------------------------------------------------------------------------
+  function FetchBank() {
+    DashboardService.getBankAndEvents(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">Bank</label> */}

@@ -4,10 +4,15 @@ import "../../Assets/Css/Dashboard.css";
 import axios from "axios";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
+import { DashboardService } from "../../Service/DashboardService";
+import Spinner from "../HtmlComponents/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const Events = () => {
   const [dynamicDate, setDate] = useState(new Date());
   const currentDate = new Date().toISOString().split("T")[0];
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   // const [dbdata, setDbdata] = useState([]);
   // const [eventTable, setEventTable] = useState([]);
 
@@ -294,9 +299,33 @@ const Events = () => {
     },
   ];
 
+  //---------------------------------------------------------------------------------------
+  function FetchEvents() {
+    DashboardService.getBankAndEvents(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">Events</label> */}

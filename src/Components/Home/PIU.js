@@ -6,6 +6,9 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { DashboardService } from "../../Service/DashboardService";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../HtmlComponents/Spinner";
 const PIU = () => {
   const [asOnDate, setAsOnDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -14,6 +17,8 @@ const PIU = () => {
   const [roD, setRo] = useState("");
   const [zoneD, setZone] = useState("");
   const [Decimal, setDecimal] = useState(true);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const columns = [
     {
       Header: "PIU",
@@ -185,10 +190,35 @@ const PIU = () => {
       },
     ],
   };
+
+  //---------------------------------------------------------------------------------------
+  function FetchPIU() {
+    DashboardService.getPIU(
+      {},
+      (res) => {
+        if (res.status === 200) {
+          // setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   const [rows, setRows] = useState(mockRes.regionWiseData);
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">PIU</label> */}

@@ -12,6 +12,9 @@ import {
   DateFormatFunction,
   ConvertFormat,
 } from "../HtmlComponents/DateFunction";
+import { DashboardService } from "../../Service/DashboardService";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../HtmlComponents/Spinner";
 
 const Snapshot = () => {
   const [asOnDate, setAsOnDate] = useState(
@@ -19,7 +22,8 @@ const Snapshot = () => {
   );
   const [Decimal, setDecimal] = useState(true);
   const [dbdata, setDbdata] = useState(null);
-
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const columns = [
     {
       Header: "Bank",
@@ -54,21 +58,22 @@ const Snapshot = () => {
   ];
 
   useEffect(() => {
-    const apiUrl = "http://localhost:3007/api/secure/dashboard";
-    const uuid = localStorage.getItem("UUID");
-    const headers = {
-      XUuid: uuid,
-    };
-    console.log(cardData);
-    // Make the Axios GET request with the headers
-    axios
-      .get(apiUrl, { headers })
-      .then((response) => {
-        setDbdata(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // const apiUrl = "http://localhost:3007/api/secure/dashboard";
+    // const uuid = localStorage.getItem("UUID");
+    // const headers = {
+    //   XUuid: uuid,
+    // };
+    // console.log(cardData);
+    // // Make the Axios GET request with the headers
+    // axios
+    //   .get(apiUrl, { headers })
+    //   .then((response) => {
+    //     setDbdata(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+    FetchSnapshot();
   }, []);
 
   useEffect(() => {
@@ -82,7 +87,7 @@ const Snapshot = () => {
       applicationId: "nhai-dashboard",
       correlationId: uuid(), //"ere353535-456fdgfdg-4564fghfh-ghjg567", //UUID
     },
-    userName: "nhai",
+    userName: "NHAI",
     statusAsOn: ConvertFormat(asOnDate), //"28-09-2023",
   };
 
@@ -117,6 +122,7 @@ const Snapshot = () => {
     },
   };
   const [rows, setRows] = useState([mockRes.lastUpdateBankInfo]);
+
   //-------------------------------------------------------------------------------------------------------
   const cardData = [
     {
@@ -295,9 +301,34 @@ const Snapshot = () => {
     link.click();
   };
 
+  //---------------------------------------------------------------------------------------
+  function FetchSnapshot() {
+    DashboardService.getSnapshot(
+      reqBody,
+      (res) => {
+        if (res.status === 200) {
+          debugger;
+          setRows(res.data);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+
   return (
     <div>
       <div className="row">
+        <Spinner isLoading={isLoading} />
         <div className="col">
           <div className="p-1">
             {/* <label className="float-start pageTitle">Snapshot</label> */}
