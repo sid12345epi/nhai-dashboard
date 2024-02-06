@@ -1,40 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "../HtmlComponents/DataTable";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../HtmlComponents/Spinner";
+import { CheckerUserService } from "../../Service/CheckerService/CheckerUserService";
+import { DateFormatFunction } from "../HtmlComponents/DateFunction";
+
 const UserCheckerList = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState("userAddRequestDetails");
-  const data = [
-    {
-      id: 1,
-      requestName: "Add Ajay Dilip Sharma",
-      requestId: "RQ1001",
-      requestDetails: "Add user in appilication",
-      requestType: "Add",
-      requestRaisedBy: "Admin",
-    },
-  ];
-  const updatedData = [
-    {
-      id: 2,
-      requestName: "Update Mandar Sutar",
-      requestId: "RQ1002",
-      requestDetails: "Update user in appilication",
-      requestType: "Update",
-      requestRaisedBy: "Admin",
-    },
-  ];
-  const DeletedData = [
-    {
-      id: 3,
-      requestName: "Delete Sumit Kadam",
-      requestId: "RQ1003",
-      requestDetails: "Delete user in appilication",
-      requestType: "Delete",
-      requestRaisedBy: "Admin",
-    },
-  ];
-  const [rows, setRows] = useState(data);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userRequests, setUserRequests] = useState([]);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    setIsLoading(true);
+    fetchUserRequsts();
+  }, []);
+
+  // const data = [
+  //   {
+  //     id: 1,
+  //     requestName: "Add Ajay Dilip Sharma",
+  //     requestId: "RQ1001",
+  //     requestDetails: "Add user in appilication",
+  //     requestType: "Add",
+  //     requestRaisedBy: "Admin",
+  //   },
+  // ];
+  // const updatedData = [
+  //   {
+  //     id: 2,
+  //     requestName: "Update Mandar Sutar",
+  //     requestId: "RQ1002",
+  //     requestDetails: "Update user in appilication",
+  //     requestType: "Update",
+  //     requestRaisedBy: "Admin",
+  //   },
+  // ];
+  // const DeletedData = [
+  //   {
+  //     id: 3,
+  //     requestName: "Delete Sumit Kadam",
+  //     requestId: "RQ1003",
+  //     requestDetails: "Delete user in appilication",
+  //     requestType: "Delete",
+  //     requestRaisedBy: "Admin",
+  //   },
+  // ];
+
   const columns = [
     {
       Header: <div className="float-center">Request Id</div>,
@@ -43,6 +56,13 @@ const UserCheckerList = () => {
     {
       Header: <div className="float-center">Request Type</div>,
       accessor: "requestType",
+    },
+    {
+      Header: <div className="float-center">Request Date</div>,
+      accessor: "requestRaisedTime",
+      Cell: ({ row }) => (
+        <div>{DateFormatFunction(row.values.requestRaisedTime)}</div>
+      ),
     },
     {
       Header: <div className="float-center">Request Raised By</div>,
@@ -58,7 +78,7 @@ const UserCheckerList = () => {
             className="btn addUser dashbutton"
             type="button"
             onClick={() => {
-              navigate(`/NHAI/${action}/${row.values.id}`);
+              navigate(`/NHAI/${action}/${row.values.requestId}`);
             }}
           >
             Details
@@ -68,8 +88,44 @@ const UserCheckerList = () => {
     },
   ];
 
+  //-------------------User Request List--------------------------------------------------------
+  function fetchUserRequsts() {
+    var reqList = [];
+    CheckerUserService.getUserRequests(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.status === 200) {
+          reqList = res.data.requests;
+          setUserRequests(reqList);
+          const addList = (reqList || []).filter((x) => {
+            if (x.requestType === "Add") return x;
+          });
+          setRows(addList);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+  //--------------------------------------------------------------------------------------------
   return (
     <div className="wrapper">
+      <Spinner isLoading={isLoading} />
       <div className="container">
         <div className="ULContainer">
           <div className="row">
@@ -90,7 +146,10 @@ const UserCheckerList = () => {
                   value="Add"
                   defaultChecked={true}
                   onClick={() => {
-                    setRows(data);
+                    const addList = (userRequests || []).filter((x) => {
+                      if (x.requestType === "Add") return x;
+                    });
+                    setRows(addList);
                     setAction("userAddRequestDetails");
                   }}
                 />
@@ -102,7 +161,10 @@ const UserCheckerList = () => {
                   name="request"
                   value="Update"
                   onClick={() => {
-                    setRows(updatedData);
+                    const updateList = (userRequests || []).filter((x) => {
+                      if (x.requestType === "Update") return x;
+                    });
+                    setRows(updateList);
                     setAction("userUpdateRequestDetails");
                   }}
                 />
@@ -114,7 +176,10 @@ const UserCheckerList = () => {
                   name="request"
                   value="Delete"
                   onClick={() => {
-                    setRows(DeletedData);
+                    const deleteList = (userRequests || []).filter((x) => {
+                      if (x.requestType === "Delete") return x;
+                    });
+                    setRows(deleteList);
                     setAction("userDeleteRequestDetails");
                   }}
                 />

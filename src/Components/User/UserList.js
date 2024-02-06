@@ -80,7 +80,7 @@ const UserList = () => {
         userName: "nhai",
       },
       (res) => {
-        if (res.data.responseMetaData.status === "200") {
+        if (res.status === 200) {
           UserList = res.data.users;
           setUserList(UserList);
           setIsLoading(false);
@@ -88,10 +88,13 @@ const UserList = () => {
           setIsLoading(false);
           navigate("/NHAI/Error/404");
         } else if (res.status == 500) {
-          prompt("500 Internal Server Error...!");
           setIsLoading(false);
           navigate("/NHAI/Error/500");
         }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
       }
     );
     console.log("UserList->", UserList);

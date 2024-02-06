@@ -96,7 +96,6 @@ function UserDetails() {
           setIsLoading(false);
           navigate("/NHAI/Error/404");
         } else if (res.status == 500) {
-          prompt("500 Internal Server Error...!");
           setIsLoading(false);
           navigate("/NHAI/Error/500");
         }
@@ -114,11 +113,20 @@ function UserDetails() {
           applicationId: "nhai-dashboard",
           correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
         },
-        userName: "nhai",
+        userName: user.userId, //"nhai",
         requsterUserId: "35611",
         userId: userId,
         requestType: "Delete",
         status: "Initiated",
+        //----------------------------------
+        userName: user.userId, //"Shantanu",
+        fullName: user.fullName,
+        employeeNumber: user.employeeNumber, //"12345",
+        userRole: user.userRole, //"Administrator",
+        email: user.email, //"shantanu@example.com",
+        mobileNumber: user.mobileNumber, //"123-456-7890",
+        createdDate: ConvertFormat(user.createdDate),
+        createdBy: user.createdBy,
       },
       (res) => {
         if (res.status == 200) {

@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
 import { toast } from "react-toastify";
 import Spinner from "../HtmlComponents/Spinner";
+import { CheckerUserService } from "../../Service/CheckerService/CheckerUserService";
+import {
+  DateFormatFunction,
+  ConvertFormat,
+} from "../HtmlComponents/DateFunction";
+import { UserService } from "../../Service/UserService";
 const UserCheckerDetails = () => {
+  const path = window.location.pathname;
   const [isLoading, setIsLoading] = useState(false);
+  const [remark, setRemark] = useState("");
   const { userId } = useParams();
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+  const [currentValue, setCurrentValue] = useState({});
+  const [oldValue, setOldValue] = useState({});
+  const [req, setReq] = useState({});
   const customStyles = {
     content: {
       top: "50%",
@@ -25,23 +36,26 @@ const UserCheckerDetails = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   //-----------------------------------------------------------------------------
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-  const day = String(currentDate.getDate()).padStart(2, "0");
+  // const currentDate = new Date();
+  // const year = currentDate.getFullYear();
+  // const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  // const day = String(currentDate.getDate()).padStart(2, "0");
+  // const formattedDate = `${day}-${month}-${year}`;
+  // console.log(formattedDate);
 
-  const formattedDate = `${day}-${month}-${year}`;
-
-  console.log(formattedDate);
-
+  useEffect(() => {
+    if (path.includes("userUpdateRequestDetails")) {
+      FetchUpdateDetails();
+    } else {
+      FetchAddDeleteDetails();
+    }
+  }, []);
   function openModal() {
     setIsOpen(true);
   }
-
   function closeModal() {
     setIsOpen(false);
   }
-
   const users = [
     {
       id: 3,
@@ -184,11 +198,161 @@ const UserCheckerDetails = () => {
       requestType: "Delete",
     },
   ];
-  const user = users.find((u) => u.id.toString() === userId.toString());
-  const path = window.location.pathname;
-  const req = data.find((u) => u.id.toString() === userId.toString());
+
+  //const user = users.find((u) => u.id.toString() === userId.toString());
+  //const req = data.find((u) => u.id.toString() === userId.toString());
+
   if (!user) {
     return <p>User not found.</p>;
+  }
+  //----------------------Get User--------------------------------------------
+  function fetchUserById(id) {
+    UserService.getUserById(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userId: id,
+        userName: "nhai",
+      },
+      (res) => {
+        if (res.status == 200) {
+          const user = res.data.responseObject;
+          // console.log("UserList->", UserList);
+          setUser(user);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+        //   return data;
+      }
+    );
+    console.log("user->", user);
+    return user;
+  }
+  //-------------------User Add Delete Request Details--------------------------------------------------------
+  function FetchAddDeleteDetails() {
+    CheckerUserService.getUserAddDeleteDetails(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+        requestId: userId, //"1697eece-b424-4fb4-95e6-03f946871c38000",
+        requestType: path.includes("userAddRequestDetails") ? "Add" : "Delete",
+      },
+      (res) => {
+        if (res.status === 200) {
+          setReq(res.data);
+          setUser(res.data.requestData);
+          if (path.includes("userDeleteRequestDetails")) {
+            fetchUserById(res.data.requestData.id);
+          }
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+  //-------------------User Update Request Details------------------------------------------------------------
+  function FetchUpdateDetails() {
+    CheckerUserService.getUserUpdateDetails(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+        userName: "nhai",
+        requestId: userId, //"7ba67c86-aad4-4214-ba01-aca6955c2be8",
+        requestType: "Update",
+      },
+      (res) => {
+        if (res.status === 200) {
+          setReq(res.data);
+          setCurrentValue(res.data.existingValue);
+          setOldValue(res.data.oldValue);
+          setIsLoading(false);
+        } else if (res.status == 404) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
+  }
+  //----------------------------------------------------------------------------------------------------------
+  function CheckerApproval(action) {
+    CheckerUserService.checkerUserApproval(
+      {
+        requestMetaData: {
+          applicationId: "nhai-dashboard",
+          correlationId: "ere353535-456fdgfdg-4564fghfh-ghjg567",
+        },
+
+        requestId: userId,
+        requestType: path.includes("userAddRequestDetails")
+          ? "Add"
+          : path.includes("userUpdateRequestDetails")
+          ? "Update"
+          : "Delete",
+        action: action, //"Approved",
+        checkerRemark: action == "Declined" ? remark : "Approved", //"Test",
+        checkerId: "35604", //"601",
+        userName: path.includes("userUpdateRequestDetails")
+          ? currentValue.userId
+          : user.userId,
+      },
+      (res) => {
+        if (res.status == 200) {
+          toast.success(res.data.responseMetaData.message, {
+            //"Request raised successful!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/UserRequests");
+        } else if (res.status == 404) {
+          toast.error("404 Not found !", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/404");
+        } else if (res.status == 500) {
+          toast.error("Request failed 500. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          setIsLoading(false);
+          navigate("/NHAI/Error/500");
+        }
+      },
+      (error) => {
+        setIsLoading(false);
+        console.error("Error->", error);
+      }
+    );
   }
   return (
     <div className="container UDContainer">
@@ -205,7 +369,7 @@ const UserCheckerDetails = () => {
             <div className="col-md-6 UDCoulmns">
               <strong>Request Id:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{req.id}</div>
+            <div className="col-md-6 UDCoulmns">{req.requestId}</div>
 
             {/* <div className="col-md-6 UDCoulmns">
               <strong>Request Description:</strong>
@@ -215,7 +379,7 @@ const UserCheckerDetails = () => {
             <div className="col-md-6 UDCoulmns">
               <strong>Raised by:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">Admin</div>
+            <div className="col-md-6 UDCoulmns">{req.requestRaisedBy}</div>
           </div>
           {/* -------------------------------------------------------- */}
           <div className="col-md-5">
@@ -226,7 +390,9 @@ const UserCheckerDetails = () => {
             <div className="col-md-6 UDCoulmns">
               <strong>Request Date:</strong>
             </div>
-            <div className="col-md-6 UDCoulmns">{formattedDate}</div>
+            <div className="col-md-6 UDCoulmns">
+              {DateFormatFunction(req.requestRaisedTime)}
+            </div>
             <div className="col-md-6 UDCoulmns">
               <strong>Request Type:</strong>
             </div>
@@ -268,7 +434,9 @@ const UserCheckerDetails = () => {
               <div className="col-md-6 UDCoulmns">
                 <strong>Created Date:</strong>
               </div>
-              <div className="col-md-6 UDCoulmns">{user.createdDate}</div>
+              <div className="col-md-6 UDCoulmns">
+                {ConvertFormat(user.createdDate)}
+              </div>
             </div>
             {/* -------------------------------------------------------- */}
             <div className="col-md-5">
@@ -283,7 +451,7 @@ const UserCheckerDetails = () => {
               <div className="col-md-6 UDCoulmns">
                 <strong>Role:</strong>
               </div>
-              <div className="col-md-6 UDCoulmns">{user.role}</div>
+              <div className="col-md-6 UDCoulmns">{user.userRole}</div>
 
               <div className="col-md-6 UDCoulmns">
                 <strong>Created By:</strong>
@@ -306,32 +474,44 @@ const UserCheckerDetails = () => {
               <div className="col-md-4 UDCoulmns">
                 <strong>User Full Name:</strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.fullName}</div>
-              <div className="col-md-4 UDCoulmns">Mandar Milind Naphad</div>
+              <div className="col-md-4 UDCoulmns">{currentValue.fullName}</div>
+              <div className="col-md-4 UDCoulmns">{oldValue.fullName}</div>
 
               <div className="col-md-4 UDCoulmns">
                 <strong>Mobile No:</strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.mobileNumber}</div>
-              <div className="col-md-4 UDCoulmns">{user.mobileNumber}</div>
+              <div className="col-md-4 UDCoulmns">
+                {currentValue.mobileNumber}
+              </div>
+              <div className="col-md-4 UDCoulmns">{oldValue.mobileNumber}</div>
 
               <div className="col-md-4 UDCoulmns">
                 <strong>EMail:</strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.email}</div>
-              <div className="col-md-4 UDCoulmns">{user.email}</div>
+              <div className="col-md-4 UDCoulmns">{currentValue.email}</div>
+              <div className="col-md-4 UDCoulmns">{oldValue.email}</div>
+
+              <div className="col-md-4 UDCoulmns">
+                <strong>User Id:</strong>
+              </div>
+              <div className="col-md-4 UDCoulmns">{currentValue.userId}</div>
+              <div className="col-md-4 UDCoulmns">{oldValue.userId}</div>
 
               <div className="col-md-4 UDCoulmns">
                 <strong>Employee Number:</strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.employeeNumber}</div>
-              <div className="col-md-4 UDCoulmns">{user.employeeNumber}</div>
+              <div className="col-md-4 UDCoulmns">
+                {currentValue.employeeNumber}
+              </div>
+              <div className="col-md-4 UDCoulmns">
+                {oldValue.employeeNumber}
+              </div>
 
               <div className="col-md-4 UDCoulmns">
                 <strong>Role:</strong>
               </div>
-              <div className="col-md-4 UDCoulmns">{user.role}</div>
-              <div className="col-md-4 UDCoulmns">{user.role}</div>
+              <div className="col-md-4 UDCoulmns">{currentValue.userRole}</div>
+              <div className="col-md-4 UDCoulmns">{oldValue.userRole}</div>
             </div>
           </div>
         )}
@@ -352,14 +532,15 @@ const UserCheckerDetails = () => {
               type="button"
               onClick={() => {
                 setIsLoading(true);
-                toast.success("Request Approved successfully!", {
-                  position: "top-right",
-                  autoClose: 3000,
-                });
-                setTimeout(() => {
-                  navigate("/NHAI/UserRequests");
-                }, 1000);
+                // toast.success("Request Approved successfully!", {
+                //   position: "top-right",
+                //   autoClose: 3000,
+                // });
+                // setTimeout(() => {
+                //   navigate("/NHAI/UserRequests");
+                // }, 1000);
                 //setIsOpen(true);
+                CheckerApproval("Approved");
               }}
             >
               Approve
@@ -401,6 +582,9 @@ const UserCheckerDetails = () => {
                 name="remark"
                 className="form-control"
                 placeholder="Enter your remark here"
+                onChange={(e) => {
+                  setRemark(e.target.value);
+                }}
               />
               <div className="p-2"></div>
               <div className="text-center">
@@ -409,14 +593,15 @@ const UserCheckerDetails = () => {
                   type="button"
                   onClick={() => {
                     setIsLoading(true);
-                    toast.success("Request Declined!", {
-                      position: "top-right",
-                      autoClose: 3000,
-                    });
-                    setTimeout(() => {
-                      setIsLoading(false);
-                      navigate("/NHAI/UserRequests");
-                    }, 1000);
+                    CheckerApproval("Declined");
+                    // toast.success("Request Declined!", {
+                    //   position: "top-right",
+                    //   autoClose: 3000,
+                    // });
+                    // setTimeout(() => {
+                    //   setIsLoading(false);
+                    //   navigate("/NHAI/UserRequests");
+                    // }, 1000);
                   }}
                 >
                   Decline

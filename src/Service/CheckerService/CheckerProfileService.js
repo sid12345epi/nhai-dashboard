@@ -1,16 +1,36 @@
-import RestDataSource from "./RestDataSource";
-import { Global_var } from "../Global/Global_Var";
+import RestDataSource from "../RestDataSource";
+import { Global_var } from "../../Global/Global_Var";
 
-export const UserService = {
-  getUserList,
-  getUserById,
-  addUser,
-  updateUser,
-  deleteUser,
+export const CheckerProfileService = {
+  getProfileRequests,
+  getProfileAddDeleteDetails,
+  getProfileUpdateDetails,
+  checkerProfileApproval,
 };
 
-function getUserList(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_GET_USERS;
+function getProfileRequests(mfaInfo, fn, fnError) {
+  var url = Global_var.BASEURL + Global_var.URL_CHECKER_PROFILE_REQUESTS;
+
+  return new RestDataSource(url, fn).Update(
+    mfaInfo,
+    (res) => {
+      if (res != null) {
+        // If you had other headers to handle, you can do so here
+
+        fn(res);
+      }
+    },
+    (err) => {
+      // Handle error
+      if (fnError) {
+        fnError(err);
+      }
+    }
+  );
+}
+function getProfileAddDeleteDetails(mfaInfo, fn, fnError) {
+  var url =
+    Global_var.BASEURL + Global_var.URL_CHECKER_PROFILE_ADD_DELETE_DETAILS;
 
   return new RestDataSource(url, fn).Store(
     mfaInfo,
@@ -29,29 +49,8 @@ function getUserList(mfaInfo, fn, fnError) {
     }
   );
 }
-
-function getUserById(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_GET_USER_BY_ID;
-
-  return new RestDataSource(url, fn).Store(
-    mfaInfo,
-    (res) => {
-      if (res != null) {
-        // If you had other headers to handle, you can do so here
-
-        fn(res);
-      }
-    },
-    (err) => {
-      // Handle error
-      if (fnError) {
-        fnError(err);
-      }
-    }
-  );
-}
-function addUser(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_ADD_USER;
+function getProfileUpdateDetails(mfaInfo, fn, fnError) {
+  var url = Global_var.BASEURL + Global_var.URL_CHECKER_PROFILE_UPDATE_DETAILS;
 
   return new RestDataSource(url, fn).Store(
     mfaInfo,
@@ -70,29 +69,8 @@ function addUser(mfaInfo, fn, fnError) {
     }
   );
 }
-function updateUser(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_UPDATE_USER;
-
-  return new RestDataSource(url, fn).Store(
-    mfaInfo,
-    (res) => {
-      if (res != null) {
-        // If you had other headers to handle, you can do so here
-
-        fn(res);
-      }
-    },
-    (err) => {
-      // Handle error
-      if (fnError) {
-        fnError(err);
-      }
-    }
-  );
-}
-
-function deleteUser(mfaInfo, fn, fnError) {
-  var url = Global_var.BASEURL + Global_var.URL_DELETE_USER;
+function checkerProfileApproval(mfaInfo, fn, fnError) {
+  var url = Global_var.BASEURL + Global_var.URL_CHECKER_PROFILE_APPROVAL;
 
   return new RestDataSource(url, fn).Store(
     mfaInfo,
