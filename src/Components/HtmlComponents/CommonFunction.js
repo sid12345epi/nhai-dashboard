@@ -31,3 +31,22 @@ export const ConvertFormat = (inputDate) => {
     return;
   }
 };
+
+export const getCheckValueByName = (menuData, submenuName, actionName) => {
+  for (const menu of menuData) {
+    for (const submenu of menu.subMenu) {
+      if (submenu.name === submenuName) {
+        if (actionName !== undefined) {
+          for (const action of submenu.action) {
+            if (action.actionName === actionName) {
+              return action.check;
+            }
+          }
+        } else {
+          return submenu.check;
+        }
+      }
+    }
+  }
+  return undefined; // Submenu or action not found
+};
